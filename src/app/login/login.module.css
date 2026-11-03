@@ -1,0 +1,14 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.section-login{
+    display: flex;
+    background-color: rgb(255, 255, 255);
+    flex-direction: column;
+    border-radius: 10px;
+    width: 60%;
+
+}
