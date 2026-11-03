@@ -11,11 +11,13 @@ export default function Header() {
         <div className="flex gap-2">
           <Icon name="user" size={32} />
           <div className="flex_c">
-            <h4>Gustavo Anderson</h4>
-            <p>gustaz@email.com</p>
+            <h4 className={`${style.user}`}>Gustavo Anderson</h4>
+            <p className={`${style.email}`}>Gustaz@email.com</p>
           </div>
         </div>
-        <Button>Sair</Button>
+        <Button variant="logout" icon="logout">
+          Sair
+        </Button>
       </div>
     </header>
   );

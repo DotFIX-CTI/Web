@@ -1,23 +1,31 @@
-import Icon from "@/utils/icon";
-import { ReactNode } from "react";
+import Icon, { IconName } from "@/utils/icon";
+import { ReactNode, ButtonHTMLAttributes } from "react";
 import style from "./button.module.css";
 
-interface ButtonProps {
+export type ButtonVariant = "default" | "logout";
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  btn?: string;
-  icon?: string;
+  variant?: ButtonVariant;
+  icon?: IconName;
   className?: string;
 }
 
 export default function Button({
   children,
-  btn,
+  variant = "default",
   icon,
-  className,
+  className = "",
+  ...props
 }: ButtonProps) {
+  const variantClass = style[variant] || style.default;
+
   return (
-    <button className={`${style.btn}`}>
-      {/* {icon && <Icon name={icon} />} */}
+    <button
+      className={`${style.button} ${variantClass} ${className}`.trim()}
+      {...props}
+    >
+      {icon && <Icon name={icon} size={20}/>}
       {children}
     </button>
   );

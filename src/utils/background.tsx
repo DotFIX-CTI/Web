@@ -12,12 +12,15 @@ export default function Background({
       style={{
         position: "absolute",
         top: 0,
-        left: 0,
+        right: 0,
         width: "100%",
+        height: "100%",
+        objectFit: "cover",
         pointerEvents: "none",
         zIndex: -1,
       }}
       viewBox="0 0 1920 1080"
+      preserveAspectRatio="xMinYMin slice"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}

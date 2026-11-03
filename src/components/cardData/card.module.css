@@ -1,0 +1,15 @@
+.card {
+  border: 2px solid var(--surface);
+  background-color: var(--background);
+  border-radius: 12px;
+  padding: 12px;
+  min-width: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.equipe {
+  font-weight: 600;
+  align-self: flex-end;
+}

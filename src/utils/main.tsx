@@ -19,6 +19,9 @@ export default function Main({
         minHeight: "100vh",
         width: "100%",
         overflow: "hidden",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center"
       }}
       className={className}
     >
