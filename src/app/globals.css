@@ -34,6 +34,7 @@
   margin: 0;
   scrollbar-color: var(--primary) var(--surface);
   scrollbar-width: thin;
+  box-sizing: border-box;
 }
 
 h1,
@@ -87,10 +88,14 @@ hr {
   margin: 4px 0 0;
 }
 
+img {
+  width: auto;
+  height: auto;
+}
+
 .flex {
   display: flex;
   flex-direction: row;
-  justify-content: center;
 }
 
 .flex_c {
@@ -101,8 +106,18 @@ hr {
 .between {
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+}
+
+.user {
+  border-radius: 8px;
+  overflow: hidden;
+  object-fit: contain;
 }
 
 .txt {
@@ -110,6 +125,7 @@ hr {
 }
 
 .card {
+  position: relative;
   box-shadow: var(--shadow);
   background-color: var(--white);
   width: 100%;
@@ -117,6 +133,7 @@ hr {
   display: flex;
   border-radius: 24px;
   flex-direction: column;
+  overflow: hidden;
 }
 
 .card_scroll {
