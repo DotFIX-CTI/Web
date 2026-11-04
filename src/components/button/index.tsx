@@ -2,7 +2,7 @@ import Icon, { IconName } from "@/utils/icon";
 import { ReactNode, ButtonHTMLAttributes } from "react";
 import style from "./button.module.css";
 
-export type ButtonVariant = "default" | "logout";
+export type ButtonVariant = "default";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;

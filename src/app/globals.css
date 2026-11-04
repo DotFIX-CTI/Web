@@ -9,6 +9,7 @@
   --surface: hsl(205, 100%, 96%);
   --white: hsl(0, 0%, 100%);
   --off: hsl(215, 10%, 80%);
+  --error: hsl(350, 75%, 50%);
 
   --shadow:
     4px 4px 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
@@ -91,6 +92,10 @@ hr {
 img {
   width: auto;
   height: auto;
+}
+
+input, input:focus {
+  outline: none;
 }
 
 .flex {
