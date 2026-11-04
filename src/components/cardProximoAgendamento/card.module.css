@@ -1,0 +1,17 @@
+.info {
+  align-items: center;
+  gap: 12px;
+  margin: 0 12px;
+  border-radius: 12px;
+  background-image: linear-gradient(
+    to right,
+    color-mix(in srgb, var(--surface), transparent),
+    transparent
+  );
+}
+
+.contatos {
+  gap: 4px;
+  color: var(--primary);
+  padding: 0 12px 0 0;
+}

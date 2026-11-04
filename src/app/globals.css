@@ -1,26 +1,130 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 65%, 15%);
+  --primary: hsl(215, 100%, 30%);
+  --primary-surface: hsl(215, 45%, 45%);
+
+  --surface: hsl(205, 100%, 96%);
+  --white: hsl(0, 0%, 100%);
+  --off: hsl(215, 10%, 80%);
+
+  --shadow:
+    4px 4px 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
+    0 0 20px color-mix(in srgb, var(--primary) 10%, transparent 100%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: hsl(0, 0%, 100%);
+    --foreground: hsl(210, 65%, 15%);
   }
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  scrollbar-color: var(--primary) var(--surface);
+  scrollbar-width: thin;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  color: var(--foreground);
+  line-height: 1;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 2rem;
+}
+
+h2 {
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+
+h4 {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+p {
+  font-size: 1rem;
+  opacity: 0.8;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
+  font-optical-sizing: auto;
+  line-height: 1.5;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: color-mix(in srgb, var(--foreground) 15%, transparent 100%);
+  width: 100%;
+  display: block;
+  margin: 4px 0 0;
+}
+
+.flex {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.flex_c {
+  display: flex;
+  flex-direction: column;
+}
+
+.between {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.txt {
+  color: color-mix(in srgb, var(--white) 80%, var(--primary) 20%);
+}
+
+.card {
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  padding: 24px;
+  display: flex;
+  border-radius: 24px;
+  flex-direction: column;
+}
+
+.card_scroll {
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  padding: 24px 24px 0;
+  display: flex;
+  border-radius: 24px;
+  flex-direction: column;
 }
