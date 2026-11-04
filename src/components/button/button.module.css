@@ -1,0 +1,16 @@
+.button {
+  gap: 4px;
+  display: flex;
+  font-weight: 500;
+  align-items: center;
+  justify-content: center;
+  width: 160px;
+  height: 40px;
+  border-radius: 12px;
+  border-width: 2px;
+  border-style: solid;
+}
+
+.logout {
+  border-color: var(--primary-surface);
+}
