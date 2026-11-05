@@ -94,8 +94,17 @@ img {
   height: auto;
 }
 
-input, input:focus {
+input,
+input:focus,
+textarea,
+textarea:focus {
   outline: none;
+}
+
+.small_txt {
+  color: var(--off);
+  font-size: 0.75rem;
+  line-height: 12px;
 }
 
 .flex {

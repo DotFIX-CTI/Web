@@ -9,6 +9,7 @@
   padding: 0 10%;
   background-color: var(--primary);
   color: var(--white);
+  z-index: 10;
 }
 
 .user, .email {

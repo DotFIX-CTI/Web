@@ -8,22 +8,26 @@
   height: 40px;
   border-radius: 12px;
   cursor: pointer;
-  transition:
-    color 0.15s ease-in-out,
-    background-color 0.15s ease-in-out,
-    border 0.15s ease-in-out;
+  transition: opacity 0.15s ease-in-out;
+  &:hover {
+    opacity: 0.85;
+  }
 }
 
 .default {
   color: var(--white);
   background-color: var(--primary);
-  &:hover {
-    background-color: var(--primary-surface);
-  }
+}
+
+.secondary {
+  color: var(--primary);
+  background-color: var(--white);
+  border: 2px solid var(--primary);
 }
 
 .logout {
   border: 2px solid var(--primary-surface);
+  transition: background-color 0.15s ease-in-out;
   &:hover {
     background-color: var(--primary-surface);
   }

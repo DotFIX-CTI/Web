@@ -1,0 +1,73 @@
+.grid_etapa1 {
+  gap: 15px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+}
+
+.grid_etapa2 {
+  gap: 15px;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.grid_etapa2_1 {
+  gap: 15px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+}
+
+.grid_etapa2_2 {
+  gap: 15px;
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+}
+
+.parte1 {
+  width: 840px;
+  z-index: 2;
+  transition: border-radius 0.15s ease-in-out;
+}
+
+.parte2 {
+  width: 640px;
+  border-radius: 0 24px 24px 0;
+  background-color: var(--surface);
+  z-index: 1;
+  transform: translateX(0);
+  visibility: visible;
+  overflow: hidden;
+  opacity: 1;
+  transition:
+    opacity 0.1s ease-in-out,
+    transform 0.4s cubic-bezier(0.15, 1, 0.3, 1),
+    visibility 0.4s ease-in-out;
+}
+
+.display {
+  transform: translateX(-640px);
+  visibility: hidden;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 0;
+  transition:
+    opacity 0.4s ease-in-out,
+    transform 0.4s cubic-bezier(0.15, 1, 0.3, 1),
+    visibility 0.4s ease-in-out;
+}
+
+.before {
+  border-radius: 24px;
+}
+
+.after {
+  border-radius: 24px 0 0 24px;
+}
+
+.btn svg {
+  transition: transform 0.4s ease-in-out;
+}
+
+.btnRotated svg {
+  transform: rotate(180deg);
+}
