@@ -1,70 +1,81 @@
-/* Default */
-.default {
-  --current-color: var(--primary);
-  --current-border: var(--off);
-}
-
-.default .label {
-  color: var(--primary);
-}
-
-.default svg {
-  color: var(--off);
-}
-
-/* Error */
-.error {
-  --current-color: var(--error);
-  --current-border: var(--error);
-}
-
-.error .label {
+.error,
+.error *,
+.error label {
   color: var(--error);
 }
 
-.error svg {
-  color: var(--error);
-}
-
-.error .input {
-  border: 2px solid var(--error);
+.error .input,
+.error .textarea {
+  border-color: var(--error) !important;
 }
 
 .label {
+  color: var(--primary);
   font-weight: 600;
   display: block;
 }
 
-.input {
+.input,
+.textarea {
   position: relative;
   display: flex;
   align-items: center;
-  height: 40px;
-  padding: 0 0 0 36px;
-  border-radius: 16px;
+  border-radius: 12px;
+  font-size: 0.85rem;
   border: 2px solid var(--off);
   background-color: var(--white);
   outline: none;
+  resize: none;
   transition:
     color 0.1s ease-in-out,
     border 0.1s ease-in-out;
 }
 
-.input input {
+.input {
+  height: 40px;
+  padding: 0 0 0 36px;
+}
+
+.textarea {
+  padding: 8px 8px 4px;
+  height: 140px;
+  min-height: 140px;
+  max-height: 140px;
+}
+
+.input input,
+.textarea textarea {
   width: 100%;
   height: 100%;
   border: none;
   background: transparent;
   outline: none;
   color: var(--black);
+  resize: none;
+  font-family: inherit;
+}
+
+.input svg,
+.textarea svg {
+  color: var(--primary);
 }
 
 .input:hover,
-.input:focus-within {
+.input:focus-within,
+.textarea:hover,
+.textarea:focus-within {
   border: 2px solid var(--primary-surface);
 }
 
-.input::placeholder {
+.input:hover svg,
+.input:focus-within svg,
+.textarea:hover svg,
+.textarea:focus-within svg {
+  color: var(--primary);
+}
+
+.input input::placeholder,
+.textarea textarea::placeholder {
   color: var(--off);
 }
 
@@ -74,4 +85,29 @@
   transform: translateY(-50%);
   left: 10px;
   pointer-events: none;
+  transition: 0.1s ease-in-out;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.footer {
+  align-items: center;
+  font-size: 0.75rem;
+  min-height: 18px;
+}
+
+.mensagem {
+  color: var(--error);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.counter {
+  font-size: 0.75rem;
+  white-space: nowrap;
+  margin-left: auto;
 }

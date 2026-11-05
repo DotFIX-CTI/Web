@@ -17,8 +17,8 @@ export default function Menubar() {
         <Icon name="team" />
       </Link>
       <Link
-        href="/novaAgendamento"
-        className={`${style.option} ${pathname === "/novaAgendamento" ? style.active : style.inactive}`}
+        href="/agendamento"
+        className={`${style.option} ${pathname === "/agendamento" ? style.active : style.inactive}`}
       >
         <Icon name="add" />
       </Link>

@@ -6,7 +6,7 @@ export default function Home() {
     <>
       <Link href="/dashboard">Ir para Dashboard</Link>
       <Input label="Teste" placeholder="Teste" icon="email"/>
-      <Input label="Teste" placeholder="Teste" icon="email" variant="error"/>
+      <Input label="Teste" placeholder="Teste" icon="email" error/>
     </>
   );
 }
