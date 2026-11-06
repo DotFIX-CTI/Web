@@ -6,20 +6,19 @@
   grid-template-columns: 1fr 1fr;
 }
 
-.cliente {
+.subgrid {
+  display: grid;
+  grid-template-rows: 1.5fr 1fr;
+}
+
+.mapa {
   padding: 0;
   overflow: hidden;
   position: relative;
-}
-
-.info {
   color: var(--white);
-  position: absolute;
-  top: 24px;
-  right: 24px;
-  z-index: 1000;
 }
 
-.info h4 {
+.mapa h2,
+.mapa h4 {
   color: var(--white);
 }

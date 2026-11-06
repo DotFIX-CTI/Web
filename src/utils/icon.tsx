@@ -159,11 +159,7 @@ const iconMap = {
     </svg>
   ),
   mail: (
-    <svg
-      viewBox="0 0 48 48"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-    >
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M43.6364 16.9384L27.3729 27.4896C27.3481 27.5056 27.3237 27.5223 27.2983 27.5373C25.3017 28.7185 22.7197 28.7183 20.723 27.5373C20.6975 27.5223 20.6712 27.5057 20.6463 27.4896L4.36364 16.9362V37.3333C4.36364 38.5606 5.34047 39.5556 6.54545 39.5556H41.4545C42.6595 39.5556 43.6364 38.5606 43.6364 37.3333V16.9384ZM41.4545 8.44444H6.54545C4.6726 8.44444 4.36364 10.1782 4.36364 11.6671L22.9261 23.7005C23.5851 24.0847 24.4316 24.084 25.0909 23.7005L43.6364 11.6671C43.6364 10.1782 43.3274 8.44444 41.4545 8.44444ZM48 37.3333C48 41.0152 45.0695 44 41.4545 44H6.54545C2.9305 44 0 41.0152 0 37.3333V10.6667C0 6.98477 2.9305 4 6.54545 4H41.4545C45.0695 4 48 6.98477 48 10.6667V37.3333Z"
         fill="currentColor"
@@ -290,9 +286,15 @@ interface IconProps {
   name: IconName;
   size?: number;
   className?: string;
+  color?: string;
 }
 
-export default function Icon({ name, size = 24, className = "" }: IconProps) {
+export default function Icon({
+  name,
+  size = 24,
+  className = "",
+  color,
+}: IconProps) {
   const SelectedIcon = iconMap[name];
 
   if (!SelectedIcon) {
@@ -301,7 +303,12 @@ export default function Icon({ name, size = 24, className = "" }: IconProps) {
 
   return (
     <span
-      style={{ width: size, height: size, display: "inline-block" }}
+      style={{
+        width: size,
+        height: size,
+        display: "inline-block",
+        color: `var(--${color})`,
+      }}
       className={className}
     >
       {SelectedIcon}

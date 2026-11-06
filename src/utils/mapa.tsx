@@ -24,7 +24,6 @@ const position: [number, number] = [location.lat, location.lng];
 export default function Mapa() {
   return (
     <div style={{ position: "relative", height: "100%", width: "100%" }}>
-      {/* Camada de degradê por cima do mapa */}
       <div
         style={{
           position: "absolute",
@@ -33,7 +32,7 @@ export default function Mapa() {
           right: 0,
           bottom: 0,
           backgroundImage:
-            "linear-gradient(to bottom, var(--foreground) 0%, transparent 40%)",
+            "linear-gradient(to bottom, var(--foreground) 0%, transparent 15%)",
           zIndex: 1000,
           pointerEvents: "none",
         }}

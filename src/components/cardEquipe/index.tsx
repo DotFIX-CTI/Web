@@ -2,11 +2,13 @@ import Icon from "@/utils/icon";
 import Image from "next/image";
 import Link from "next/link";
 import style from "./card.module.css";
+import { Props } from "@/utils/status";
 
 export default function CardEquipe() {
   return (
     <article
-      className={`flex_c card between gap-4 ${style.card_equipe} pendente`}
+      className={`flex_c card between gap-4 ${Props.cancelado}`}
+      style={{ width: "100%" }}
     >
       <h2>Equipe de Redes</h2>
       <div className={`flex_c gap-4`}>

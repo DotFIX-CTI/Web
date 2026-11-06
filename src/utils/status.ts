@@ -1,11 +1,8 @@
-export const status = {
+export const Props = {
   default: "default",
   pendente: "pendente",
   atrasado: "atrasado",
   cancelado: "cancelado",
 } as const;
 
-if (!status) {
-}
-
-export type StatusType = keyof typeof status;
+export type StatusType = keyof typeof Props;
