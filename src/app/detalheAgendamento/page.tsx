@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import Header from "@/components/header";
 import Menubar from "@/components/menubar";
@@ -7,6 +7,7 @@ import style from "./detalhe.module.css";
 import Image from "next/image";
 import Button from "@/components/button";
 import dynamic from "next/dynamic";
+import Icon from "@/utils/icon";
 
 const MapaDinamico = dynamic(() => import("@/utils/mapa"), {
   ssr: false,
@@ -31,7 +32,7 @@ export default function DetalheAgendamento() {
       <Menubar />
       <Main>
         <section className={`${style.grid} gap-12`}>
-          <article className={`flex_c between card ${style.detalhe} default`}>
+          <article className={`flex_c between card default`}>
             <div className="flex_c gap-1">
               <h1 className="upper">Link dedicado 10gbps</h1>
               <h2>03/03/2026</h2>
@@ -79,8 +80,18 @@ export default function DetalheAgendamento() {
           </article>
 
           {/* Card do Mapa */}
-          <article className="card" style={{ padding: 0, overflow: "hidden" }}>
+          <article className={`card ${style.cliente}`}>
             <MapaDinamico />
+            <div className={`center ${style.info} gap-16`}>
+              <div className="flex gap-2">
+                <Icon name="user" size={24} />
+                <h4>Jucelino</h4>
+              </div>
+              <div className="flex gap-2">
+                <Icon name="mail" size={24} />
+                <Icon name="whatsapp" size={24} />
+              </div>
+            </div>
           </article>
         </section>
       </Main>

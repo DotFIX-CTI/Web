@@ -1,11 +1,25 @@
 .grid {
   width: 1280px;
   height: 100%;
-  max-height: 720px;
+  max-height: 640px;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
-.detalhe {
-  
+.cliente {
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.info {
+  color: var(--white);
+  position: absolute;
+  top: 24px;
+  right: 24px;
+  z-index: 1000;
+}
+
+.info h4 {
+  color: var(--white);
 }
