@@ -9,11 +9,61 @@
   --surface: hsl(205, 100%, 96%);
   --white: hsl(0, 0%, 100%);
   --off: hsl(215, 10%, 80%);
+  --sucess: hsl(140, 100%, 35%);
+  --warning: hsl(55, 100%, 35%);
   --error: hsl(350, 75%, 50%);
 
   --shadow:
     4px 4px 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
     0 0 20px color-mix(in srgb, var(--primary) 10%, transparent 100%);
+}
+
+.default {
+  border-left: 20px solid var(--sucess);
+}
+
+.default h1 {
+  color: var(--sucess);
+}
+
+.default a {
+  background-color: var(--sucess);
+}
+
+.pendente {
+  border-left: 20px solid var(--warning);
+}
+
+.pendente h1 {
+  color: var(--warning);
+}
+
+.pendente a {
+  background-color: var(--warning);
+}
+
+.atrasado {
+  border-left: 20px solid var(--error);
+}
+
+.atrasado h1 {
+  color: var(--error);
+}
+
+.atrasado a {
+  background-color: var(--error);
+}
+
+.cancelado {
+  border-left: 20px solid var(--off);
+}
+
+.cancelado h1 {
+  color: var(--off);
+}
+
+.cancelado a {
+  background-color: var(--off);
 }
 
 @theme inline {
@@ -158,4 +208,8 @@ textarea:focus {
   display: flex;
   border-radius: 24px;
   flex-direction: column;
+}
+
+.upper {
+  text-transform: uppercase;
 }
