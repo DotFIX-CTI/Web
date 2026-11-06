@@ -57,15 +57,15 @@ export default function Input({
   };
 
   return (
-    <div className={`${style.container} ${error && style.error}`.trim()}>
-      <label htmlFor={label} className={style.label}>
+    <div className={`${style.container} ${error && "error"}`}>
+      <label htmlFor={label} className="label">
         {label} {required && "*"}
       </label>
 
       <div
         className={`
           ${textarea ? style.textarea : style.input}
-        `.trim()}
+        `}
       >
         {textarea ? (
           <textarea
@@ -96,7 +96,7 @@ export default function Input({
 
       <div className={`flex between ${style.footer}`}>
         {error && errorMessage ? (
-          <span className={style.mensagem}>{errorMessage}</span>
+          <span className="input_mensagem">{errorMessage}</span>
         ) : (
           <span />
         )}

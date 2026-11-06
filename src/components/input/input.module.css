@@ -1,20 +1,3 @@
-.error,
-.error *,
-.error label {
-  color: var(--error);
-}
-
-.error .input,
-.error .textarea {
-  border-color: var(--error) !important;
-}
-
-.label {
-  color: var(--primary);
-  font-weight: 600;
-  display: block;
-}
-
 .input,
 .textarea {
   position: relative;
@@ -98,12 +81,6 @@
   align-items: center;
   font-size: 0.75rem;
   min-height: 18px;
-}
-
-.mensagem {
-  color: var(--error);
-  font-size: 0.75rem;
-  white-space: nowrap;
 }
 
 .counter {

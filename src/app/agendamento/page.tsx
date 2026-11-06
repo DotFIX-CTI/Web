@@ -7,6 +7,16 @@ import Main from "@/utils/main";
 import style from "./agendamento.module.css";
 import { useState } from "react";
 import Button from "@/components/button";
+import Select, { Option } from "@/components/select";
+import { Estados } from "@/utils/estados";
+
+// Transforma o objeto de estados em um array de { label, value } para o Select
+const opcoesEstados: Option[] = Object.entries(Estados).map(
+  ([sigla, nome]) => ({
+    label: nome,
+    value: sigla.toUpperCase(), // Ex: "SP", "MG"
+  }),
+);
 
 export default function Agendamento() {
   const [fase, setFase] = useState(false);
@@ -62,17 +72,20 @@ export default function Agendamento() {
                     placeholder="Serviço de..."
                     icon="service"
                     required
+                    errorMessage="Nome do Serviço obrigatório"
                   />
                   <Input
                     label="Descrição"
                     placeholder="Descrição do problema..."
                     textarea
                   />
-                  <Input
+                  <Select
                     label="Estado"
-                    placeholder="Estado..."
-                    icon="nation"
+                    placeholder="Selecione o estado"
+                    options={opcoesEstados}
                     required
+                    errorMessage="Estado obrigatório"
+                    onChange={(val) => console.log(val)}
                   />
                 </div>
                 <div className="flex_c between">
@@ -91,6 +104,7 @@ export default function Agendamento() {
                     placeholder="Rua..."
                     icon="street"
                     required
+                    errorMessage="Rua obrigatório"
                   />
                   <div className={`${style.grid_etapa2_1}`}>
                     <Input
@@ -98,12 +112,14 @@ export default function Agendamento() {
                       placeholder="Bairro..."
                       icon="map"
                       required
+                      errorMessage="Bairro obrigatório"
                     />
                     <Input
                       label="Cidade"
                       placeholder="Cidade..."
                       icon="city"
                       required
+                      errorMessage="Cidade obrigatório"
                     />
                   </div>
                   <div className={`${style.grid_etapa2_2}`}>
@@ -112,12 +128,14 @@ export default function Agendamento() {
                       placeholder="Complemento..."
                       icon="complement"
                       required
+                      errorMessage="Complemento obrigatório"
                     />
                     <Input
                       label="Número"
                       placeholder="1111"
                       icon="number"
                       required
+                      errorMessage="Número obrigatório"
                     />
                   </div>
                 </div>

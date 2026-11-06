@@ -1,13 +1,13 @@
 /* --- Icons ------------
-A      │ B │ C          │ D │ E     │ F │ G      │ H    │ I │ J │ K │ L      │ M
-add    │   │ cancel     │   │ edit  │   │ google │ home │   │   │   │ local  │ mail
-attach │   │ city       │ email │   │        │      │   │   │   │ logout │ map
-       │   │ complement │   │ eye   │   │        │      │   │   │   │        │
+A      │ B │ C          │ D        │ E     │ F │ G      │ H    │ I │ J │ K │ L      │ M
+add    │   │ cancel     │ dropdown │ edit  │   │ google │ home │   │   │   │ local  │ mail
+attach │   │ city       │          │ email │   │        │      │   │   │   │ logout │ map
+       │   │ complement │          │ eye   │   │        │      │   │   │   │        │
 
-N      │ O │ P        │ Q │ R │ S        │ T     │ U    │ V │ W        │ X │ Y │ Z
-nation │ password │   │   │   | service  │ table │ user │   │ whatsapp │   │   │
-next   │   │          │   │   │ street   │ team  │      │   │          │   │   │
-number
+N      │ O        │   │ Q │ R │ S        │ T     │ U    │ V │ W        │ X │ Y │ Z
+nation │ password │   |   |   | service  │ table │ user │   │ whatsapp │   │   │
+next   │          │   │   │   │ street   │ team  │      │   │          │   │   │
+number │          │   │   │   │          │       │      │   │          │   │   │
 ---------------------- */
 const iconMap = {
   add: (
@@ -62,6 +62,14 @@ const iconMap = {
       />
       <path
         d="M30.5455 4.36364V17.4545H43.6364V4.36364H30.5455ZM48 17.4545C48 19.8645 46.0463 21.8182 43.6364 21.8182H30.5455C28.1355 21.8182 26.1818 19.8645 26.1818 17.4545V4.36364C26.1818 1.95367 28.1355 0 30.5455 0H43.6364C46.0463 0 48 1.95367 48 4.36364V17.4545Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
+  dropdown: (
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M35.4616 15.6257C37.3501 13.6883 40.2785 16.6927 38.3901 18.63L25.9642 31.3777C25.1555 32.2074 23.8445 32.2074 23.0358 31.3777L10.6099 18.63C8.72146 16.6927 11.6499 13.6883 13.5384 15.6257L24.5 26.8712L35.4616 15.6257Z"
         fill="currentColor"
       />
     </svg>

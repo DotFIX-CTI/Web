@@ -41,7 +41,7 @@ export default function Button(props: ButtonProps) {
     return (
       <Link
         href={link}
-        className={`${style.button} ${variantClass} ${className}`.trim()}
+        className={`${style.button} ${variantClass} ${className}`}
         {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {icon && <Icon name={icon} size={20} />}
@@ -52,7 +52,7 @@ export default function Button(props: ButtonProps) {
 
   return (
     <button
-      className={`${style.button} ${variantClass} ${className}`.trim()}
+      className={`${style.button} ${variantClass} ${className}`}
       {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       {icon && <Icon name={icon} size={20} />}
