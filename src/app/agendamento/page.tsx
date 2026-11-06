@@ -20,11 +20,9 @@ export default function Agendamento() {
       <Header />
       <Menubar />
       <Main>
-        <section className="flex">
+        <section className={`flex`}>
           <article
-            className={`card gap-8 ${style.parte1} ${
-              fase ? style.after : style.before
-            }`}
+            className={`card gap-8 ${style.parte1} ${fase ? style.after : style.before}`}
           >
             <div className="flex_c gap-2">
               <div>
@@ -138,6 +136,7 @@ export default function Agendamento() {
               </Button>
             </div>
           </article>
+
           <article
             className={`card gap-12 ${style.parte2} ${!fase && style.display}`}
           >

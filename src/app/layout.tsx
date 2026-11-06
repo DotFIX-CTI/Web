@@ -7,6 +7,11 @@ const minhaFonte = localFont({
   variable: "--font-inter",
 });
 
+const pixelFont = localFont({
+  src: "./fonts/PressStart2P.ttf",
+  variable: "--font-pixel",
+});
+
 export const metadata: Metadata = {
   title: "DotFIX",
   description: "Sistema de agendamentos de equipes",

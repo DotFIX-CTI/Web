@@ -10,7 +10,6 @@
 }
 
 .scroll {
-  padding: 12px 0 24px;
+  padding: 12px 24px 0 12px;
   overflow-y: scroll;
-  gap: 20px;
 }

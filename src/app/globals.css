@@ -9,11 +9,62 @@
   --surface: hsl(205, 100%, 96%);
   --white: hsl(0, 0%, 100%);
   --off: hsl(215, 10%, 80%);
+  --success: hsl(140, 100%, 35%);
+  --warning: hsl(55, 100%, 35%);
   --error: hsl(350, 75%, 50%);
+  --cancel: hsl(220, 15%, 50%);
 
   --shadow:
     4px 4px 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
     0 0 20px color-mix(in srgb, var(--primary) 10%, transparent 100%);
+}
+
+.default {
+  border-left: 20px solid var(--success);
+}
+.default h1,
+.default h2 {
+  color: var(--success);
+}
+.default a,
+.default_bg {
+  background-color: var(--success);
+}
+
+.pendente {
+  border-left: 20px solid var(--warning);
+}
+.pendente h1,
+.pendente h2 {
+  color: var(--warning);
+}
+.pendente a,
+.pendente_bg {
+  background-color: var(--warning);
+}
+
+.atrasado {
+  border-left: 20px solid var(--error);
+}
+.atrasado h1,
+.atrasado h2 {
+  color: var(--error);
+}
+.atrasado a,
+.atrasado_bg {
+  background-color: var(--error);
+}
+
+.cancelado {
+  border-left: 20px solid var(--cancel);
+}
+.cancelado h1,
+.cancelado h2 {
+  color: var(--cancel);
+}
+.cancelado a,
+.cancelado_bg {
+  background-color: var(--cancel);
 }
 
 @theme inline {
@@ -25,8 +76,8 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --foreground: hsl(210, 65%, 10%);
     --background: hsl(0, 0%, 100%);
-    --foreground: hsl(210, 65%, 15%);
   }
 }
 
@@ -128,6 +179,13 @@ textarea:focus {
   align-items: center;
 }
 
+.center_c {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .user {
   border-radius: 8px;
   overflow: hidden;
@@ -135,7 +193,12 @@ textarea:focus {
 }
 
 .txt {
-  color: color-mix(in srgb, var(--white) 80%, var(--primary) 20%);
+  color: color-mix(in srgb, var(--white) 100%, transparent);
+}
+
+.big_txt {
+  font-family: var(--font-pixel);
+  font-size: 4rem;
 }
 
 .card {
@@ -158,4 +221,8 @@ textarea:focus {
   display: flex;
   border-radius: 24px;
   flex-direction: column;
+}
+
+.upper {
+  text-transform: uppercase;
 }
