@@ -26,7 +26,9 @@
 .parte1 {
   width: 840px;
   z-index: 2;
-  transition: border-radius 0.15s ease-in-out;
+  transition:
+    transform 0.4s cubic-bezier(0.15, 1, 0.3, 1),
+    border-radius 0.2s ease-in-out;
 }
 
 .parte2 {
@@ -37,27 +39,24 @@
   transform: translateX(0);
   visibility: visible;
   overflow: hidden;
-  opacity: 1;
   transition:
-    opacity 0.1s ease-in-out,
     transform 0.4s cubic-bezier(0.15, 1, 0.3, 1),
     visibility 0.4s ease-in-out;
 }
 
 .display {
-  transform: translateX(-640px);
+  transform: translateX(-320px);
   visibility: hidden;
   pointer-events: none;
   overflow: hidden;
-  opacity: 0;
   transition:
-    opacity 0.4s ease-in-out,
     transform 0.4s cubic-bezier(0.15, 1, 0.3, 1),
     visibility 0.4s ease-in-out;
 }
 
 .before {
   border-radius: 24px;
+  transform: translateX(320);
 }
 
 .after {
