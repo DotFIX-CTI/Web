@@ -11,6 +11,12 @@ export default function Menubar() {
   return (
     <nav className={`${style.menubar}`}>
       <Link
+        href="/dashboard"
+        className={`${style.option} ${pathname === "/dashboard" ? style.active : style.inactive}`}
+      >
+        <Icon name="home" />
+      </Link>
+      <Link
         href="/equipe"
         className={`${style.option} ${pathname === "/equipe" ? style.active : style.inactive}`}
       >
@@ -22,12 +28,7 @@ export default function Menubar() {
       >
         <Icon name="add" />
       </Link>
-      <Link
-        href="/dashboard"
-        className={`${style.option} ${pathname === "/dashboard" ? style.active : style.inactive}`}
-      >
-        <Icon name="home" />
-      </Link>
+
       <Link
         href="/table"
         className={`${style.option} ${pathname === "/table" ? style.active : style.inactive}`}

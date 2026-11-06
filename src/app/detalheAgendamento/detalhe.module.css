@@ -1,0 +1,24 @@
+.grid {
+  width: 1280px;
+  height: 100%;
+  max-height: 640px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.subgrid {
+  display: grid;
+  grid-template-rows: 1.5fr 1fr;
+}
+
+.mapa {
+  padding: 0;
+  overflow: hidden;
+  position: relative;
+  color: var(--white);
+}
+
+.mapa h2,
+.mapa h4 {
+  color: var(--white);
+}

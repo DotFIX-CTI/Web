@@ -2,12 +2,13 @@ import Icon from "@/utils/icon";
 import Image from "next/image";
 import Link from "next/link";
 import style from "./card.module.css";
+import { Props } from "@/utils/status";
 
 export default function CardEquipe() {
   return (
     <article
-      className={`flex_c card between gap-4`}
-      style={{ borderLeft: "20px solid var(--primary)", width: 480 }}
+      className={`flex_c card between gap-4 ${Props.cancelado}`}
+      style={{ width: "100%" }}
     >
       <h2>Equipe de Redes</h2>
       <div className={`flex_c gap-4`}>
@@ -45,11 +46,7 @@ export default function CardEquipe() {
           Av. Paulista, 1000 - 12º andar - Datacenter B
         </p>
       </div>
-      <Link
-        href="/equipe/editar"
-        className={`center ${style.edit}`}
-        style={{ backgroundColor: "var(--primary" }}
-      >
+      <Link href="/equipe/editar" className={`center ${style.edit}`}>
         <Icon name="edit" size={32} />
       </Link>
     </article>

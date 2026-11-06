@@ -5,12 +5,14 @@ interface MainProps {
   children: ReactNode;
   className?: string;
   patternOpacity?: number;
+  error?: boolean;
 }
 
 export default function Main({
   children,
   className,
   patternOpacity = 0.15,
+  error,
 }: MainProps) {
   return (
     <main
@@ -21,11 +23,11 @@ export default function Main({
         overflow: "hidden",
         display: "flex",
         alignItems: "center",
-        justifyContent: "center"
+        justifyContent: "center",
       }}
       className={className}
     >
-      <Background opacity={patternOpacity} />
+      <Background opacity={patternOpacity} error={error}/>
       {children}
     </main>
   );
