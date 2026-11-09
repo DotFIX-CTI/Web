@@ -23,7 +23,8 @@
   border-left: 20px solid var(--success);
 }
 .default h1,
-.default h2 {
+.default h2,
+.default h3 {
   color: var(--success);
 }
 .default a,
@@ -35,7 +36,8 @@
   border-left: 20px solid var(--warning);
 }
 .pendente h1,
-.pendente h2 {
+.pendente h2,
+.pendente h3 {
   color: var(--warning);
 }
 .pendente a,
@@ -47,7 +49,8 @@
   border-left: 20px solid var(--error);
 }
 .atrasado h1,
-.atrasado h2 {
+.atrasado h2,
+.atrasado h3 {
   color: var(--error);
 }
 .atrasado a,
@@ -59,7 +62,8 @@
   border-left: 20px solid var(--cancel);
 }
 .cancelado h1,
-.cancelado h2 {
+.cancelado h2,
+.cancelado h3 {
   color: var(--cancel);
 }
 .cancelado a,
@@ -185,8 +189,8 @@ textarea:focus {
   line-height: 16px;
 }
 
-.txt {
-  color: color-mix(in srgb, var(--white) 100%, transparent);
+.smooth_info {
+  color: color-mix(in srgb, var(--white) 100%, var(--foreground) 100%);
 }
 
 .big_txt {
