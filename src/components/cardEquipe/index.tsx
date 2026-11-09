@@ -21,7 +21,7 @@ export default function CardEquipe() {
             className="user"
           />
           <div>
-            <h4>Arthur Sales</h4>
+            <h5>Arthur Sales</h5>
             <p>arthur@gmail.com</p>
           </div>
         </div>
@@ -34,7 +34,7 @@ export default function CardEquipe() {
             className="user"
           />
           <div>
-            <h4>Diego Castro</h4>
+            <h5>Diego Castro</h5>
             <p>diego@gmail.com</p>
           </div>
         </div>
@@ -46,7 +46,7 @@ export default function CardEquipe() {
           Av. Paulista, 1000 - 12º andar - Datacenter B
         </p>
       </div>
-      <Link href="/equipe/editar" className={`center ${style.edit}`}>
+      <Link href="/adicionarEquipe" className={`center ${style.edit}`}>
         <Icon name="edit" size={32} />
       </Link>
     </article>

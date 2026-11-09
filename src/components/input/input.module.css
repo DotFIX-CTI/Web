@@ -62,21 +62,6 @@
   color: var(--off);
 }
 
-.icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 10px;
-  pointer-events: none;
-  transition: 0.1s ease-in-out;
-}
-
-.container {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-}
-
 .footer {
   align-items: center;
   font-size: 0.75rem;

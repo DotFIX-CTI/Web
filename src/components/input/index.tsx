@@ -57,7 +57,7 @@ export default function Input({
   };
 
   return (
-    <div className={`${style.container} ${error && "error"}`}>
+    <div className={`container ${error && "error"}`}>
       <label htmlFor={label} className="label">
         {label} {required && "*"}
       </label>
@@ -89,7 +89,7 @@ export default function Input({
               {...(required && { required })}
               {...(props as InputHTMLAttributes<HTMLInputElement>)}
             />
-            {icon && <Icon name={icon} size={20} className={style.icon} />}
+            {icon && <Icon name={icon} size={20} className="icon" />}
           </>
         )}
       </div>

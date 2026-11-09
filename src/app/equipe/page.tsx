@@ -28,7 +28,7 @@ export default function Equipes() {
           style={{ padding: "0 10% 24px" }}
         >
           <h1>Equipes do Sistema</h1>
-          <Button icon="add">Equipe</Button>
+          <Button icon="add" link="/adicionarEquipe">Equipe</Button>
         </div>
         <section
           className={`${style.grid}`}

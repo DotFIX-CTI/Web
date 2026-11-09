@@ -122,22 +122,27 @@ p {
 
 h1 {
   font-weight: 700;
-  font-size: 2rem;
+  font-size: 2.25rem;
 }
 
 h2 {
   font-weight: 600;
-  font-size: 1.6rem;
+  font-size: 2rem;
 }
 
 h3 {
   font-weight: 600;
-  font-size: 1.4rem;
+  font-size: 1.75rem;
 }
 
 h4 {
   font-weight: 600;
-  font-size: 1.2rem;
+  font-size: 1.5rem;
+}
+
+h5 {
+  font-weight: 500;
+  font-size: 1.25rem;
 }
 
 p {
@@ -176,8 +181,17 @@ textarea:focus {
 
 .small_txt {
   color: var(--off);
-  font-size: 0.75rem;
-  line-height: 12px;
+  font-size: 0.8rem;
+  line-height: 16px;
+}
+
+.txt {
+  color: color-mix(in srgb, var(--white) 100%, transparent);
+}
+
+.big_txt {
+  font-family: var(--font-pixel);
+  font-size: 4rem;
 }
 
 .flex {
@@ -214,15 +228,6 @@ textarea:focus {
   object-fit: contain;
 }
 
-.txt {
-  color: color-mix(in srgb, var(--white) 100%, transparent);
-}
-
-.big_txt {
-  font-family: var(--font-pixel);
-  font-size: 4rem;
-}
-
 .card {
   position: relative;
   box-shadow: var(--shadow);
@@ -244,6 +249,33 @@ textarea:focus {
   flex-direction: column;
 }
 
+.scroll {
+  overflow-y: scroll;
+  padding: 24px 12px 36px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
 .upper {
   text-transform: uppercase;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  pointer-events: none;
+  transition: 0.1s ease-in-out;
 }

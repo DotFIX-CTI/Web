@@ -85,7 +85,6 @@ export default function Agendamento() {
                     options={opcoesEstados}
                     required
                     errorMessage="Estado obrigatório"
-                    onChange={(val) => console.log(val)}
                   />
                 </div>
                 <div className="flex_c between">

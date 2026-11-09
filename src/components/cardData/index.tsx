@@ -6,7 +6,7 @@ export default function CardData() {
     <article className={`card ${style.card_data} ${Props.cancelado}`}>
       <h4>01/03/2026</h4>
       <p>15:00</p>
-      <p className={`${style.equipe}`}>Equipe de Redes</p>
+      <h5 className={`${style.equipe}`}>Equipe de Redes</h5>
     </article>
   );
 }
