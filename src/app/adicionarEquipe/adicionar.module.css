@@ -22,3 +22,9 @@
 .botao {
   align-self: flex-end;
 }
+
+.deletar {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}

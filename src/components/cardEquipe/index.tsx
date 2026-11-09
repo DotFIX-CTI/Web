@@ -46,7 +46,7 @@ export default function CardEquipe() {
           Av. Paulista, 1000 - 12º andar - Datacenter B
         </p>
       </div>
-      <Link href="/equipe/editar" className={`center ${style.edit}`}>
+      <Link href="/adicionarEquipe" className={`center ${style.edit}`}>
         <Icon name="edit" size={32} />
       </Link>
     </article>

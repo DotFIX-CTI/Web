@@ -122,6 +122,7 @@ export default function AdicionarEquipe() {
                 </Button>
               </div>
             </div>
+            <Button icon="delete" variant="attention" className={`${style.deletar}`} noText />
           </article>
           <article className={`card_scroll ${style.integrantes}`}>
             <Pesquisa />

@@ -3,13 +3,14 @@ import { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
 import style from "./button.module.css";
 import Link from "next/link";
 
-export type ButtonVariant = "default" | "secondary" | "logout";
+export type ButtonVariant = "default" | "secondary" | "attention" | "logout";
 
 type BaseProps = {
-  children: ReactNode;
+  children?: ReactNode;
   variant?: ButtonVariant;
   icon?: IconName;
   className?: string;
+  noText?: boolean;
 };
 
 // Botão Comum
@@ -33,6 +34,7 @@ export default function Button(props: ButtonProps) {
     icon,
     link,
     className = "",
+    noText,
     ...rest
   } = props;
   const variantClass = style[variant] || style.default;
@@ -42,6 +44,7 @@ export default function Button(props: ButtonProps) {
       <Link
         href={link}
         className={`${style.button} ${variantClass} ${className}`}
+        style={noText ? { width: 40 } : { width: 160 }}
         {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {icon && <Icon name={icon} size={20} />}
@@ -53,6 +56,7 @@ export default function Button(props: ButtonProps) {
   return (
     <button
       className={`${style.button} ${variantClass} ${className}`}
+      style={noText ? { width: 40 } : { width: 160 }}
       {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       {icon && <Icon name={icon} size={20} />}
