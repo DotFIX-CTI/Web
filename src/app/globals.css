@@ -146,7 +146,7 @@ h5 {
 }
 
 p {
-  font-size: 1.15rem;
+  font-size: 1rem;
   opacity: 0.8;
 }
 
@@ -181,8 +181,17 @@ textarea:focus {
 
 .small_txt {
   color: var(--off);
-  font-size: 0.75rem;
-  line-height: 12px;
+  font-size: 0.8rem;
+  line-height: 16px;
+}
+
+.txt {
+  color: color-mix(in srgb, var(--white) 100%, transparent);
+}
+
+.big_txt {
+  font-family: var(--font-pixel);
+  font-size: 4rem;
 }
 
 .flex {
@@ -219,15 +228,6 @@ textarea:focus {
   object-fit: contain;
 }
 
-.txt {
-  color: color-mix(in srgb, var(--white) 100%, transparent);
-}
-
-.big_txt {
-  font-family: var(--font-pixel);
-  font-size: 4rem;
-}
-
 .card {
   position: relative;
   box-shadow: var(--shadow);
@@ -252,8 +252,30 @@ textarea:focus {
 .scroll {
   overflow-y: scroll;
   padding: 24px 12px 36px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
 }
 
 .upper {
   text-transform: uppercase;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  pointer-events: none;
+  transition: 0.1s ease-in-out;
 }
