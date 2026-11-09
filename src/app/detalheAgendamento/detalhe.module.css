@@ -22,3 +22,8 @@
 .mapa h4 {
   color: var(--white);
 }
+
+.info_local,
+.info_local p {
+  color: var(--white);
+}

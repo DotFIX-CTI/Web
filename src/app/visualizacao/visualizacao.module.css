@@ -1,0 +1,43 @@
+.visualizacao {
+  margin-top: 7.5vh;
+  height: 92.5vh;
+  width: 100%;
+  display: flex;
+  overflow-x: auto;
+  background-color: var(--white);
+  border-left: 48px solid var(--primary);
+  scrollbar-width: auto;
+}
+
+.visualizacao::-webkit-scrollbar {
+  height: 12px;
+}
+
+.data {
+  width: 100%;
+  text-align: center;
+  padding: 0 0 12px;
+  border-bottom: 2px solid var(--primary);
+}
+
+.secao {
+  display: flex;
+  align-items: center;
+  padding: 12px 0 0;
+  flex-direction: column;
+  background-color: var(--white);
+  border-right: 4px solid var(--primary);
+  height: 100%;
+}
+
+.scroll_secao {
+  gap: 24px;
+  height: 85vh;
+  display: flex;
+  padding: 24px;
+  overflow-y: auto;
+  flex-direction: column;
+  width: 100%;
+  scrollbar-width: auto;
+}
+
