@@ -32,7 +32,7 @@ export default function DetalheAgendamento() {
           <article className={`flex_c between card ${Props.cancelado}`}>
             <div className="flex_c gap-1">
               <h1 className="upper">Link dedicado 10gbps</h1>
-              <h2>03/03/2026</h2>
+              <h4>03/03/2026</h4>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
                 lectus sit amet tellus facilisis consectetur. Proin vel mollis

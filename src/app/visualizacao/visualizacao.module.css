@@ -6,7 +6,6 @@
   overflow-x: auto;
   background-color: var(--white);
   border-left: 48px solid var(--primary);
-  scrollbar-width: auto;
 }
 
 .visualizacao::-webkit-scrollbar {
@@ -23,6 +22,7 @@
 .secao {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
   padding: 12px 0 0;
   flex-direction: column;
   background-color: var(--white);
@@ -38,6 +38,4 @@
   overflow-y: auto;
   flex-direction: column;
   width: 100%;
-  scrollbar-width: auto;
 }
-
