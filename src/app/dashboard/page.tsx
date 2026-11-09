@@ -17,7 +17,7 @@ export default function Dashboard() {
               <h2>Próximos Agendamentos...</h2>
               <hr />
             </div>
-            <div className={`flex_c ${style.scroll} gap-4`}>
+            <div className="flex_c scroll gap-4">
               <CardProximoAgendamento />
               <CardProximoAgendamento />
               <CardProximoAgendamento />

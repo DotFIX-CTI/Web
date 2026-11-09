@@ -1,15 +1,10 @@
 .grid {
   width: 90%;
+  height: 60vh;
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
 
 .proximos_agendamentos {
-  height: 60vh;
   width: 100%;
-}
-
-.scroll {
-  padding: 24px 12px 36px;
-  overflow-y: scroll;
 }
