@@ -1,14 +1,15 @@
-.edit {
+.action {
   color: var(--white);
   position: absolute;
   top: 0;
   right: 0;
   border-radius: 0 24px 0 24px;
-  padding: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  overflow: hidden;
   cursor: pointer;
+}
+
+.link_icon {
+  padding: 12px;
   transition: opacity 0.15s ease-in-out;
   &:hover {
     opacity: 0.8;
