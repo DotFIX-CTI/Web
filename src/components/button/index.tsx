@@ -1,5 +1,10 @@
 import Icon, { IconName } from "@/utils/icon";
-import { ReactNode, ButtonHTMLAttributes, AnchorHTMLAttributes } from "react";
+import {
+  ReactNode,
+  ButtonHTMLAttributes,
+  AnchorHTMLAttributes,
+  CSSProperties,
+} from "react";
 import style from "./button.module.css";
 import Link from "next/link";
 
@@ -11,6 +16,7 @@ type BaseProps = {
   icon?: IconName;
   className?: string;
   noText?: boolean;
+  reverse?: boolean;
 };
 
 // Botão Comum
@@ -35,16 +41,22 @@ export default function Button(props: ButtonProps) {
     link,
     className = "",
     noText,
+    reverse,
     ...rest
   } = props;
   const variantClass = style[variant] || style.default;
+
+  const customStyle: CSSProperties = {
+    width: noText ? 40 : 160,
+    ...(reverse && { flexDirection: "row-reverse" }),
+  };
 
   if (link) {
     return (
       <Link
         href={link}
         className={`${style.button} ${variantClass} ${className}`}
-        style={noText ? { width: 40 } : { width: 160 }}
+        style={customStyle}
         {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {icon && <Icon name={icon} size={20} />}
@@ -56,7 +68,7 @@ export default function Button(props: ButtonProps) {
   return (
     <button
       className={`${style.button} ${variantClass} ${className}`}
-      style={noText ? { width: 40 } : { width: 160 }}
+      style={customStyle}
       {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
     >
       {icon && <Icon name={icon} size={20} />}

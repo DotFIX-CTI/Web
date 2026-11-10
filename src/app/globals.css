@@ -384,6 +384,7 @@ textarea:focus {
 }
 
 .big_txt {
-  font-family: var(--font-pixel);
-  font-size: 4rem;
+  color: var(--foreground);
+  font-weight: 700;
+  font-size: 5rem;
 }
