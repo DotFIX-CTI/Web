@@ -75,6 +75,14 @@ const iconMap = {
       />
     </svg>
   ),
+  description: (
+    <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path
+        d="M43.2 12.125C43.2 10.8133 42.1255 9.75 40.8 9.75H7.2C5.87452 9.75 4.8 10.8133 4.8 12.125V35.875C4.8 37.1867 5.87452 38.25 7.2 38.25H40.8C42.1255 38.25 43.2 37.1867 43.2 35.875V12.125ZM21.6 28.75C24.6953 28.75 24.6953 33.5 21.6 33.5H12C8.90474 33.5 8.90474 28.75 12 28.75H21.6ZM36 28.75C39.0953 28.75 39.0953 33.5 36 33.5H31.2C28.1047 33.5 28.1047 28.75 31.2 28.75H36ZM16.8 19.25C19.8953 19.25 19.8953 24 16.8 24H12C8.90474 24 8.90474 19.25 12 19.25H16.8ZM36 19.25C39.0953 19.25 39.0953 24 36 24H26.4C23.3047 24 23.3047 19.25 26.4 19.25H36ZM48 35.875C48 39.81 44.7765 43 40.8 43H7.2C3.22355 43 0 39.81 0 35.875V12.125C0 8.18997 3.22355 5 7.2 5H40.8C44.7765 5 48 8.18997 48 12.125V35.875Z"
+        fill="currentColor"
+      />
+    </svg>
+  ),
   dropdown: (
     <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
@@ -371,8 +379,10 @@ export default function Icon({
   return (
     <span
       style={{
-        width: size,
-        height: size,
+        minWidth: size,
+        minHeight: size,
+        maxWidth: size,
+        maxHeight: size,
         display: "inline-block",
         color: `var(--${color})`,
       }}

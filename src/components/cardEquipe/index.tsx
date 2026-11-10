@@ -6,10 +6,7 @@ import { Props } from "@/utils/status";
 
 export default function CardEquipe() {
   return (
-    <article
-      className={`flex_c card between gap-4 ${Props.cancelado}`}
-      style={{ width: "100%" }}
-    >
+    <article className={`card between gap-4 ${Props.cancelado}`}>
       <h2>Equipe de Redes</h2>
       <div className={`flex_c gap-4`}>
         <div className="flex gap-2">
@@ -46,9 +43,14 @@ export default function CardEquipe() {
           Av. Paulista, 1000 - 12º andar - Datacenter B
         </p>
       </div>
-      <Link href="/adicionarEquipe" className={`center ${style.edit}`}>
-        <Icon name="edit" size={32} />
-      </Link>
+      <div className={`flex_c ${style.action}`}>
+        <Link href="/adicionarEquipe" className={`${style.link_icon}`}>
+          <Icon name="edit" size={36} />
+        </Link>
+        <Link href="/detalheEquipe" className={`${style.link_icon}`}>
+          <Icon name="description" size={36} />
+        </Link>
+      </div>
     </article>
   );
 }

@@ -18,7 +18,8 @@ export default function Main({
     <main
       style={{
         position: "relative",
-        minHeight: "100vh",
+        marginTop: "7.5vh",
+        minHeight: "92.5vh",
         width: "100%",
         overflow: "hidden",
         display: "flex",
