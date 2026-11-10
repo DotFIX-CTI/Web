@@ -40,7 +40,9 @@ export default function DetalheAgendamento() {
                 vitae venenatis rutrum.
               </p>
             </div>
-            <Button icon="user">Reagendar</Button>
+            <Button icon="reschudule" link="/reagendamento">
+              Reagendar
+            </Button>
           </article>
           <CardEquipe />
         </div>
