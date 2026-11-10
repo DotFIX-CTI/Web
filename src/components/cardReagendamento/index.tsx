@@ -3,7 +3,7 @@ import Icon from "@/utils/icon";
 
 export default function CardReagendamento() {
   return (
-    <article className={`card ${Props.cancelado} gap-4`}>
+    <article className={`card gap-4 ${Props.cancelado}`}>
       <div className="flex_c">
         <h3 className="upper">Link dedicado 10gbps</h3>
         <h5>Equipe de Redes</h5>

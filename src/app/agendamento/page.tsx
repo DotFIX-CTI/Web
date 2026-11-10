@@ -1,18 +1,17 @@
 "use client";
 
-import Input from "@/components/input";
 import Main from "@/utils/main";
 import style from "./agendamento.module.css";
-import { useState } from "react";
-import Button from "@/components/button";
 import Select, { Option } from "@/components/select";
+import Button from "@/components/button";
+import Input from "@/components/input";
 import { Estados } from "@/utils/estados";
+import { useState } from "react";
 
-// Transforma o objeto de estados em um array de { label, value } para o Select
 const opcoesEstados: Option[] = Object.entries(Estados).map(
   ([sigla, nome]) => ({
     label: nome,
-    value: sigla.toUpperCase(), // Ex: "SP", "MG"
+    value: sigla.toUpperCase(),
   }),
 );
 
@@ -25,7 +24,7 @@ export default function Agendamento() {
 
   return (
     <Main>
-      <section className={`flex`}>
+      <section className="flex">
         <article
           className={`card gap-8 ${style.parte1} ${fase ? style.after : style.before}`}
         >

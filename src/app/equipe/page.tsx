@@ -18,14 +18,14 @@ export default function Equipes() {
 
   return (
     <Main className="flex_c">
-      <div className="flex between center" style={{ padding: "0 10% 24px" }}>
+      <div className="center between" style={{ padding: "0 10% 24px" }}>
         <h1>Equipes do Sistema</h1>
         <Button icon="add" link="/adicionarEquipe">
           Equipe
         </Button>
       </div>
       <section
-        className={`${style.grid}`}
+        className={`${style.grid} gap-12`}
         ref={scrollRef}
         onWheel={handleWheel}
       >

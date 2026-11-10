@@ -1,10 +1,5 @@
-.grid {
-  width: 90%;
+.dashboard {
+  max-width: 1600px;
   display: grid;
   grid-template-columns: 1fr 1fr;
-}
-
-.proximos_agendamentos {
-  height: 80vh;
-  width: 100%;
 }

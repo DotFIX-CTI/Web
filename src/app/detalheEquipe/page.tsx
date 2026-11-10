@@ -2,34 +2,17 @@
 
 import Main from "@/utils/main";
 import style from "./detalhe.module.css";
+import CardMapa from "@/components/cardMapa";
+import CardLog from "@/components/cardLog";
+import Icon from "@/utils/icon";
 import Image from "next/image";
 import Link from "next/link";
-import Icon from "@/utils/icon";
-import { Props } from "@/utils/status";
-import dynamic from "next/dynamic";
-import CardLog from "@/components/cardLog";
-
-const MapaDinamico = dynamic(() => import("@/utils/mapa"), {
-  ssr: false,
-  loading: () => (
-    <div
-      style={{
-        height: "100vh",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-      }}
-    >
-      Carregando mapa...
-    </div>
-  ),
-});
 
 export default function DetallheEquipe() {
   return (
     <Main>
       <section className="flex_c gap-12">
-        <div className={`${style.grid} gap-12`}>
+        <div className="grid gap-12 max_width">
           <article className="card gap-4">
             <div className="center gap-4">
               <Image
@@ -73,35 +56,9 @@ export default function DetallheEquipe() {
               <Icon name="edit" size={36} />
             </Link>
           </article>
-          <article className="card_mapa">
-            <div
-              className={`flex_c gap-2 ${Props.cancelado}_bg`}
-              style={{ padding: "20px" }}
-            >
-              <div className={`flex between`}>
-                <h2>CTI Brasil</h2>
-                <div className={`center gap-4`}>
-                  <div className="center gap-1">
-                    <Icon name="user" size={24} />
-                    <h4>Jucelino</h4>
-                  </div>
-                  <div className="flex gap-2">
-                    <Icon name="mail" size={24} />
-                    <Icon name="whatsapp" size={24} />
-                  </div>
-                </div>
-              </div>
-              <div className={`center gap-1`}>
-                <Icon name="local" size={20} />
-                <p>
-                  R. Salgado de Castro, 46 - Centro, Diadema - SP, 09920-690
-                </p>
-              </div>
-            </div>
-            <MapaDinamico />
-          </article>
+          <CardMapa />
         </div>
-        <article className={`card_scroll_h ${style.cards_log}`}>
+        <article className="card_scroll_h max_width">
           <div className="scroll_h gap-8">
             <CardLog />
             <CardLog />

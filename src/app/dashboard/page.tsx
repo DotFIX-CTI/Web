@@ -5,9 +5,9 @@ import CardProximoAgendamento from "@/components/cardProximoAgendamento";
 export default function Dashboard() {
   return (
     <Main>
-      <section className={`${style.grid}`}>
+      <section className={`${style.dashboard} grid gap-12`}>
         <article>Calendário</article>
-        <article className={`card_scroll ${style.proximos_agendamentos}`}>
+        <article className={`card_scroll max_height`}>
           <div className="flex_c">
             <h2>Próximos Agendamentos...</h2>
             <hr />

@@ -1,4 +1,3 @@
-import Input from "@/components/input";
 import Main from "@/utils/main";
 import style from "./adicionar.module.css";
 import Select, { Option } from "@/components/select";
@@ -6,6 +5,7 @@ import Integrante from "@/components/integrante";
 import InputImage from "@/components/inputImage";
 import Pesquisa from "@/components/pesquisa";
 import Button from "@/components/button";
+import Input from "@/components/input";
 import Image from "next/image";
 
 const integrantes: Option[] = [
@@ -19,10 +19,10 @@ const integrantes: Option[] = [
 export default function AdicionarEquipe() {
   return (
     <Main>
-      <section className={`${style.section} gap-8`}>
-        <article className="card center gap-8">
+      <section className="grid2 gap-8 max_width">
+        <article className="card gap-8 max_height">
           <h2>Adicionar Equipe</h2>
-          <div className={`${style.grid} gap-4`}>
+          <div className="grid gap-4">
             <div className="flex_c gap-4">
               <div className="center gap-4">
                 <div>
@@ -65,58 +65,56 @@ export default function AdicionarEquipe() {
                 errorMessage="Senha incorreta"
               />
             </div>
-            <div className={`flex_c ${style.parte2}`}>
-              <div className="flex_c gap-4">
-                <div className="flex_c gap-1">
-                  <Select
-                    label="1º Integrante"
-                    placeholder="Selecione o primeiro integrante"
-                    options={integrantes}
-                    required
-                    errorMessage="1º Integrante obrigatório"
+            <div className="flex_c gap-12">
+              <div className="flex_c gap-1">
+                <Select
+                  label="1º Integrante"
+                  placeholder="Selecione o primeiro integrante"
+                  options={integrantes}
+                  required
+                  errorMessage="1º Integrante obrigatório"
+                />
+                <div className="flex gap-2">
+                  <Image
+                    src="/img/user.png"
+                    width={40}
+                    height={40}
+                    alt="Picture of the author"
+                    className="user"
                   />
-                  <div className="flex gap-2">
-                    <Image
-                      src="/img/user.png"
-                      width={40}
-                      height={40}
-                      alt="Picture of the author"
-                      className="user"
-                    />
-                    <div>
-                      <h5>Arthur Sales</h5>
-                      <p>arthur@gmail.com</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="flex_c gap-1">
-                  <Select
-                    label="2º Integrante"
-                    placeholder="Selecione o segundo integrante"
-                    options={integrantes}
-                    required
-                    errorMessage="2º Integrante obrigatório"
-                  />
-                  <div className="flex gap-2">
-                    <Image
-                      src="/img/user.png"
-                      width={40}
-                      height={40}
-                      alt="Picture of the author"
-                      className="user"
-                    />
-                    <div>
-                      <h5>Diego Castro</h5>
-                      <p>diego@gmail.com</p>
-                    </div>
+                  <div>
+                    <h5>Arthur Sales</h5>
+                    <p>arthur@gmail.com</p>
                   </div>
                 </div>
               </div>
-              <Button icon="add" className={`${style.botao}`}>
-                Adicionar
-              </Button>
+              <div className="flex_c gap-1">
+                <Select
+                  label="2º Integrante"
+                  placeholder="Selecione o segundo integrante"
+                  options={integrantes}
+                  required
+                  errorMessage="2º Integrante obrigatório"
+                />
+                <div className="flex gap-2">
+                  <Image
+                    src="/img/user.png"
+                    width={40}
+                    height={40}
+                    alt="Picture of the author"
+                    className="user"
+                  />
+                  <div>
+                    <h5>Diego Castro</h5>
+                    <p>diego@gmail.com</p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
+          <Button icon="add" className={`${style.adicionar}`}>
+            Adicionar
+          </Button>
           <Button
             icon="delete"
             variant="attention"
@@ -124,9 +122,9 @@ export default function AdicionarEquipe() {
             noText
           />
         </article>
-        <article className={`card_scroll ${style.integrantes}`}>
+        <article className={`card_scroll max_height`}>
           <Pesquisa />
-          <div className="flex_c scroll gap-6">
+          <div className="scroll gap-6">
             <Integrante />
             <Integrante />
             <Integrante />

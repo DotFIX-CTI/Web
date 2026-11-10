@@ -1,26 +1,7 @@
-.section {
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  width: 1280px;
-}
-
-.grid {
-  width: 100%;
-  display: grid;
-  grid-template-columns: 1.25fr 1fr;
-}
-
-.integrantes {
-  height: 664px;
-  width: 100%;
-}
-
-.parte2 {
-  justify-content: space-between;
-}
-
-.botao {
-  align-self: flex-end;
+.adicionar {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
 }
 
 .deletar {

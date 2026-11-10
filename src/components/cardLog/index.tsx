@@ -1,10 +1,9 @@
 import Icon from "@/utils/icon";
-import style from "./card.module.css";
 import { Props } from "@/utils/status";
 
 export default function CardLog() {
   return (
-    <article className={`card ${style.card_log} ${Props.cancelado}`}>
+    <article className={`card ${Props.cancelado}`} style={{ width: 640 }}>
       <h2>Organização de cabos de redes</h2>
       <div>
         <h5>Há 4 dias</h5>

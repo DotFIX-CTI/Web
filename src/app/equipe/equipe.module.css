@@ -6,10 +6,10 @@
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  gap: 40px;
   padding: 0 80px 24px;
 }
 
 .grid article {
   min-width: 480px;
+  max-width: 480px;
 }

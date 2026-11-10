@@ -1,11 +1,11 @@
 import Icon from "@/utils/icon";
 import { Props } from "@/utils/status";
-import style from "./card.module.css";
 
 export default function Card() {
   return (
     <article
-      className={`card flex_c gap-2 ${style.card_info} ${Props.cancelado}`}
+      className={`card flex_c gap-2 ${Props.cancelado}`}
+      style={{ width: 400, height: 320 }}
     >
       <h3 className="upper">Link dedicado 10gbps</h3>
       <p>
