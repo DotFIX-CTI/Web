@@ -1,12 +1,13 @@
 import Main from "@/utils/main";
 import style from "./dashboard.module.css";
 import CardProximoAgendamento from "@/components/cardProximoAgendamento";
+import Calendario from "@/components/calendario";
 
 export default function Dashboard() {
   return (
     <Main>
       <section className={`${style.dashboard} grid gap-12`}>
-        <article>Calendário</article>
+        <Calendario />
         <article className={`card_scroll max_height`}>
           <div className="flex_c">
             <h2>Próximos Agendamentos...</h2>
