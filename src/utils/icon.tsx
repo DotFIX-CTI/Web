@@ -379,8 +379,10 @@ export default function Icon({
   return (
     <span
       style={{
-        width: size,
-        height: size,
+        minWidth: size,
+        minHeight: size,
+        maxWidth: size,
+        maxHeight: size,
         display: "inline-block",
         color: `var(--${color})`,
       }}

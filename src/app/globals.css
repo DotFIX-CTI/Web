@@ -126,31 +126,31 @@ p {
 
 h1 {
   font-weight: 700;
-  font-size: 2.5rem;
+  font-size: 2rem;
 }
 
 h2 {
   font-weight: 600;
-  font-size: 2rem;
+  font-size: 1.8rem;
 }
 
 h3 {
   font-weight: 600;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
 }
 
 h4 {
   font-weight: 600;
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
 
 h5 {
   font-weight: 500;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 p {
-  font-size: 1.2rem;
+  font-size: 1rem;
   opacity: 0.8;
 }
 
@@ -243,6 +243,24 @@ textarea:focus {
   flex-direction: column;
 }
 
+.card_mapa {
+  position: relative;
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  display: flex;
+  border-radius: 24px;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.card_mapa h2,
+.card_mapa h4,
+.card_mapa {
+  color: var(--white);
+}
+
 .card_scroll {
   box-shadow: var(--shadow);
   background-color: var(--white);
@@ -253,11 +271,35 @@ textarea:focus {
   flex-direction: column;
 }
 
+.card_scroll_h {
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  padding: 24px 0;
+  display: flex;
+  border-radius: 24px;
+  flex-direction: row;
+}
+
 .scroll {
   overflow-y: scroll;
   padding: 24px 12px 36px;
   mask-image: linear-gradient(
     to bottom,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
+.scroll_h {
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  padding: 12px 24px;
+  mask-image: linear-gradient(
+    to right,
     transparent 0%,
     black 4%,
     black 96%,

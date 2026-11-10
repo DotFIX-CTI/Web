@@ -10,20 +10,3 @@
   display: grid;
   grid-template-rows: 1.5fr 1fr;
 }
-
-.mapa {
-  padding: 0;
-  overflow: hidden;
-  position: relative;
-  color: var(--white);
-}
-
-.mapa h2,
-.mapa h4 {
-  color: var(--white);
-}
-
-.info_local,
-.info_local p {
-  color: var(--white);
-}

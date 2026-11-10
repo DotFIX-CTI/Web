@@ -48,7 +48,7 @@ export default function DetalheAgendamento() {
         </div>
 
         {/* Card do Mapa */}
-        <article className={`card ${style.mapa}`}>
+        <article className={`card_mapa`}>
           <div
             className={`flex_c gap-2 ${Props.cancelado}_bg`}
             style={{ padding: "20px" }}
@@ -66,7 +66,7 @@ export default function DetalheAgendamento() {
                 </div>
               </div>
             </div>
-            <div className={`center gap-1 ${style.info_local}`}>
+            <div className={`center gap-1`}>
               <Icon name="local" size={20} />
               <p>R. Salgado de Castro, 46 - Centro, Diadema - SP, 09920-690</p>
             </div>
