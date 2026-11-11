@@ -61,7 +61,7 @@ export default function Calendario({ compact = false }: CalendarioProps) {
 
           return (
             <div className={`${style.semana}`} key={key}>
-              <h2>{value.charAt(0)}</h2>{" "}
+              <h2>{compact ? value.charAt(0) : value}</h2>{" "}
               <div className={`${style.dias}`}>
                 {diasDaColuna.map((item, cardIndex) => (
                   <button
