@@ -1,0 +1,11 @@
+.adicionar {
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+}
+
+.deletar {
+  position: absolute;
+  top: 24px;
+  right: 24px;
+}

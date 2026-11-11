@@ -2,6 +2,7 @@ import Main from "@/utils/main";
 import style from "./login.module.css"
 import Logo from "@/utils/logo";
 import Icon from "@/utils/icon";
+import Input from "@/components/input";
 
 export default function login(){
     return(
@@ -30,11 +31,10 @@ export default function login(){
                             </div>
                             <div className={`${style.campo_form}`}>
 
-                                <label>Senha de Acesso</label>
-                                <div className={`${style.container_input}`}>
-                                  <Icon name="password" size={22} className={`${style.icon_input}`}/>
-                                  <input type="password" placeholder="*******"/>
-                                </div>
+                                <Input
+                                icon="password"
+                                label="Senha"
+                                placeholder="Digite sua senha" />
                                 <a href="/esquecisenha">Esqueci minha senha</a>
                             </div>
                         </div>

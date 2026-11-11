@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/*? ◤=============================================◥ */
+/*?   1. VARIÁVEIS GLOBAIS E DESIGN SYSTEM (:root)   */
+/*? ◣=============================================◢ */
 :root {
   --background: hsl(0, 0%, 100%);
   --foreground: hsl(210, 65%, 15%);
@@ -9,6 +12,10 @@
   --surface: hsl(205, 100%, 96%);
   --white: hsl(0, 0%, 100%);
   --off: hsl(215, 10%, 80%);
+  --success: hsl(140, 100%, 35%);
+  --warning: hsl(55, 100%, 35%);
+  --error: hsl(350, 75%, 50%);
+  --cancel: hsl(220, 15%, 50%);
 
   --shadow:
     4px 4px 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
@@ -24,22 +31,35 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
+    --foreground: hsl(210, 65%, 10%);
     --background: hsl(0, 0%, 100%);
-    --foreground: hsl(210, 65%, 15%);
   }
 }
 
+/*? ◤============================ */
+/*?   2. RESET E ELEMENTOS BASE    */
+/*? ◣============================ */
 * {
   padding: 0;
   margin: 0;
   scrollbar-color: var(--primary) var(--surface);
   scrollbar-width: thin;
+  box-sizing: border-box;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-inter);
+  font-optical-sizing: auto;
+  line-height: 1.5;
 }
 
 h1,
 h2,
 h3,
 h4,
+h5,
 p {
   color: var(--foreground);
   line-height: 1;
@@ -49,33 +69,26 @@ h1 {
   font-weight: 700;
   font-size: 2rem;
 }
-
 h2 {
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+h3 {
   font-weight: 600;
   font-size: 1.6rem;
 }
-
-h3 {
+h4 {
   font-weight: 600;
   font-size: 1.4rem;
 }
-
-h4 {
-  font-weight: 600;
+h5 {
+  font-weight: 500;
   font-size: 1.2rem;
 }
 
 p {
   font-size: 1rem;
   opacity: 0.8;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter);
-  font-optical-sizing: auto;
-  line-height: 1.5;
 }
 
 hr {
@@ -87,10 +100,113 @@ hr {
   margin: 4px 0 0;
 }
 
+img {
+  width: auto;
+  height: auto;
+}
+
+input,
+input:focus,
+textarea,
+textarea:focus {
+  outline: none;
+}
+
+/*? ◤=========================================◥ */
+/*?   3. CLASSES DE STATUS (Cards e Elementos)   */
+/*? ◣=========================================◢ */
+.default {
+  border-left: 20px solid var(--success);
+}
+.default h1,
+.default h2,
+.default h3,
+.default h4 {
+  color: var(--success);
+}
+.default a,
+.default_bg {
+  background-color: var(--success);
+}
+
+.pendente {
+  border-left: 20px solid var(--warning);
+}
+.pendente h1,
+.pendente h2,
+.pendente h3,
+.pendente h4 {
+  color: var(--warning);
+}
+.pendente a,
+.pendente_bg {
+  background-color: var(--warning);
+}
+
+.atrasado {
+  border-left: 20px solid var(--error);
+}
+.atrasado h1,
+.atrasado h2,
+.atrasado h3,
+.atrasado h4 {
+  color: var(--error);
+}
+.atrasado a,
+.atrasado_bg {
+  background-color: var(--error);
+}
+
+.cancelado {
+  border-left: 20px solid var(--cancel);
+}
+.cancelado h1,
+.cancelado h2,
+.cancelado h3,
+.cancelado h4 {
+  color: var(--cancel);
+}
+.cancelado a,
+.cancelado_bg {
+  background-color: var(--cancel);
+}
+
+/*? ◤==================================◥ */
+/*?   4. FORMULÁRIOS E ESTADOS DE ERRO    */
+/*? ◣==================================◢ */
+.label {
+  color: var(--primary);
+  font-weight: 600;
+  display: block;
+}
+
+.input_mensagem {
+  color: var(--error);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.error,
+.error label,
+.error svg {
+  color: var(--error) !important;
+}
+
+.error input,
+.error textarea,
+.error select,
+.error .input,
+.error .textarea,
+.error .trigger {
+  border-color: var(--error) !important;
+}
+
+/*? ◤============================◥ */
+/*?   5. LAYOUTS, FLEXBOX E GRID    */
+/*? ◣============================◢ */
 .flex {
   display: flex;
   flex-direction: row;
-  justify-content: center;
 }
 
 .flex_c {
@@ -101,15 +217,57 @@ hr {
 .between {
   width: 100%;
   display: flex;
-  align-items: center;
   justify-content: space-between;
 }
 
-.txt {
-  color: color-mix(in srgb, var(--white) 80%, var(--primary) 20%);
+.center {
+  display: flex;
+  align-items: center;
 }
 
+.center_c {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+}
+
+.max_width {
+  max-width: 1280px;
+}
+
+.max_height {
+  height: 720px;
+  max-height: 720px;
+}
+
+.end {
+  align-self: flex-end;
+}
+
+/*? ◤========================◥ */
+/*?   6. COMPONENTES E CARDS    */
+/*? ◣========================◢ */
 .card {
+  position: relative;
   box-shadow: var(--shadow);
   background-color: var(--white);
   width: 100%;
@@ -117,6 +275,35 @@ hr {
   display: flex;
   border-radius: 24px;
   flex-direction: column;
+}
+
+.card_small {
+  position: relative;
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  padding: 20px 12px;
+  display: flex;
+  border-radius: 24px;
+  flex-direction: column;
+}
+
+.card_mapa {
+  position: relative;
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  display: flex;
+  border-radius: 24px;
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--white);
+}
+
+.card_mapa h2,
+.card_mapa h4,
+.card_mapa {
+  color: var(--white);
 }
 
 .card_scroll {
@@ -127,4 +314,88 @@ hr {
   display: flex;
   border-radius: 24px;
   flex-direction: column;
+}
+
+.card_scroll_h {
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  padding: 24px 0;
+  display: flex;
+  border-radius: 24px;
+  flex-direction: row;
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding: 24px 12px 36px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
+.scroll_h {
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  padding: 12px 24px;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
+/*? ◤==============================================◥ */
+/*?   7. CLASSES UTILITÁRIAS E TIPOGRAFIA AUXILIAR    */
+/*? ◣==============================================◢ */
+.user {
+  border-radius: 8px;
+  overflow: hidden;
+  object-fit: contain;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  pointer-events: none;
+  transition: 0.1s ease-in-out;
+}
+
+.small_txt {
+  color: var(--off);
+  font-size: 0.8rem;
+  line-height: 16px;
+}
+
+.smooth_info,
+.smooth_info p {
+  color: var(--foreground);
+  opacity: 0.75;
+}
+
+.card_mapa .smooth_info,
+.card_mapa .smooth_info p {
+  color: var(--white);
+  opacity: 0.9;
+}
+
+.big_txt {
+  color: var(--foreground);
+  font-weight: 700;
+  font-size: 5rem;
 }

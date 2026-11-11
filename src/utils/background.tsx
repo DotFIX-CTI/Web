@@ -1,13 +1,32 @@
 interface BackgroundProps {
   className?: string;
   opacity?: number;
+  error?: boolean;
 }
 
 export default function Background({
   className,
   opacity = 0.2,
+  error,
 }: BackgroundProps) {
-  return (
+  return error ? (
+    <img
+      src="/img/404.png"
+      width={1920}
+      height={1080}
+      alt="Erro 404"
+      style={{
+        position: "absolute",
+        top: 0,
+        right: 0,
+        width: "100%",
+        height: "100%",
+        objectFit: "contain",
+        pointerEvents: "none",
+        zIndex: -1,
+      }}
+    />
+  ) : (
     <svg
       style={{
         position: "absolute",
