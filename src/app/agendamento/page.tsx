@@ -40,7 +40,6 @@ export default function Agendamento() {
                 placeholder="Gustavo"
                 icon="user"
                 required
-                error
                 errorMessage="Nome obrigatório"
               />
               <Input label="Email" placeholder="email@email.com" icon="email" />

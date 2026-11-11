@@ -17,6 +17,7 @@ type BaseProps = {
   className?: string;
   noText?: boolean;
   reverse?: boolean;
+  fullWidth?: boolean;
 };
 
 // Botão Comum
@@ -42,12 +43,13 @@ export default function Button(props: ButtonProps) {
     className = "",
     noText,
     reverse,
+    fullWidth,
     ...rest
   } = props;
   const variantClass = style[variant] || style.default;
 
   const customStyle: CSSProperties = {
-    width: noText ? 40 : 160,
+    ...(fullWidth ? { width: "100%" } : { width: noText ? 40 : 160 }),
     ...(reverse && { flexDirection: "row-reverse" }),
   };
 

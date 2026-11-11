@@ -13,13 +13,14 @@ import style from "./input.module.css";
 interface BaseInputProps {
   icon?: IconName;
   label: string;
-  placeholder: string;
+  placeholder?: string;
   error?: boolean;
   errorMessage?: string;
   textarea?: boolean;
   required?: boolean;
   maxLength?: number;
   password?: boolean;
+  code?: boolean;
   value?: string | number | readonly string[];
   defaultValue?: string | number | readonly string[];
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -27,7 +28,7 @@ interface BaseInputProps {
 
 export default function Input({
   icon,
-  placeholder,
+  placeholder = "",
   label,
   textarea,
   error,
@@ -35,6 +36,7 @@ export default function Input({
   required,
   maxLength = 255,
   password,
+  code,
   value,
   defaultValue,
   onChange,
@@ -58,16 +60,39 @@ export default function Input({
     onChange?.(e);
   };
 
-  return (
-    <div className={`container ${error && "error"}`}>
+  return code ? (
+    <div className={`container ${error ? "error" : ""}`}>
+      <label htmlFor={label} className="label">
+        {label} {required && "*"}
+      </label>
+      <div className={style.code}>
+        {Array.from({ length: 6 }).map((_, index) => (
+          <input
+            key={index}
+            id={`${label}-${index}`}
+            maxLength={1}
+            onChange={handleChange}
+            style={{textAlign: "center"}}
+            {...(required && { required })}
+            {...(props as InputHTMLAttributes<HTMLInputElement>)}
+          />
+        ))}
+      </div>
+      {error && errorMessage && (
+        <span className="input_mensagem">{errorMessage}</span>
+      )}
+    </div>
+  ) : (
+    <div className={`container ${error ? style.error : ""}`.trim()}>
       <label htmlFor={label} className="label">
         {label} {required && "*"}
       </label>
 
       <div
         className={`
-          ${textarea ? style.textarea : style.input}
-        `}
+          ${textarea ? style.textarea : style.input} 
+          ${!textarea && !icon && !password ? style.noIcon : ""}
+        `.trim()}
       >
         {textarea ? (
           <textarea
@@ -88,12 +113,14 @@ export default function Input({
               value={value}
               defaultValue={defaultValue}
               onChange={handleChange}
-              style={password ? {paddingRight: 40} : {paddingRight: 4}}
+              style={password ? { paddingRight: 40 } : { paddingRight: 4 }}
               {...(required && { required })}
               {...(props as InputHTMLAttributes<HTMLInputElement>)}
             />
             {icon && <Icon name={icon} size={20} className="icon" />}
-            {password && <Icon name="eye" size={20} className={`${style.password}`} />}
+            {password && (
+              <Icon name="eye" size={20} className={style.password} />
+            )}
           </>
         )}
       </div>
@@ -105,7 +132,7 @@ export default function Input({
           <span />
         )}
 
-        {maxLength && (
+        {maxLength && !textarea && (
           <span
             className={style.counter}
             style={{
