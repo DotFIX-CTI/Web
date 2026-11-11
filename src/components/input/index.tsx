@@ -7,6 +7,8 @@ import {
   useState,
   useEffect,
   ChangeEvent,
+  KeyboardEvent,
+  useRef,
 } from "react";
 import style from "./input.module.css";
 
@@ -47,6 +49,8 @@ export default function Input({
     return String(initialValue).length;
   });
 
+  const codeInputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
   useEffect(() => {
     if (value !== undefined) {
       setCurrentLength(String(value).length);
@@ -60,6 +64,31 @@ export default function Input({
     onChange?.(e);
   };
 
+  const handleCodeChange = (
+    e: ChangeEvent<HTMLInputElement>,
+    index: number,
+  ) => {
+    const val = e.target.value;
+    const char = val.slice(-1);
+    e.target.value = char;
+
+    setCurrentLength(e.target.value.length);
+    onChange?.(e);
+
+    if (char && index < 5) {
+      codeInputRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleCodeKeyDown = (
+    e: KeyboardEvent<HTMLInputElement>,
+    index: number,
+  ) => {
+    if (e.key === "Backspace" && !e.currentTarget.value && index > 0) {
+      codeInputRefs.current[index - 1]?.focus();
+    }
+  };
+
   return code ? (
     <div className={`container ${error ? "error" : ""}`}>
       <label htmlFor={label} className="label">
@@ -69,10 +98,14 @@ export default function Input({
         {Array.from({ length: 6 }).map((_, index) => (
           <input
             key={index}
+            ref={(el) => {
+              codeInputRefs.current[index] = el;
+            }}
             id={`${label}-${index}`}
             maxLength={1}
-            onChange={handleChange}
-            style={{textAlign: "center"}}
+            onChange={(e) => handleCodeChange(e, index)}
+            onKeyDown={(e) => handleCodeKeyDown(e, index)}
+            style={{ textAlign: "center" }}
             {...(required && { required })}
             {...(props as InputHTMLAttributes<HTMLInputElement>)}
           />
