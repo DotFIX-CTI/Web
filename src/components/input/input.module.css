@@ -73,3 +73,13 @@
   white-space: nowrap;
   margin-left: auto;
 }
+
+.password {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 10px;
+  pointer-events: none;
+  transition: 0.1s ease-in-out;
+  opacity: 0.5;
+}

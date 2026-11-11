@@ -19,6 +19,7 @@ interface BaseInputProps {
   textarea?: boolean;
   required?: boolean;
   maxLength?: number;
+  password?: boolean;
   value?: string | number | readonly string[];
   defaultValue?: string | number | readonly string[];
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -33,6 +34,7 @@ export default function Input({
   errorMessage,
   required,
   maxLength = 255,
+  password,
   value,
   defaultValue,
   onChange,
@@ -86,10 +88,12 @@ export default function Input({
               value={value}
               defaultValue={defaultValue}
               onChange={handleChange}
+              style={password ? {paddingRight: 40} : {paddingRight: 4}}
               {...(required && { required })}
               {...(props as InputHTMLAttributes<HTMLInputElement>)}
             />
             {icon && <Icon name={icon} size={20} className="icon" />}
+            {password && <Icon name="eye" size={20} className={`${style.password}`} />}
           </>
         )}
       </div>
