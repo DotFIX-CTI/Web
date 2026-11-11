@@ -206,6 +206,9 @@ export default function Agendamento() {
               ))}
             </div>
           </div>
+          <Button icon="save" className="end" link="/detalheAgendamento">
+            Salvar
+          </Button>
         </article>
       </section>
     </Main>
