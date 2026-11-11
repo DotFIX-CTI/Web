@@ -10,8 +10,21 @@
   outline: none;
   resize: none;
   transition:
-    color 0.1s ease-in-out,
-    border 0.1s ease-in-out;
+  color 0.1s ease-in-out,
+  border 0.1s ease-in-out;
+}
+
+.code {
+  display: flex;
+  justify-content: space-between;
+}
+
+.code input {
+  width: 16%;
+  aspect-ratio: 1/1;
+  border-radius: 12px;
+  border: 2px solid var(--off);
+  background-color: var(--white);
 }
 
 .input {

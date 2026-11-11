@@ -21,11 +21,18 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
+  const logado = true;
+
   return (
     <html lang="pt-br" className={`${minhaFonte.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <Header />
-        <Menubar />
+        {logado && (
+          <>
+            <Header />
+            <Menubar />
+          </>
+        )}
+
         {children}
       </body>
     </html>

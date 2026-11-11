@@ -6,7 +6,7 @@ import Button from "../button";
 export default function Header() {
   return (
     <header className={`${style.header}`}>
-      <Logo height={"60%"} />
+      <Logo height={"60%"} color="var(--white)"/>
       <div className="flex gap-12">
         <div className="flex gap-2">
           <Icon name="user" size={32} />
