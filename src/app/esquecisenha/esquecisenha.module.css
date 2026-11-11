@@ -1,24 +1,18 @@
+.conteudo_pagina{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    width: auto;
+    width: 30%;
+}
+
+.logogay{
+    margin-bottom: 25px;
+}
+
 .button_voltar{
-    display: flex;
-    flex-direction: row;
-    color: #003F97;
-    background: none;
-    border: 2px solid #003F97;
-    border-radius: 10px;
-    height: 40px;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
+    width: 45%;
+    align-self: flex-start;
 }
 
-.button_voltar h4{
-    color: #003F97;
-}
-
-.button_voltar a{
-    display: flex;
-    flex-direction: row;
-    gap: 5px;
-    align-items: center;
-    width: 100%;
-}

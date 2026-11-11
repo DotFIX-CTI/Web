@@ -1,19 +1,21 @@
 import Icon from "@/utils/icon";
 import style from "./validarEmail.module.css"
+import Input from "@/components/input";
+import Button from "@/components/button";
 
 export default function ValidarEmail(){
     return(
-        <div className="card">
-            <h1>Esqueci minha senha</h1>
-            <p>Informe seu email corporativo para receber um código de recuperação</p>
-
-            <div className={`${style.campo_form}`}>
-                <label>Email do Colaborador</label>
-                <div className={`${style.container_input}`}>
-                    <Icon name="email" className={`${style.icon_input}`}/>
-                    <input type="text" placeholder="********"/>
-                </div>
+        <div className={`card ${style.card_page}`}>
+            <div className={`${style.div_texts}`}>
+                <h2>Esqueci minha senha</h2>
+                <p>Informe seu email corporativo para receber um código de recuperação</p>
             </div>
+
+            <Input icon="email" placeholder="email@gmail.com" label="Email do Colaborador"/>
+            
+            <Button icon="right">
+                Enviar código
+            </Button>
         </div>
     );
 }

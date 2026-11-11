@@ -3,6 +3,7 @@ import style from "./login.module.css"
 import Logo from "@/utils/logo";
 import Icon from "@/utils/icon";
 import Input from "@/components/input";
+import Button from "@/components/button";
 
 export default function login(){
     return(
@@ -21,28 +22,25 @@ export default function login(){
                     <form action="" className={`${style.form}`}>
                         <div className={`${style.div_inputs}`}>
                             <div className={`${style.campo_form}`}>
-
-                                <label>Email do Colaborador</label>
-                                <div className={`${style.container_input}`}>
-                                  <Icon name="email" className={`${style.icon_input}`}/>
-                                  <input type="text" placeholder="********"/>
-                                </div>
-
+                                <Input 
+                                icon="email"
+                                label="E-mail"
+                                placeholder="email@email.com"
+                                />
                             </div>
                             <div className={`${style.campo_form}`}>
-
                                 <Input
                                 icon="password"
                                 label="Senha"
-                                placeholder="Digite sua senha" />
+                                placeholder="*******" 
+                                password
+                                />
                                 <a href="/esquecisenha">Esqueci minha senha</a>
                             </div>
                         </div>
-                        <button className={`${style.botao_entrar}`}>
-                          <Icon name="team"/>
-                                <img src="/Vector.svg" alt="" className="icon-entrar"/> 
-                                <h3 className={`${style.text_button}`}>Entrar</h3>
-                        </button>
+                        <Button icon="user" >
+                            Entrar
+                        </Button>
                     </form>
                 </div>
             </section>

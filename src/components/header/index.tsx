@@ -15,7 +15,7 @@ export default function Header() {
             <p className={`${style.email}`}>Gustaz@email.com</p>
           </div>
         </div>
-        <Button variant="logout" icon="logout">
+        <Button variant="logout" icon="logout" link="/login">
           Sair
         </Button>
       </div>

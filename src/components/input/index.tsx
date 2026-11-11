@@ -20,6 +20,7 @@ interface BaseInputProps {
   required?: boolean;
   maxLength?: number;
   password?: boolean;
+  code?: boolean;
   value?: string | number | readonly string[];
   defaultValue?: string | number | readonly string[];
   onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
@@ -35,6 +36,7 @@ export default function Input({
   required,
   maxLength = 255,
   password,
+  code,
   value,
   defaultValue,
   onChange,
