@@ -70,3 +70,7 @@
 .btnRotated svg {
   transform: rotate(180deg);
 }
+
+.sugestao {
+  height: 100%;
+}

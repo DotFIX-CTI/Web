@@ -7,6 +7,7 @@ import Button from "@/components/button";
 import Input from "@/components/input";
 import { Estados } from "@/utils/estados";
 import { useState } from "react";
+import CardSugestao from "@/components/cardSugestao";
 
 const opcoesEstados: Option[] = Object.entries(Estados).map(
   ([sigla, nome]) => ({
@@ -145,11 +146,30 @@ export default function Agendamento() {
         </article>
 
         <article
-          className={`card gap-12 ${style.parte2} ${!fase && style.display}`}
+          className={`card gap-6 ${style.parte2} ${!fase && style.display}`}
         >
           <div>
             <h2>3ª Etapa - Equipe & Local</h2>
             <hr />
+          </div>
+          <div className={`grid2 gap-2 ${style.sugestao}`}>
+            <div>
+              <Select
+                label="Equipe"
+                placeholder="Selecione a equipe"
+                options={opcoesEstados}
+                required
+                errorMessage="Equipe obrigatório"
+              />
+            </div>
+            <div className="flex_c between">
+              <CardSugestao />
+              <CardSugestao />
+              <CardSugestao />
+              <CardSugestao />
+              <CardSugestao />
+              <CardSugestao />
+            </div>
           </div>
         </article>
       </section>

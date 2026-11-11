@@ -277,6 +277,17 @@ textarea:focus {
   flex-direction: column;
 }
 
+.card_small {
+  position: relative;
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  padding: 20px 12px;
+  display: flex;
+  border-radius: 24px;
+  flex-direction: column;
+}
+
 .card_mapa {
   position: relative;
   box-shadow: var(--shadow);
