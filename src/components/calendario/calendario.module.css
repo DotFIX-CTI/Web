@@ -17,9 +17,12 @@
   background-color: var(--primary);
   color: var(--white);
   border-radius: 48px;
+  cursor: pointer;
+  border: none;
   transition:
     background 0.15s ease-in-out,
     transform 0.15s ease-in-out;
+
   &:hover {
     background-color: var(--primary-surface);
   }
@@ -32,12 +35,18 @@
   }
 }
 
+/* Garante que o SVG do ícone se adapte perfeitamente sem quebrar o layout */
+.botao svg {
+  max-width: 100%;
+  height: auto;
+}
+
 .left {
   &:hover {
-    transform: translateX(4px);
+    transform: translateX(-4px);
   }
   &:active {
-    transform: translateX(12px);
+    transform: translateX(-8px);
   }
   svg {
     transform: translate(-2px);
@@ -46,10 +55,10 @@
 
 .right {
   &:hover {
-    transform: translateX(-4px);
+    transform: translateX(4px);
   }
   &:active {
-    transform: translateX(-12px);
+    transform: translateX(8px);
   }
   svg {
     transform: translate(2px);
@@ -61,12 +70,14 @@
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
+
   h2 {
     width: 100%;
     text-align: center;
     color: var(--white);
     padding: 12px 0;
     background-color: var(--primary);
+    font-size: 1rem;
   }
 }
 
@@ -83,12 +94,73 @@
 
 .dia {
   height: 100%;
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
+  border: none;
+  background: transparent;
+  cursor: pointer;
   border-top: 2px solid color-mix(in srgb, var(--off) 50%, transparent 100%);
+
+  &:disabled {
+    cursor: default;
+  }
 }
 
 .outroMes {
   color: color-mix(in srgb, var(--off) 75%, transparent 100%);
+}
+
+.tituloCompacto {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/* --- RESPONSIVIDADE (Telas menores) --- */
+@media (max-width: 768px) {
+  .calendario {
+    border-radius: 16px;
+  }
+
+  .semana h2 {
+    font-size: 0.8rem;
+    padding: 8px 0;
+  }
+
+  .botao {
+    padding: 8px;
+    border-radius: 32px;
+  }
+
+  .dia h4 {
+    font-size: 0.85rem;
+  }
+}
+
+/* --- MODO COMPACTO (Forçado via prop) --- */
+.compact {
+  min-width: 100%;
+  margin: 0 auto;
+
+  h3 {
+    font-size: 1rem;
+  }
+
+  .semana h2 {
+    padding: 6px 0;
+    font-size: 0.75rem;
+  }
+
+  .dia {
+    height: 48px;
+  }
+
+  .dia h4 {
+    font-size: 0.75rem;
+  }
+
+  .botao {
+    padding: 6px;
+  }
 }

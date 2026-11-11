@@ -8,6 +8,8 @@ import Input from "@/components/input";
 import { Estados } from "@/utils/estados";
 import { useState } from "react";
 import CardSugestao from "@/components/cardSugestao";
+import Image from "next/image";
+import Calendario from "@/components/calendario";
 
 const opcoesEstados: Option[] = Object.entries(Estados).map(
   ([sigla, nome]) => ({
@@ -25,107 +27,113 @@ export default function Agendamento() {
 
   return (
     <Main>
-      <section className="flex">
+      <section className="flex max_height">
         <article
-          className={`card gap-8 ${style.parte1} ${fase ? style.after : style.before}`}
+          className={`card gap-8 between ${style.parte1} ${fase ? style.after : style.before}`}
         >
-          <div className="flex_c gap-2">
-            <div>
-              <h2>1ª Etapa - Cliente</h2>
-              <hr />
-            </div>
-            <div className={`${style.grid_etapa1}`}>
-              <Input
-                label="Nome do Cliente"
-                placeholder="Gustavo"
-                icon="user"
-                required
-                errorMessage="Nome obrigatório"
-              />
-              <Input label="Email" placeholder="email@email.com" icon="email" />
-              <Input
-                label="Telefone"
-                placeholder="(11) 11111-1111"
-                icon="whatsapp"
-              />
-            </div>
-          </div>
-          <div className="flex_c gap-2">
-            <div>
-              <h2>2ª Etapa - Problema & Local</h2>
-              <hr />
-            </div>
-            <div className={`${style.grid_etapa2}`}>
-              <div className="flex_c gap-4">
+          <div className="flex_c gap-8">
+            <div className="flex_c gap-2">
+              <div>
+                <h2>1ª Etapa - Cliente</h2>
+                <hr />
+              </div>
+              <div className={`${style.grid_etapa1}`}>
                 <Input
-                  label="Nome do Serviço"
-                  placeholder="Serviço de..."
-                  icon="service"
+                  label="Nome do Cliente"
+                  placeholder="Gustavo"
+                  icon="user"
                   required
-                  errorMessage="Nome do Serviço obrigatório"
+                  errorMessage="Nome obrigatório"
                 />
                 <Input
-                  label="Descrição"
-                  placeholder="Descrição do problema..."
-                  textarea
+                  label="Email"
+                  placeholder="email@email.com"
+                  icon="email"
                 />
-                <Select
-                  label="Estado"
-                  placeholder="Selecione o estado"
-                  options={opcoesEstados}
-                  required
-                  errorMessage="Estado obrigatório"
+                <Input
+                  label="Telefone"
+                  placeholder="(11) 11111-1111"
+                  icon="whatsapp"
                 />
               </div>
-              <div className="flex_c between">
-                <div className={`${style.grid_etapa2_1}`}>
-                  <Input label="CEP" placeholder="11111-111" icon="local" />
-                  <div className="small_txt">
-                    <p>Observação:</p>
-                    <span>
-                      Colocar o CEP do local vai preencher os campos de
-                      Rua/Logradouro, Bairro, Cidade, Estado e Número
-                    </span>
+            </div>
+            <div className="flex_c gap-2">
+              <div>
+                <h2>2ª Etapa - Problema & Local</h2>
+                <hr />
+              </div>
+              <div className={`${style.grid_etapa2}`}>
+                <div className="flex_c gap-4">
+                  <Input
+                    label="Nome do Serviço"
+                    placeholder="Serviço de..."
+                    icon="service"
+                    required
+                    errorMessage="Nome do Serviço obrigatório"
+                  />
+                  <Input
+                    label="Descrição"
+                    placeholder="Descrição do problema..."
+                    textarea
+                  />
+                  <Select
+                    label="Estado"
+                    placeholder="Selecione o estado"
+                    options={opcoesEstados}
+                    required
+                    errorMessage="Estado obrigatório"
+                  />
+                </div>
+                <div className="flex_c between">
+                  <div className={`${style.grid_etapa2_1}`}>
+                    <Input label="CEP" placeholder="11111-111" icon="local" />
+                    <div className="small_txt">
+                      <p>Observação:</p>
+                      <span>
+                        Colocar o CEP do local vai preencher os campos de
+                        Rua/Logradouro, Bairro, Cidade, Estado e Número
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <Input
-                  label="Rua / Logradouro"
-                  placeholder="Rua..."
-                  icon="street"
-                  required
-                  errorMessage="Rua obrigatório"
-                />
-                <div className={`${style.grid_etapa2_1}`}>
                   <Input
-                    label="Bairro"
-                    placeholder="Bairro..."
-                    icon="map"
+                    label="Rua / Logradouro"
+                    placeholder="Rua..."
+                    icon="street"
                     required
-                    errorMessage="Bairro obrigatório"
+                    errorMessage="Rua obrigatório"
                   />
-                  <Input
-                    label="Cidade"
-                    placeholder="Cidade..."
-                    icon="city"
-                    required
-                    errorMessage="Cidade obrigatório"
-                  />
-                </div>
-                <div className={`${style.grid_etapa2_2}`}>
-                  <Input
-                    label="Complemento"
-                    placeholder="Complemento..."
-                    icon="complement"
-                    required
-                    errorMessage="Complemento obrigatório"
-                  />
-                  <Input
-                    label="Número"
-                    placeholder="1111"
-                    icon="number"
-                    required
-                    errorMessage="Número obrigatório"
-                  />
+                  <div className={`${style.grid_etapa2_1}`}>
+                    <Input
+                      label="Bairro"
+                      placeholder="Bairro..."
+                      icon="map"
+                      required
+                      errorMessage="Bairro obrigatório"
+                    />
+                    <Input
+                      label="Cidade"
+                      placeholder="Cidade..."
+                      icon="city"
+                      required
+                      errorMessage="Cidade obrigatório"
+                    />
+                  </div>
+                  <div className={`${style.grid_etapa2_2}`}>
+                    <Input
+                      label="Complemento"
+                      placeholder="Complemento..."
+                      icon="complement"
+                      required
+                      errorMessage="Complemento obrigatório"
+                    />
+                    <Input
+                      label="Número"
+                      placeholder="1111"
+                      icon="number"
+                      required
+                      errorMessage="Número obrigatório"
+                    />
+                  </div>
                 </div>
               </div>
             </div>
@@ -151,23 +159,51 @@ export default function Agendamento() {
             <h2>3ª Etapa - Equipe & Local</h2>
             <hr />
           </div>
-          <div className={`grid2 gap-2 ${style.sugestao}`}>
-            <div>
-              <Select
-                label="Equipe"
-                placeholder="Selecione a equipe"
-                options={opcoesEstados}
-                required
-                errorMessage="Equipe obrigatório"
-              />
+          <div className={`grid2 gap-8 ${style.sugestao}`}>
+            <div className="flex_c between gap-8">
+              <div>
+                <Select
+                  label="Equipe"
+                  placeholder="Selecione a equipe"
+                  options={opcoesEstados}
+                  required
+                  errorMessage="Equipe obrigatório"
+                />
+                <div className={`flex_c gap-4`}>
+                  <div className="flex gap-2">
+                    <Image
+                      src="/img/user.png"
+                      width={32}
+                      height={32}
+                      alt="Picture of the author"
+                      className="user"
+                    />
+                    <div>
+                      <h5>Arthur Sales</h5>
+                      <p>arthur@gmail.com</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-2">
+                    <Image
+                      src="/img/user.png"
+                      width={32}
+                      height={32}
+                      alt="Picture of the author"
+                      className="user"
+                    />
+                    <div>
+                      <h5>Diego Castro</h5>
+                      <p>diego@gmail.com</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <Calendario compact />
             </div>
             <div className="flex_c between">
-              <CardSugestao />
-              <CardSugestao />
-              <CardSugestao />
-              <CardSugestao />
-              <CardSugestao />
-              <CardSugestao />
+              {Array.from({ length: 6 }).map((_, index) => (
+                <CardSugestao key={index} />
+              ))}
             </div>
           </div>
         </article>

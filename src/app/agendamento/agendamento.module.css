@@ -23,6 +23,13 @@
   grid-template-columns: 2fr 1fr;
 }
 
+.botoes {
+  position: absolute;
+  left: 24px;
+  right: 24px;
+  bottom: 24px;
+}
+
 .parte1 {
   width: 840px;
   z-index: 2;
