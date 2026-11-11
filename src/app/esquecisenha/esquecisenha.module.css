@@ -1,0 +1,18 @@
+.conteudo_pagina{
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    align-items: center;
+    width: auto;
+    width: 30%;
+}
+
+.logogay{
+    margin-bottom: 25px;
+}
+
+.button_voltar{
+    width: 45%;
+    align-self: flex-start;
+}
+

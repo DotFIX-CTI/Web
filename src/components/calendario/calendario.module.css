@@ -75,9 +75,9 @@
     width: 100%;
     text-align: center;
     color: var(--white);
-    padding: 12px 0;
+    padding: 24px 0;
     background-color: var(--primary);
-    font-size: 1rem;
+    font-size: 1.5rem;
   }
 }
 
@@ -117,28 +117,16 @@
   font-weight: bold;
 }
 
-/* --- RESPONSIVIDADE (Telas menores) --- */
-@media (max-width: 768px) {
+@media (max-width: 1366px) {
   .calendario {
     border-radius: 16px;
   }
 
-  .semana h2 {
-    font-size: 0.8rem;
-    padding: 8px 0;
-  }
-
   .botao {
-    padding: 8px;
-    border-radius: 32px;
-  }
-
-  .dia h4 {
-    font-size: 0.85rem;
+    scale: 0.75;
   }
 }
 
-/* --- MODO COMPACTO (Forçado via prop) --- */
 .compact {
   min-width: 100%;
   margin: 0 auto;
@@ -148,16 +136,16 @@
   }
 
   .semana h2 {
-    padding: 6px 0;
-    font-size: 0.75rem;
+    padding: 12px 0;
+    font-size: 1rem;
   }
 
   .dia {
-    height: 48px;
+    height: 40px;
   }
 
   .dia h4 {
-    font-size: 0.75rem;
+    font-size: 0.9rem;
   }
 
   .botao {

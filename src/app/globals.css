@@ -37,8 +37,15 @@
 }
 
 /*? ◤============================ */
-/*?   2. RESET E ELEMENTOS BASE    */
+/*?   2. RESET E ELEMENTOS BASE   */
 /*? ◣============================ */
+
+/* Ajuste do tamanho base do REM responsivo no HTML */
+html {
+  font-size: 100%; /* 16px padrão em telas grandes */
+  scroll-behavior: smooth;
+}
+
 * {
   padding: 0;
   margin: 0;
@@ -251,7 +258,7 @@ textarea:focus {
 }
 
 .max_width {
-  max-width: 1280px;
+  max-width: 1600px;
 }
 
 .max_height {
@@ -397,5 +404,36 @@ textarea:focus {
 .big_txt {
   color: var(--foreground);
   font-weight: 700;
-  font-size: 5rem;
+  font-size: 3rem;
+}
+
+/*? ◤===================◥ */
+/*?   8. RESPONSIVIDADE    */
+/*? ◣===================◢ */
+@media (max-width: 1680px) {
+  .max_width {
+    max-width: 1280px;
+  }
+}
+
+@media (max-width: 1366px) {
+  html {
+    font-size: 85%;
+  }
+  .max_width {
+    max-width: 1080px;
+  }
+}
+
+@media (max-height: 800px) {
+  :root {
+    --spacing: 0.2rem;
+  }
+  html {
+    font-size: 85%;
+  }
+  .max_height {
+    height: 640px;
+    max-height: 640px;
+  }
 }
