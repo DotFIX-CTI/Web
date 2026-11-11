@@ -258,11 +258,12 @@ textarea:focus {
 }
 
 .max_width {
+  width: 100%;
   max-width: 1600px;
 }
 
 .max_height {
-  height: 720px;
+  height: 100%;
   max-height: 720px;
 }
 
