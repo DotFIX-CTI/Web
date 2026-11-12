@@ -35,7 +35,6 @@
   }
 }
 
-/* Garante que o SVG do ícone se adapte perfeitamente sem quebrar o layout */
 .botao svg {
   max-width: 100%;
   height: auto;
@@ -95,6 +94,7 @@
 .dia {
   height: 100%;
   width: 100%;
+  min-height: 48px;
   display: flex;
   align-items: center;
   justify-content: center;

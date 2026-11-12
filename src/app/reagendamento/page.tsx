@@ -9,7 +9,7 @@ export default function Reagendamento() {
   return (
     <Main>
       <section className="grid2 gap-12 max_width">
-        <article className={`card between ${Props.cancelado}`}>
+        <article className={`card between gap-6 ${Props.cancelado}`}>
           <div className="flex_c gap-1">
             <h1 className="upper">Link dedicado 10gbps</h1>
             <h4>03/03/2026</h4>
@@ -67,15 +67,9 @@ export default function Reagendamento() {
         <article className={`card_scroll max_height`}>
           <Pesquisa />
           <div className="flex_c scroll gap-6">
-            <CardReagendamento />
-            <CardReagendamento />
-            <CardReagendamento />
-            <CardReagendamento />
-            <CardReagendamento />
-            <CardReagendamento />
-            <CardReagendamento />
-            <CardReagendamento />
-            <CardReagendamento />
+            {Array.from({ length: 6 }).map((_, index) => (
+              <CardReagendamento key={index} />
+            ))}
           </div>
         </article>
       </section>

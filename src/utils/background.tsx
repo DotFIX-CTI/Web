@@ -21,7 +21,7 @@ export default function Background({
         right: 0,
         width: "100%",
         height: "100%",
-        objectFit: "contain",
+        objectFit: "cover",
         pointerEvents: "none",
         zIndex: -1,
       }}

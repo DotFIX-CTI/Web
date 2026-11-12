@@ -27,7 +27,7 @@ export default function Agendamento() {
 
   return (
     <Main>
-      <section className="flex max_height">
+      <section className={`flex max_height ${style.containerEtapas}`}>
         <article
           className={`card gap-8 between ${style.parte1} ${fase ? style.after : style.before}`}
         >
@@ -153,14 +153,14 @@ export default function Agendamento() {
         </article>
 
         <article
-          className={`card gap-6 ${style.parte2} ${!fase && style.display}`}
+          className={`card gap-4 between ${style.parte2} ${!fase && style.display}`}
         >
           <div>
             <h2>3ª Etapa - Equipe & Local</h2>
             <hr />
           </div>
           <div className={`grid2 gap-8 ${style.sugestao}`}>
-            <div className="flex_c between gap-8">
+            <div className="flex_c between gap-4">
               <div>
                 <Select
                   label="Equipe"

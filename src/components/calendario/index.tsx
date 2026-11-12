@@ -11,9 +11,13 @@ import Icon from "@/utils/icon";
 
 interface CalendarioProps {
   compact?: boolean;
+  className?: string;
 }
 
-export default function Calendario({ compact = false }: CalendarioProps) {
+export default function Calendario({
+  compact = false,
+  className,
+}: CalendarioProps) {
   const [dataAtual, setDataAtual] = useState(new Date(2026, 10, 1));
 
   const ano = dataAtual.getFullYear();
@@ -35,7 +39,9 @@ export default function Calendario({ compact = false }: CalendarioProps) {
   const tamanhoIcone = compact ? 24 : 48;
 
   return (
-    <div className={`center_c ${compact ? `gap-4 ${style.compact}` : "gap-12"}`}>
+    <div
+      className={`${className} center_c ${compact ? `gap-4 ${style.compact}` : "gap-12"}`}
+    >
       <div className="center between" style={{ width: "100%" }}>
         <button onClick={voltarMes} className={`${style.botao} ${style.left}`}>
           <Icon name="left" size={tamanhoIcone} />

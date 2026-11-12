@@ -411,7 +411,13 @@ textarea:focus {
 /*? ◤===================◥ */
 /*?   8. RESPONSIVIDADE    */
 /*? ◣===================◢ */
+
+/* Width */
 @media (max-width: 1680px) {
+  section {
+    margin: 2.5% 0;
+  }
+
   .max_width {
     max-width: 1280px;
   }
@@ -426,6 +432,23 @@ textarea:focus {
   }
 }
 
+@media (max-width: 1200px) {
+  :root {
+    --spacing: 0.2rem;
+  }
+
+  main > .grid,
+  .flex_c > .grid,
+  main > .grid2 {
+    grid-template-columns: 1fr;
+  }
+
+  .max_width {
+    max-width: min(640px, 80%);
+  }
+}
+
+/* Height */
 @media (max-height: 800px) {
   :root {
     --spacing: 0.2rem;

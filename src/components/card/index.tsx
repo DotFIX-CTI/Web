@@ -4,8 +4,8 @@ import { Props } from "@/utils/status";
 export default function Card() {
   return (
     <article
-      className={`card flex_c gap-2 ${Props.cancelado}`}
-      style={{ width: 400, height: 320 }}
+      className={`card flex_c gap-2 between ${Props.cancelado}`}
+      style={{ width: 400, minHeight: 240 }}
     >
       <h3 className="upper">Link dedicado 10gbps</h3>
       <p>
@@ -13,7 +13,7 @@ export default function Card() {
         sit amet tellus facilisis consectetur. Proin vel mollis urna. Fusce
         mollis dignissim luctus. Morbi convallis libero vitae venenatis rutrum.
       </p>
-      <div className="flex_c">
+      <div className="flex_c gap-2">
         <h5>Equipe de Redes</h5>
         <div className="center gap-1 smooth_info">
           <Icon name="local" size={24} />

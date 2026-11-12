@@ -1,4 +1,5 @@
 .visualizacao {
+  margin: 0;
   height: 92.5vh;
   width: 100%;
   display: flex;

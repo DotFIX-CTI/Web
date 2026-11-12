@@ -8,11 +8,11 @@ import Icon from "@/utils/icon";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function DetallheEquipe() {
+export default function DetalheEquipe() {
   return (
     <Main>
-      <section className="flex_c gap-12">
-        <div className="grid gap-12 max_width">
+      <section className="flex_c gap-12 max_width">
+        <div className="grid gap-12">
           <article className="card gap-4">
             <div className="center gap-4">
               <Image
@@ -58,13 +58,11 @@ export default function DetallheEquipe() {
           </article>
           <CardMapa />
         </div>
-        <article className="card_scroll_h max_width">
+        <article className="card_scroll_h">
           <div className="scroll_h gap-8">
-            <CardLog />
-            <CardLog />
-            <CardLog />
-            <CardLog />
-            <CardLog />
+            {Array.from({ length: 6 }).map((_, index) => (
+              <CardLog key={index} />
+            ))}
           </div>
         </article>
       </section>

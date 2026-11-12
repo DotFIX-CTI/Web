@@ -1,6 +1,6 @@
 .menubar {
   background: var(--primary);
-  position: absolute;
+  position: fixed;
   top: 37.5vh;
   left: 0;
   border-radius: 0 20px 20px 0;

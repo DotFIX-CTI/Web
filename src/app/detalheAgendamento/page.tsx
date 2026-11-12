@@ -10,7 +10,7 @@ export default function DetalheAgendamento() {
   return (
     <Main>
       <section className="grid gap-12 max_width">
-        <div className="flex_c gap-6 max_height">
+        <div className="flex_c gap-12 max_height">
           <article className={`card between gap-4 ${Props.cancelado}`}>
             <div className="flex_c gap-4">
               <div className="flex_c">

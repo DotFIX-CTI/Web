@@ -125,17 +125,9 @@ export default function AdicionarEquipe() {
         <article className={`card_scroll max_height`}>
           <Pesquisa />
           <div className="scroll gap-6">
-            <Integrante />
-            <Integrante />
-            <Integrante />
-            <Integrante />
-            <Integrante />
-            <Integrante />
-            <Integrante />
-            <Integrante />
-            <Integrante />
-            <Integrante />
-            <Integrante />
+            {Array.from({ length: 6 }).map((_, index) => (
+              <Integrante key={index} />
+            ))}
           </div>
         </article>
       </section>

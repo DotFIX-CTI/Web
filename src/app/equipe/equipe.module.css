@@ -1,15 +1,60 @@
-.grid {
+.container {
+  max-height: 92.5vh;
+}
+
+.info {
+  padding: 0 10%;
+  width: 100%;
+}
+
+.grid_equipe {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(1fr, 1fr));
   grid-template-rows: repeat(2, auto);
   grid-auto-flow: column;
   width: 100%;
   overflow-x: auto;
   overflow-y: hidden;
-  padding: 0 80px 24px;
+  padding: 0 72px 24px;
+  margin: 0;
 }
 
-.grid article {
+.grid_equipe article {
   min-width: 480px;
   max-width: 480px;
+}
+
+/*? ◤=================◥ */
+/*?   ▸ RESPONSIVIDADE   */
+/*? ◣=================◢ */
+@media (max-width: 1200px) {
+  .container {
+    padding: 24px 0 0;
+  }
+
+  .grid_equipe {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-flow: row;
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 24px 72px 48px;
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 4%,
+      black 96%,
+      transparent 100%
+    );
+  }
+
+  .grid_equipe article {
+    min-width: 100% !important;
+    max-width: 100% !important;
+    width: 100%;
+  }
+}
+
+@media (max-width: 840px) {
+  .grid_equipe {
+    grid-template-columns: 1fr;
+  }
 }
