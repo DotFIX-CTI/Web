@@ -7,7 +7,7 @@ export default function CardSugestao() {
         <h5>01/03/2026</h5>
         <h5>15:00</h5>
       </div>
-      <p className="end">Equipe de Redes</p>
+      <p className="self-end">Equipe de Redes</p>
     </article>
   );
 }

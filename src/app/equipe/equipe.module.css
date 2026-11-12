@@ -37,13 +37,7 @@
     overflow-x: hidden;
     overflow-y: visible;
     padding: 24px 72px 48px;
-    mask-image: linear-gradient(
-      to bottom,
-      transparent 0%,
-      black 4%,
-      black 96%,
-      transparent 100%
-    );
+    mask-image: linear-gradient(to bottom, transparent 0%, black 5%);
   }
 
   .grid_equipe article {

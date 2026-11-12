@@ -1,10 +1,10 @@
 "use client";
 
 import Main from "@/utils/main";
+import { Props } from "@/utils/status";
 import CardEquipe from "@/components/cardEquipe";
 import CardMapa from "@/components/cardMapa";
 import Button from "@/components/button";
-import { Props } from "@/utils/status";
 
 export default function DetalheAgendamento() {
   return (

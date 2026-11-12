@@ -1,9 +1,9 @@
 "use client";
 
-import CardEquipe from "@/components/cardEquipe";
+import { useRef } from "react";
 import Main from "@/utils/main";
 import style from "./equipe.module.css";
-import { useRef } from "react";
+import CardEquipe from "@/components/cardEquipe";
 import Button from "@/components/button";
 
 export default function Equipes() {
@@ -19,7 +19,7 @@ export default function Equipes() {
   };
 
   return (
-    <Main className={`flex_c ${style.container}`}>
+    <Main className={`flex_c gap-4 ${style.container}`}>
       <div className={`center between ${style.info}`}>
         <h1>Equipes do Sistema</h1>
         <Button icon="add" link="/adicionarEquipe">
@@ -31,7 +31,7 @@ export default function Equipes() {
         ref={scrollRef}
         onWheel={handleWheel}
       >
-        {Array.from({ length: 6 }).map((_, index) => (
+        {Array.from({ length: 9 }).map((_, index) => (
           <CardEquipe key={index} />
         ))}
       </section>

@@ -1,15 +1,15 @@
 "use client";
 
+import { useState } from "react";
 import Main from "@/utils/main";
+import { Estados } from "@/utils/estados";
 import style from "./agendamento.module.css";
 import Select, { Option } from "@/components/select";
+import CardSugestao from "@/components/cardSugestao";
+import Calendario from "@/components/calendario";
 import Button from "@/components/button";
 import Input from "@/components/input";
-import { Estados } from "@/utils/estados";
-import { useState } from "react";
-import CardSugestao from "@/components/cardSugestao";
 import Image from "next/image";
-import Calendario from "@/components/calendario";
 
 const opcoesEstados: Option[] = Object.entries(Estados).map(
   ([sigla, nome]) => ({
@@ -206,7 +206,7 @@ export default function Agendamento() {
               ))}
             </div>
           </div>
-          <Button icon="save" className="end" link="/detalheAgendamento">
+          <Button icon="save" className="self-end" link="/detalheAgendamento">
             Salvar
           </Button>
         </article>

@@ -8,7 +8,7 @@ export default function Header() {
     <header className={`${style.header}`}>
       <Logo height={"60%"} color="var(--white)"/>
       <div className="flex gap-12">
-        <div className="flex gap-2">
+        <div className="center gap-2">
           <Icon name="user" size={32} />
           <div className="flex_c">
             <h4 className={`${style.user}`}>Gustavo Anderson</h4>

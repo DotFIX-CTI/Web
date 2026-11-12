@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Menubar from "@/components/menubar";
 import Header from "@/components/header";
-import Main from "@/utils/main";
 
 const minhaFonte = localFont({
   src: "./fonts/Inter.ttf",
@@ -32,7 +31,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             <Menubar />
           </>
         )}
-
         {children}
       </body>
     </html>

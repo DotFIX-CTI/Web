@@ -50,7 +50,7 @@ export default function Calendario({
           <h1 className={compact ? style.tituloCompacto : "big_txt"}>
             {nomeMes}
           </h1>
-          <h3 className="end">,{ano}</h3>
+          <h3 className="self-end">,{ano}</h3>
         </div>
         <button
           onClick={avancarMes}

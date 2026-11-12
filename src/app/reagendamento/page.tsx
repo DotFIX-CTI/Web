@@ -1,9 +1,9 @@
 import Main from "@/utils/main";
-import Image from "next/image";
 import { Props } from "@/utils/status";
-import Pesquisa from "@/components/pesquisa";
 import CardReagendamento from "@/components/cardReagendamento";
+import Pesquisa from "@/components/pesquisa";
 import Button from "@/components/button";
+import Image from "next/image";
 
 export default function Reagendamento() {
   return (

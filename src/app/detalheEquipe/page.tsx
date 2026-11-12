@@ -1,10 +1,10 @@
 "use client";
 
 import Main from "@/utils/main";
+import Icon from "@/utils/icon";
 import style from "./detalhe.module.css";
 import CardMapa from "@/components/cardMapa";
 import CardLog from "@/components/cardLog";
-import Icon from "@/utils/icon";
 import Image from "next/image";
 import Link from "next/link";
 
