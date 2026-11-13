@@ -31,7 +31,7 @@ export default function Agendamento() {
         <article
           className={`card gap-8 between ${style.parte1} ${fase ? style.after : style.before}`}
         >
-          <div className="flex_c gap-2">
+          <div className="flex_c gap-4">
             <div>
               <h2>1ª Etapa - Cliente</h2>
               <hr />
@@ -52,7 +52,7 @@ export default function Agendamento() {
               />
             </div>
           </div>
-          <div className="flex_c gap-2">
+          <div className="flex_c gap-4">
             <div>
               <h2>2ª Etapa - Problema & Local</h2>
               <hr />
