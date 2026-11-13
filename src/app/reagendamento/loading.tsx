@@ -3,7 +3,7 @@ import Main from "@/utils/main";
 export default function LoadingReagendamento() {
   return (
     <Main>
-      <section className="grid2 gap-12 max_width">
+      <section className="grid gap-12 max_width">
         <article className="card between gap-6">
           <div className="flex_c gap-1">
             <div className="skeleton_text w-3/4 h-8 mb-1" />
