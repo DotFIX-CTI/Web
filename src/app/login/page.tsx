@@ -52,7 +52,7 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                 />
-                <div className="flex_c">
+                <div className="flex_c gap-1">
                   <Input
                     icon="password"
                     label="Senha"
@@ -75,7 +75,6 @@ export default function Login() {
                   </button>
                 </div>
               </div>
-
               <Button icon="login" type="submit" fullWidth loading={loading}>
                 {loading ? "Entrando..." : "Acessar"}
               </Button>
@@ -88,19 +87,16 @@ export default function Login() {
           <article className="card_login gap-4 animate-fade-in flex_c">
             <div>
               <h2>Esqueci minha senha</h2>
-
               <p>
                 Informe seu email corporativo para receber um código de
                 recuperação
               </p>
             </div>
-
             <Input
               icon="email"
               placeholder="email@gmail.com"
               label="Email do Colaborador"
             />
-
             <Button icon="send" onClick={setaFrente} fullWidth>
               Enviar código
             </Button>
