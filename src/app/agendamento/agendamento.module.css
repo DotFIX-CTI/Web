@@ -91,6 +91,20 @@
   height: 100%;
 }
 
+.uf {
+  min-width: 48px;
+  max-width: 48px;
+  min-height: 48px;
+  max-height: 48px;
+  background: var(--primary);
+  border-radius: 12px;
+  p {
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: var(--white);
+  }
+}
+
 /*? ◤=================◥ */
 /*?   ▸ RESPONSIVIDADE   */
 /*? ◣=================◢ */

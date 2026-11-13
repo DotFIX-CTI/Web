@@ -33,11 +33,17 @@ export default function Select({
   placeholder = "Selecione uma opção",
 }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
+  const [isDropUp, setIsDropUp] = useState(false);
   const [selectedOption, setSelectedOption] = useState<Option | undefined>(
     options.find((opt) => opt.value === value),
   );
 
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const found = options.find((opt) => opt.value === value);
+    setSelectedOption(found);
+  }, [value, options]);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -53,6 +59,18 @@ export default function Select({
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleToggle = () => {
+    if (!isOpen && containerRef.current) {
+      const rect = containerRef.current.getBoundingClientRect();
+      const spaceBelow = window.innerHeight - rect.bottom;
+      const dropdownHeight = 200; // Altura máxima estimada da lista (max-height)
+
+      // Se o espaço abaixo for menor que 200px, abre para cima
+      setIsDropUp(spaceBelow < dropdownHeight + 20);
+    }
+    setIsOpen((prev) => !prev);
+  };
 
   const handleSelect = (option: Option) => {
     setSelectedOption(option);
@@ -75,7 +93,7 @@ export default function Select({
         <button
           type="button"
           className={`${style.trigger} ${isOpen ? style.active : ""}`}
-          onClick={() => setIsOpen((prev) => !prev)}
+          onClick={handleToggle}
         >
           {icon && <Icon name={icon} size={20} className={style.leftIcon} />}
 
@@ -93,7 +111,11 @@ export default function Select({
         </button>
 
         {isOpen && (
-          <ul className={style.optionsList}>
+          <ul
+            className={`${style.optionsList} ${
+              isDropUp ? style.dropdownUp : style.dropdownDown
+            }`}
+          >
             {options.map((option) => (
               <li
                 key={option.value}

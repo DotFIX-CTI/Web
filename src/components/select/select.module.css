@@ -61,7 +61,6 @@
 
 .optionsList {
   position: absolute;
-  top: calc(100% + 4px);
   left: 0;
   right: 0;
   z-index: 50;
@@ -72,6 +71,22 @@
   margin: 0;
   max-height: 200px;
   overflow-y: auto;
+}
+
+.dropdownDown {
+  top: calc(100% + 4px);
+}
+
+.dropdownUp {
+  bottom: calc(100% + 4px);
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-bottom: 18px;
 }
 
 .optionItem {
