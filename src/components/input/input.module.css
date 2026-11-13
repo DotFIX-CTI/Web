@@ -10,8 +10,8 @@
   outline: none;
   resize: none;
   transition:
-  color 0.1s ease-in-out,
-  border 0.1s ease-in-out;
+    color 0.1s ease-in-out,
+    border 0.1s ease-in-out;
 }
 
 .code {
@@ -88,11 +88,19 @@
 }
 
 .password {
+  z-index: 10;
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   right: 10px;
-  pointer-events: none;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: 0.1s ease-in-out;
   opacity: 0.5;
+  &:hover {
+    opacity: 1;
+  }
 }

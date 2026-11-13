@@ -17,13 +17,15 @@ interface BaseInputProps extends Omit<
   "onChange" | "value" | "defaultValue"
 > {
   icon?: IconName;
-  label: string;
   placeholder?: string;
+  type?: string;
+  label: string;
   error?: boolean;
   errorMessage?: string;
   textarea?: boolean;
   required?: boolean;
   maxLength?: number;
+  email?: boolean;
   password?: boolean;
   code?: boolean;
   value?: string | number | readonly string[];
@@ -34,12 +36,14 @@ interface BaseInputProps extends Omit<
 export default function Input({
   icon,
   placeholder = "",
+  type = "text",
   label,
   textarea,
   error,
   errorMessage,
   required,
   maxLength = 0,
+  email,
   password,
   code,
   value,
@@ -47,6 +51,8 @@ export default function Input({
   onChange,
   ...props
 }: BaseInputProps) {
+  const [verSenha, setVerSenha] = useState(false);
+
   const [currentLength, setCurrentLength] = useState(() => {
     const initialValue = value ?? defaultValue ?? "";
     return String(initialValue).length;
@@ -146,6 +152,15 @@ export default function Input({
           <>
             <input
               id={label}
+              type={
+                password
+                  ? verSenha
+                    ? "text"
+                    : "password"
+                  : email
+                    ? "email"
+                    : "text"
+              }
               placeholder={placeholder}
               maxLength={maxLength > 0 ? maxLength : undefined}
               value={value}
@@ -157,7 +172,17 @@ export default function Input({
             />
             {icon && <Icon name={icon} size={20} className="icon" />}
             {password && (
-              <Icon name="eye" size={20} className={style.password} />
+              <button
+                type="button"
+                onClick={() => setVerSenha(!verSenha)}
+                className={style.password}
+              >
+                {verSenha ? (
+                  <Icon name="eye" size={20} />
+                ) : (
+                  <Icon name="eyeclosed" size={20} />
+                )}
+              </button>
             )}
           </>
         )}

@@ -19,7 +19,6 @@ export default function Login() {
       <section className="center_c gap-8 relative z-1">
         <Logo height={100} color="var(--primary)" />
 
-        {/* Título dinâmico apenas na tela de login (etapa 0) */}
         {step === 0 && (
           <div className="center_c">
             <h2>Acesse sua conta</h2>
@@ -35,6 +34,7 @@ export default function Login() {
                 <Input
                   icon="email"
                   label="E-mail"
+                  type="email"
                   placeholder="email@email.com"
                 />
                 <div className="flex_c">
