@@ -61,7 +61,7 @@ export function useAuth() {
     secureLocalStorage.removeItem("Token");
     secureLocalStorage.removeItem("Usuario");
     setUsuario(null);
-    router.push("/login");
+    router.push("/");
   }
 
   return { usuario, login, logout, loading, erro };
