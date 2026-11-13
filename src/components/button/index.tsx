@@ -13,11 +13,13 @@ export type ButtonVariant = "default" | "secondary" | "attention" | "logout";
 type BaseProps = {
   children?: ReactNode;
   variant?: ButtonVariant;
-  icon?: IconName;
+  icon: IconName;
   className?: string;
   noText?: boolean;
   reverse?: boolean;
   fullWidth?: boolean;
+  loading?: boolean;
+  disabled?: boolean;
 };
 
 // Botão Comum
@@ -44,8 +46,11 @@ export default function Button(props: ButtonProps) {
     noText,
     reverse,
     fullWidth,
+    loading,
+    disabled,
     ...rest
   } = props;
+
   const variantClass = style[variant] || style.default;
 
   const customStyle: CSSProperties = {
@@ -71,9 +76,14 @@ export default function Button(props: ButtonProps) {
     <button
       className={`${style.button} ${variantClass} ${className}`}
       style={customStyle}
+      disabled={loading || disabled}
       {...(rest as ButtonHTMLAttributes<HTMLButtonElement>)}
     >
-      {icon && <Icon name={icon} size={20} />}
+      <Icon
+        name={loading ? "loading" : icon}
+        size={20}
+        className={loading ? style.loading_btn : ""}
+      />
       {children}
     </button>
   );

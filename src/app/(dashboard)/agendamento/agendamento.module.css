@@ -92,16 +92,16 @@
 }
 
 .uf {
-  min-width: 48px;
-  max-width: 48px;
-  min-height: 48px;
-  max-height: 48px;
-  background: var(--primary);
+  min-width: 40px;
+  max-width: 40px;
+  min-height: 40px;
+  max-height: 40px;
+  background: var(--white);
+  border: 2px solid var(--off);
   border-radius: 12px;
   p {
     font-weight: 600;
-    font-size: 1.2rem;
-    color: var(--white);
+    color: var(--primary);
   }
 }
 

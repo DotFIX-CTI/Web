@@ -205,6 +205,17 @@ textarea {
   }
 }
 
+.error_mensagem {
+  border-radius: 12px;
+  background-color: color-mix(in srgb, var(--error) 10%, transparent 100%);
+  padding: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
 /*? ┌────────────────────────────┐ */
 /*? │ 5. LAYOUTS, FLEXBOX E GRID │ */
 /*? └────────────────────────────┘ */
@@ -515,4 +526,42 @@ textarea {
   pointer-events: none;
   overflow: hidden;
   z-index: 0;
+}
+
+/*? ┌───────────┐ */
+/*? │ 11. TOAST │ */
+/*? └───────────┘ */
+/* Toast de Sucesso */
+.Toastify__toast--success {
+  background-color: color-mix(
+    in srgb,
+    var(--success) 100%,
+    var(--foreground) 50%
+  ) !important;
+  color: var(--white) !important;
+}
+
+/* Toast de Erro */
+.Toastify__toast--error {
+  background-color: color-mix(
+    in srgb,
+    var(--error) 100%,
+    var(--foreground) 50%
+  ) !important;
+  color: var(--white) !important;
+}
+
+/* Barrinha de progresso */
+.Toastify__progress-bar--success,
+.Toastify__progress-bar--error {
+  background: color-mix(in srgb, var(--white) 100%, transparent 50%) !important;
+}
+
+/* Toast */
+.Toastify__toast {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  border-radius: 12px;
 }

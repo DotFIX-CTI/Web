@@ -64,9 +64,7 @@ export default function Select({
     if (!isOpen && containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       const spaceBelow = window.innerHeight - rect.bottom;
-      const dropdownHeight = 200; // Altura máxima estimada da lista (max-height)
-
-      // Se o espaço abaixo for menor que 200px, abre para cima
+      const dropdownHeight = 200;
       setIsDropUp(spaceBelow < dropdownHeight + 20);
     }
     setIsOpen((prev) => !prev);

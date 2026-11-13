@@ -81,25 +81,9 @@ export default function Agendamento() {
                   placeholder="Descrição do problema..."
                   textarea
                 />
-                <div className="center gap-4">
-                  <div className={`center_c ${style.uf}`}>
-                    <p>{endereco.estado || "--"}</p>
-                  </div>
-                  <Select
-                    label="Estado"
-                    placeholder="Selecione o estado"
-                    options={opcoesEstados}
-                    value={endereco.estado}
-                    onChange={(valor: string) =>
-                      handleEnderecoChange("estado", valor)
-                    }
-                    required
-                    errorMessage="Estado obrigatório"
-                  />
-                </div>
               </div>
 
-              <div className="flex_c between">
+              <div className="flex_c gap-4">
                 <div className={`${style.grid_etapa2_1}`}>
                   <Input
                     label="CEP"
@@ -112,13 +96,21 @@ export default function Agendamento() {
                     error={!!erroCep}
                     errorMessage={erroCep}
                   />
-                  <div className="small_txt">
-                    <p>Observação:</p>
-                    <span>
-                      {loadingCep
-                        ? "Buscando endereço pelo CEP..."
-                        : "Colocar o CEP do local vai preencher os campos de Rua/Logradouro, Bairro, Cidade, Estado e Número"}
-                    </span>
+                  <div className="center gap-4">
+                    <div className={`center_c self-end ${style.uf}`}>
+                      <p>{endereco.estado || "--"}</p>
+                    </div>
+                    <Select
+                      label="Estado"
+                      placeholder="Selecione o estado"
+                      options={opcoesEstados}
+                      value={endereco.estado}
+                      onChange={(valor: string) =>
+                        handleEnderecoChange("estado", valor)
+                      }
+                      required
+                      errorMessage="Estado obrigatório"
+                    />
                   </div>
                 </div>
 

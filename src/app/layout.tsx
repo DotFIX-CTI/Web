@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
-import Menubar from "@/components/menubar";
-import Header from "@/components/header";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer } from "react-toastify";
 
 const minhaFonte = localFont({
   src: "./fonts/Inter.ttf",
@@ -19,9 +19,11 @@ export const metadata: Metadata = {
   description: "Sistema de agendamentos de equipes",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
-  const logado = true;
-
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <html
       lang="pt-br"
@@ -29,12 +31,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-scroll-behavior="smooth"
     >
       <body className="min-h-full flex flex-col">
-        {logado && (
-          <>
-            <Header />
-            <Menubar />
-          </>
-        )}
+        <ToastContainer />
         {children}
       </body>
     </html>
