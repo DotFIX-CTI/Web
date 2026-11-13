@@ -18,8 +18,7 @@ export default function Main({
     <main
       style={{
         position: "relative",
-        marginTop: error ? "0" : "7.5vh",
-        minHeight: "92.5vh",
+        minHeight: "100vh",
         height: "auto",
         width: "100%",
         overflowY: "auto",
