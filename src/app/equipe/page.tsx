@@ -19,7 +19,7 @@ export default function Equipes() {
   };
 
   return (
-    <Main className={`flex_c gap-4 ${style.container}`}>
+    <Main className={`flex_c ${style.container}`}>
       <div className={`center between ${style.info}`}>
         <h1>Equipes do Sistema</h1>
         <Button icon="add" link="/adicionarEquipe">

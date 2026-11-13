@@ -3,28 +3,28 @@
   align-items: flex-start;
 }
 
-.grid_etapa1 {
-  gap: 15px;
+.grid_etapa1,
+.grid_etapa2,
+.grid_etapa2_1,
+.grid_etapa2_2 {
+  gap: 16px;
   display: grid;
+}
+
+.grid_etapa1 {
   grid-template-columns: repeat(3, 1fr);
 }
 
 .grid_etapa2 {
-  gap: 15px;
-  display: grid;
   grid-template-columns: 1fr 2fr;
 }
 
 .grid_etapa2_1 {
-  gap: 15px;
-  display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
 }
 
 .grid_etapa2_2 {
-  gap: 15px;
-  display: grid;
   grid-template-columns: 2fr 1fr;
 }
 

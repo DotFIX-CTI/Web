@@ -12,7 +12,10 @@ import {
 } from "react";
 import style from "./input.module.css";
 
-interface BaseInputProps {
+interface BaseInputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement & HTMLTextAreaElement>,
+  "onChange" | "value" | "defaultValue"
+> {
   icon?: IconName;
   label: string;
   placeholder?: string;
@@ -36,7 +39,7 @@ export default function Input({
   error,
   errorMessage,
   required,
-  maxLength = 255,
+  maxLength = 0,
   password,
   code,
   value,
@@ -60,7 +63,10 @@ export default function Input({
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
-    setCurrentLength(e.target.value.length);
+    const val = e.target.value;
+    if (maxLength > 0 && val.length > maxLength) return;
+
+    setCurrentLength(val.length);
     onChange?.(e);
   };
 
@@ -102,7 +108,6 @@ export default function Input({
               codeInputRefs.current[index] = el;
             }}
             id={`${label}-${index}`}
-            maxLength={1}
             onChange={(e) => handleCodeChange(e, index)}
             onKeyDown={(e) => handleCodeKeyDown(e, index)}
             style={{ textAlign: "center", fontSize: "1.2rem", fontWeight: 500 }}
@@ -131,7 +136,7 @@ export default function Input({
           <textarea
             id={label}
             placeholder={placeholder}
-            maxLength={maxLength}
+            maxLength={maxLength > 0 ? maxLength : undefined}
             value={value}
             defaultValue={defaultValue}
             onChange={handleChange}
@@ -142,7 +147,7 @@ export default function Input({
             <input
               id={label}
               placeholder={placeholder}
-              maxLength={maxLength}
+              maxLength={maxLength > 0 ? maxLength : undefined}
               value={value}
               defaultValue={defaultValue}
               onChange={handleChange}
@@ -165,7 +170,7 @@ export default function Input({
           <span />
         )}
 
-        {maxLength && !textarea && (
+        {maxLength > 0 && !textarea && (
           <span
             className={style.counter}
             style={{

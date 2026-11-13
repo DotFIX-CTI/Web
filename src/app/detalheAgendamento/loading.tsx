@@ -3,7 +3,7 @@ import Main from "@/utils/main";
 export default function LoadingDetalheAgendamento() {
   return (
     <Main>
-      <section className="grid gap-12 max_width">
+      <section className="grid3 gap-12 max_width">
         <div className="flex_c gap-12 max_height">
           <article className="card between gap-4">
             <div className="flex_c gap-4">

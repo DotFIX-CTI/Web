@@ -1,5 +1,6 @@
 .container {
   max-height: 92.5vh;
+  gap: 36px;
 }
 
 .info {
@@ -29,6 +30,7 @@
 @media (max-width: 1200px) {
   .container {
     padding: 24px 0 0;
+    gap: 16px;
   }
 
   .grid_equipe {

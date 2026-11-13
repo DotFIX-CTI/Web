@@ -7,6 +7,7 @@ import CardMapa from "@/components/cardMapa";
 import CardLog from "@/components/cardLog";
 import Image from "next/image";
 import Link from "next/link";
+import { Props } from "@/utils/status";
 
 export default function DetalheEquipe() {
   return (
@@ -52,7 +53,10 @@ export default function DetalheEquipe() {
                 </div>
               </div>
             </div>
-            <Link href="/adicionarEquipe" className={`${style.edit}`}>
+            <Link
+              href="/adicionarEquipe"
+              className={`${style.edit} ${Props.cancelado}_bg`}
+            >
               <Icon name="edit" size={36} />
             </Link>
           </article>

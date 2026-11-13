@@ -23,7 +23,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   const logado = true;
 
   return (
-    <html lang="pt-br" className={`${minhaFonte.variable} h-full antialiased`}>
+    <html
+      lang="pt-br"
+      className={`${minhaFonte.variable} h-full antialiased`}
+      data-scroll-behavior="smooth"
+    >
       <body className="min-h-full flex flex-col">
         {logado && (
           <>

@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
-/*? ◤=============================================◥ */
-/*?   1. VARIÁVEIS GLOBAIS E DESIGN SYSTEM (:root)   */
-/*? ◣=============================================◢ */
+/*? ┌──────────────────────────────────────────────┐ */
+/*? │ 1. VARIÁVEIS GLOBAIS E DESIGN SYSTEM (:root) │ */
+/*? └──────────────────────────────────────────────┘ */
 :root {
   --background: hsl(0, 0%, 100%);
   --foreground: hsl(210, 65%, 15%);
@@ -36,13 +36,11 @@
   }
 }
 
-/*? ◤============================ */
-/*?   2. RESET E ELEMENTOS BASE   */
-/*? ◣============================ */
-
+/*? ┌───────────────────────────┐ */
+/*? │ 2. RESET E ELEMENTOS BASE │ */
+/*? └───────────────────────────┘ */
 html {
   font-size: 100%;
-  scroll-behavior: smooth;
 }
 
 * {
@@ -112,74 +110,71 @@ img {
 }
 
 input,
-input:focus,
-textarea,
-textarea:focus {
+textarea {
   outline: none;
 }
 
-/*? ◤=========================================◥ */
-/*?   3. CLASSES DE STATUS (Cards e Elementos)   */
-/*? ◣=========================================◢ */
+/*? ┌──────────────────────────────────────────┐ */
+/*? │ 3. CLASSES DE STATUS (Cards e Elementos) │  */
+/*? └──────────────────────────────────────────┘ */
 .default {
   border-left: 20px solid var(--success);
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--success);
+  }
+  & a {
+    background-color: var(--success);
+  }
 }
-.default h1,
-.default h2,
-.default h3,
-.default h4 {
-  color: var(--success);
-}
-.default a,
 .default_bg {
   background-color: var(--success);
 }
 
 .pendente {
   border-left: 20px solid var(--warning);
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--warning);
+  }
 }
-.pendente h1,
-.pendente h2,
-.pendente h3,
-.pendente h4 {
-  color: var(--warning);
-}
-.pendente a,
 .pendente_bg {
   background-color: var(--warning);
 }
 
 .atrasado {
   border-left: 20px solid var(--error);
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--error);
+  }
 }
-.atrasado h1,
-.atrasado h2,
-.atrasado h3,
-.atrasado h4 {
-  color: var(--error);
-}
-.atrasado a,
 .atrasado_bg {
   background-color: var(--error);
 }
 
 .cancelado {
   border-left: 20px solid var(--cancel);
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--cancel);
+  }
 }
-.cancelado h1,
-.cancelado h2,
-.cancelado h3,
-.cancelado h4 {
-  color: var(--cancel);
-}
-.cancelado a,
 .cancelado_bg {
   background-color: var(--cancel);
 }
 
-/*? ◤==================================◥ */
-/*?   4. FORMULÁRIOS E ESTADOS DE ERRO    */
-/*? ◣==================================◢ */
+/*? ┌──────────────────────────────────┐ */
+/*? │ 4. FORMULÁRIOS E ESTADOS DE ERRO │ */
+/*? └──────────────────────────────────┘ */
 .label {
   color: var(--primary);
   font-weight: 600;
@@ -192,24 +187,27 @@ textarea:focus {
   white-space: nowrap;
 }
 
-.error,
-.error label,
-.error svg {
+.error {
   color: var(--error) !important;
+
+  & label,
+  & svg {
+    color: var(--error) !important;
+  }
+
+  & input,
+  & textarea,
+  & select,
+  & .input,
+  & .textarea,
+  & .trigger {
+    border-color: var(--error) !important;
+  }
 }
 
-.error input,
-.error textarea,
-.error select,
-.error .input,
-.error .textarea,
-.error .trigger {
-  border-color: var(--error) !important;
-}
-
-/*? ◤============================◥ */
-/*?   5. LAYOUTS, FLEXBOX E GRID    */
-/*? ◣============================◢ */
+/*? ┌────────────────────────────┐ */
+/*? │ 5. LAYOUTS, FLEXBOX E GRID │ */
+/*? └────────────────────────────┘ */
 .flex {
   display: flex;
   flex-direction: row;
@@ -249,95 +247,87 @@ textarea:focus {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
-
 .grid2 {
   width: 100%;
   display: grid;
   grid-template-columns: 1.5fr 1fr;
+}
+.grid3 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
 }
 
 .max_width {
   width: 100%;
   max-width: 1600px;
 }
-
 .max_height {
   height: 100%;
-  max-height: 720px;
+  max-height: 760px;
 }
 
-/*? ◤========================◥ */
-/*?   6. COMPONENTES E CARDS    */
-/*? ◣========================◢ */
-.card {
+/*? ┌────────────────────────┐ */
+/*? │ 6. COMPONENTES E CARDS │ */
+/*? └────────────────────────┘ */
+
+.card,
+.card_login,
+.card_small,
+.card_mapa,
+.card_scroll,
+.card_scroll_h {
   position: relative;
   box-shadow: var(--shadow);
   background-color: var(--white);
   width: 100%;
-  padding: 24px;
   display: flex;
   border-radius: 24px;
+}
+
+.card {
+  padding: 24px;
   flex-direction: column;
 }
 
 .card_login {
-  position: relative;
-  box-shadow: var(--shadow);
-  background-color: var(--white);
-  width: 100%;
+  min-width: 480px;
   max-width: 480px;
   padding: 24px;
-  display: flex;
-  border-radius: 24px;
   flex-direction: column;
 }
 
 .card_small {
-  position: relative;
-  box-shadow: var(--shadow);
-  background-color: var(--white);
-  width: 100%;
-  padding: 20px 12px;
-  display: flex;
-  border-radius: 24px;
+  height: 72px;
+  padding: 12px;
   flex-direction: column;
 }
 
 .card_mapa {
-  position: relative;
-  box-shadow: var(--shadow);
-  background-color: var(--white);
-  width: 100%;
-  display: flex;
-  border-radius: 24px;
   flex-direction: column;
   overflow: hidden;
   color: var(--white);
-}
 
-.card_mapa h2,
-.card_mapa h4,
-.card_mapa {
-  color: var(--white);
+  & h2,
+  & h4,
+  & {
+    color: var(--white);
+  }
+
+  & .smooth_info,
+  & .smooth_info p {
+    color: var(--white);
+    opacity: 0.9;
+  }
 }
 
 .card_scroll {
-  box-shadow: var(--shadow);
-  background-color: var(--white);
-  width: 100%;
   padding: 24px 24px 0;
-  display: flex;
-  border-radius: 24px;
   flex-direction: column;
 }
 
 .card_scroll_h {
-  box-shadow: var(--shadow);
-  background-color: var(--white);
-  width: 100%;
   padding: 24px 0;
-  display: flex;
-  border-radius: 24px;
   flex-direction: row;
 }
 
@@ -369,9 +359,9 @@ textarea:focus {
   );
 }
 
-/*? ◤==============================================◥ */
-/*?   7. CLASSES UTILITÁRIAS E TIPOGRAFIA AUXILIAR    */
-/*? ◣==============================================◢ */
+/*? ┌──────────────────────────────────────────────┐ */
+/*? │ 7. CLASSES UTILITÁRIAS E TIPOGRAFIA AUXILIAR │ */
+/*? └──────────────────────────────────────────────┘ */
 .user {
   border-radius: 8px;
   overflow: hidden;
@@ -403,28 +393,19 @@ textarea:focus {
   opacity: 0.75;
 }
 
-.card_mapa .smooth_info,
-.card_mapa .smooth_info p {
-  color: var(--white);
-  opacity: 0.9;
-}
-
 .big_txt {
   color: var(--foreground);
   font-weight: 700;
   font-size: 3rem;
 }
 
-/*? ◤===================◥ */
-/*?   8. RESPONSIVIDADE    */
-/*? ◣===================◢ */
-
-/* Width */
+/*? ┌───────────────────┐ */
+/*? │ 8. RESPONSIVIDADE │ */
+/*? └───────────────────┘ */
 @media (max-width: 1680px) {
   section {
     margin: 2.5% 0;
   }
-
   .max_width {
     max-width: 1280px;
   }
@@ -446,7 +427,8 @@ textarea:focus {
 
   main > .grid,
   .flex_c > .grid,
-  main > .grid2 {
+  main > .grid2,
+  main > .grid3 {
     grid-template-columns: 1fr;
   }
 
@@ -455,10 +437,9 @@ textarea:focus {
   }
 }
 
-/* Height */
-@media (max-height: 800px) {
+@media (max-height: 840px) {
   :root {
-    --spacing: 0.2rem;
+    --spacing: 0.1rem;
   }
   html {
     font-size: 85%;
@@ -469,9 +450,9 @@ textarea:focus {
   }
 }
 
-/*? ◤=======================◥ */
-/*?   9. LOADING (SKELETON)    */
-/*? ◣=======================◢ */
+/*? ┌───────────────────────┐ */
+/*? │ 9. LOADING (SKELETON) │ */
+/*? └───────────────────────┘ */
 .skeleton,
 .skeleton_text,
 .skeleton_button,
@@ -523,9 +504,9 @@ textarea:focus {
   }
 }
 
-/*? ◤==============◥ */
-/*?   10. ANIMAÇÃO    */
-/*? ◣==============◢ */
+/*? ┌──────────────┐ */
+/*? │ 10. ANIMAÇÃO │ */
+/*? └──────────────┘ */
 .login_anim {
   position: absolute;
   inset: 0;

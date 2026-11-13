@@ -31,109 +31,103 @@ export default function Agendamento() {
         <article
           className={`card gap-8 between ${style.parte1} ${fase ? style.after : style.before}`}
         >
-          <div className="flex_c gap-8">
-            <div className="flex_c gap-2">
-              <div>
-                <h2>1ª Etapa - Cliente</h2>
-                <hr />
-              </div>
-              <div className={`${style.grid_etapa1}`}>
-                <Input
-                  label="Nome do Cliente"
-                  placeholder="Gustavo"
-                  icon="user"
-                  required
-                  errorMessage="Nome obrigatório"
-                />
-                <Input
-                  label="Email"
-                  placeholder="email@email.com"
-                  icon="email"
-                />
-                <Input
-                  label="Telefone"
-                  placeholder="(11) 11111-1111"
-                  icon="whatsapp"
-                />
-              </div>
+          <div className="flex_c gap-2">
+            <div>
+              <h2>1ª Etapa - Cliente</h2>
+              <hr />
             </div>
-            <div className="flex_c gap-2">
-              <div>
-                <h2>2ª Etapa - Problema & Local</h2>
-                <hr />
+            <div className={`${style.grid_etapa1}`}>
+              <Input
+                label="Nome do Cliente"
+                placeholder="Gustavo"
+                icon="user"
+                required
+                errorMessage="Nome obrigatório"
+              />
+              <Input label="Email" placeholder="email@email.com" icon="email" />
+              <Input
+                label="Telefone"
+                placeholder="(11) 11111-1111"
+                icon="whatsapp"
+              />
+            </div>
+          </div>
+          <div className="flex_c gap-2">
+            <div>
+              <h2>2ª Etapa - Problema & Local</h2>
+              <hr />
+            </div>
+            <div className={`${style.grid_etapa2}`}>
+              <div className="flex_c gap-4">
+                <Input
+                  label="Nome do Serviço"
+                  placeholder="Serviço de..."
+                  icon="service"
+                  required
+                  errorMessage="Nome do Serviço obrigatório"
+                />
+                <Input
+                  label="Descrição"
+                  placeholder="Descrição do problema..."
+                  textarea
+                />
+                <Select
+                  label="Estado"
+                  placeholder="Selecione o estado"
+                  options={opcoesEstados}
+                  required
+                  errorMessage="Estado obrigatório"
+                />
               </div>
-              <div className={`${style.grid_etapa2}`}>
-                <div className="flex_c gap-4">
+              <div className="flex_c between">
+                <div className={`${style.grid_etapa2_1}`}>
+                  <Input label="CEP" placeholder="11111-111" icon="local" />
+                  <div className="small_txt">
+                    <p>Observação:</p>
+                    <span>
+                      Colocar o CEP do local vai preencher os campos de
+                      Rua/Logradouro, Bairro, Cidade, Estado e Número
+                    </span>
+                  </div>
+                </div>
+                <Input
+                  label="Rua / Logradouro"
+                  placeholder="Rua..."
+                  icon="street"
+                  required
+                  errorMessage="Rua obrigatório"
+                />
+                <div className={`${style.grid_etapa2_1}`}>
                   <Input
-                    label="Nome do Serviço"
-                    placeholder="Serviço de..."
-                    icon="service"
+                    label="Bairro"
+                    placeholder="Bairro..."
+                    icon="map"
                     required
-                    errorMessage="Nome do Serviço obrigatório"
+                    errorMessage="Bairro obrigatório"
                   />
                   <Input
-                    label="Descrição"
-                    placeholder="Descrição do problema..."
-                    textarea
-                  />
-                  <Select
-                    label="Estado"
-                    placeholder="Selecione o estado"
-                    options={opcoesEstados}
+                    label="Cidade"
+                    placeholder="Cidade..."
+                    icon="city"
                     required
-                    errorMessage="Estado obrigatório"
+                    errorMessage="Cidade obrigatório"
                   />
                 </div>
-                <div className="flex_c between">
-                  <div className={`${style.grid_etapa2_1}`}>
-                    <Input label="CEP" placeholder="11111-111" icon="local" />
-                    <div className="small_txt">
-                      <p>Observação:</p>
-                      <span>
-                        Colocar o CEP do local vai preencher os campos de
-                        Rua/Logradouro, Bairro, Cidade, Estado e Número
-                      </span>
-                    </div>
-                  </div>
+                <div className={`${style.grid_etapa2_2}`}>
                   <Input
-                    label="Rua / Logradouro"
-                    placeholder="Rua..."
-                    icon="street"
+                    label="Complemento"
+                    placeholder="Complemento..."
+                    icon="complement"
                     required
-                    errorMessage="Rua obrigatório"
+                    errorMessage="Complemento obrigatório"
                   />
-                  <div className={`${style.grid_etapa2_1}`}>
-                    <Input
-                      label="Bairro"
-                      placeholder="Bairro..."
-                      icon="map"
-                      required
-                      errorMessage="Bairro obrigatório"
-                    />
-                    <Input
-                      label="Cidade"
-                      placeholder="Cidade..."
-                      icon="city"
-                      required
-                      errorMessage="Cidade obrigatório"
-                    />
-                  </div>
-                  <div className={`${style.grid_etapa2_2}`}>
-                    <Input
-                      label="Complemento"
-                      placeholder="Complemento..."
-                      icon="complement"
-                      required
-                      errorMessage="Complemento obrigatório"
-                    />
-                    <Input
-                      label="Número"
-                      placeholder="1111"
-                      icon="number"
-                      required
-                      errorMessage="Número obrigatório"
-                    />
-                  </div>
+                  <Input
+                    label="Número"
+                    placeholder="1111"
+                    icon="number"
+                    required
+                    errorMessage="Número obrigatório"
+                  />
                 </div>
               </div>
             </div>
@@ -161,7 +155,7 @@ export default function Agendamento() {
           </div>
           <div className={`grid2 gap-8 ${style.sugestao}`}>
             <div className="flex_c between gap-4">
-              <div>
+              <div className="flex_c">
                 <Select
                   label="Equipe"
                   placeholder="Selecione a equipe"
@@ -169,7 +163,7 @@ export default function Agendamento() {
                   required
                   errorMessage="Equipe obrigatório"
                 />
-                <div className={`flex_c gap-4`}>
+                <div className={`flex_c gap-6`}>
                   <div className="flex gap-2">
                     <Image
                       src="/img/user.png"
@@ -200,7 +194,7 @@ export default function Agendamento() {
               </div>
               <Calendario compact />
             </div>
-            <div className="flex_c between">
+            <div className="flex_c gap-6">
               {Array.from({ length: 6 }).map((_, index) => (
                 <CardSugestao key={index} />
               ))}

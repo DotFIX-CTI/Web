@@ -6,10 +6,12 @@
   border-radius: 0 24px 0 24px;
   overflow: hidden;
   cursor: pointer;
+  padding: 12px;
 }
 
 .link_icon {
-  padding: 12px;
+  width: fit-content;
+  height: fit-content;
   transition: opacity 0.15s ease-in-out;
   &:hover {
     opacity: 0.8;

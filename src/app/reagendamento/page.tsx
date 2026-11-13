@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function Reagendamento() {
   return (
     <Main>
-      <section className="grid2 gap-12 max_width">
+      <section className="grid2 gap-12 max_width max_height">
         <article className={`card between gap-6 ${Props.cancelado}`}>
           <div className="flex_c gap-1">
             <h1 className="upper">Link dedicado 10gbps</h1>
@@ -58,7 +58,7 @@ export default function Reagendamento() {
                   <p>arthur@gmail.com</p>
                 </div>
               </div>
-              <Button icon="save" variant="attention">
+              <Button icon="save" variant="attention" link="/dashboard">
                 Validar
               </Button>
             </div>

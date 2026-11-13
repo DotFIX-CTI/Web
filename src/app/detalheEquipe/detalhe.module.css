@@ -6,6 +6,5 @@
   overflow: hidden;
   cursor: pointer;
   padding: 12px;
-  background-color: var(--primary);
   color: var(--white);
 }

@@ -36,19 +36,16 @@ export default function CardEquipe() {
           </div>
         </div>
       </div>
-      <div className="flex_c gap-1">
-        <h4>Atualmente em...</h4>
-        <p className="center gap-1">
-          <Icon name="local" size={20} />
-          Av. Paulista, 1000 - 12º andar - Datacenter B
-        </p>
-      </div>
-      <div className={`flex_c ${style.action}`}>
+      <p className="center gap-1">
+        <Icon name="local" size={20} />
+        Av. Paulista, 1000 - 12º andar - Datacenter B
+      </p>
+      <div className={`flex_c gap-2 ${style.action} ${Props.cancelado}_bg`}>
         <Link href="/adicionarEquipe" className={`${style.link_icon}`}>
-          <Icon name="edit" size={36} />
+          <Icon name="edit" size={24} />
         </Link>
         <Link href="/detalheEquipe" className={`${style.link_icon}`}>
-          <Icon name="description" size={36} />
+          <Icon name="description" size={24} />
         </Link>
       </div>
     </article>

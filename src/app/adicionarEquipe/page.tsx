@@ -112,7 +112,7 @@ export default function AdicionarEquipe() {
               </div>
             </div>
           </div>
-          <Button icon="add" className={`${style.adicionar}`}>
+          <Button icon="add" className={`${style.adicionar}`} link="/equipe">
             Adicionar
           </Button>
           <Button
