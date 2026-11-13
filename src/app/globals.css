@@ -1,26 +1,567 @@
 @import "tailwindcss";
 
+/*? ┌──────────────────────────────────────────────┐ */
+/*? │ 1. VARIÁVEIS GLOBAIS E DESIGN SYSTEM (:root) │ */
+/*? └──────────────────────────────────────────────┘ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: hsl(0, 0%, 100%);
+  --foreground: hsl(210, 65%, 15%);
+  --primary: hsl(215, 100%, 30%);
+  --primary-surface: hsl(215, 45%, 45%);
+
+  --surface: hsl(205, 100%, 96%);
+  --white: hsl(0, 0%, 100%);
+  --off: hsl(215, 10%, 80%);
+  --success: hsl(140, 100%, 35%);
+  --warning: hsl(55, 100%, 35%);
+  --error: hsl(350, 75%, 50%);
+  --cancel: hsl(220, 15%, 50%);
+
+  --shadow:
+    4px 4px 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
+    0 0 20px color-mix(in srgb, var(--primary) 10%, transparent 100%);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-inter);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --foreground: hsl(210, 65%, 10%);
+    --background: hsl(0, 0%, 100%);
   }
+}
+
+/*? ┌───────────────────────────┐ */
+/*? │ 2. RESET E ELEMENTOS BASE │ */
+/*? └───────────────────────────┘ */
+html {
+  font-size: 100%;
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  scrollbar-color: var(--primary) var(--surface);
+  scrollbar-width: thin;
+  box-sizing: border-box;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter);
+  font-optical-sizing: auto;
+  line-height: 1.5;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+p {
+  color: var(--foreground);
+  line-height: 1;
+}
+
+h1 {
+  font-weight: 700;
+  font-size: 2rem;
+}
+h2 {
+  font-weight: 600;
+  font-size: 1.8rem;
+}
+h3 {
+  font-weight: 600;
+  font-size: 1.6rem;
+}
+h4 {
+  font-weight: 600;
+  font-size: 1.4rem;
+}
+h5 {
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+
+p {
+  font-size: 1rem;
+  opacity: 0.8;
+}
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: color-mix(in srgb, var(--foreground) 15%, transparent 100%);
+  width: 100%;
+  display: block;
+  margin: 4px 0 0;
+}
+
+img {
+  width: auto;
+  height: auto;
+}
+
+input,
+textarea {
+  outline: none;
+}
+
+/*? ┌──────────────────────────────────────────┐ */
+/*? │ 3. CLASSES DE STATUS (Cards e Elementos) │  */
+/*? └──────────────────────────────────────────┘ */
+.default {
+  border-left: 20px solid var(--success);
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--success);
+  }
+  & a {
+    background-color: var(--success);
+  }
+}
+.default_bg {
+  background-color: var(--success);
+}
+
+.pendente {
+  border-left: 20px solid var(--warning);
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--warning);
+  }
+}
+.pendente_bg {
+  background-color: var(--warning);
+}
+
+.atrasado {
+  border-left: 20px solid var(--error);
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--error);
+  }
+}
+.atrasado_bg {
+  background-color: var(--error);
+}
+
+.cancelado {
+  border-left: 20px solid var(--cancel);
+  & h1,
+  & h2,
+  & h3,
+  & h4 {
+    color: var(--cancel);
+  }
+}
+.cancelado_bg {
+  background-color: var(--cancel);
+}
+
+/*? ┌──────────────────────────────────┐ */
+/*? │ 4. FORMULÁRIOS E ESTADOS DE ERRO │ */
+/*? └──────────────────────────────────┘ */
+.label {
+  color: var(--primary);
+  font-weight: 600;
+  display: block;
+}
+
+.input_mensagem {
+  color: var(--error);
+  font-size: 0.75rem;
+  white-space: nowrap;
+}
+
+.error {
+  color: var(--error) !important;
+
+  & label,
+  & svg {
+    color: var(--error) !important;
+  }
+
+  & input,
+  & textarea,
+  & select,
+  & .input,
+  & .textarea,
+  & .trigger {
+    border-color: var(--error) !important;
+  }
+}
+
+.error_mensagem {
+  border-radius: 12px;
+  background-color: color-mix(in srgb, var(--error) 10%, transparent 100%);
+  padding: 8px;
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: var(--error);
+  border: 1px solid var(--error);
+}
+
+/*? ┌────────────────────────────┐ */
+/*? │ 5. LAYOUTS, FLEXBOX E GRID │ */
+/*? └────────────────────────────┘ */
+.flex {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex_c {
+  display: flex;
+  flex-direction: column;
+}
+
+.between {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.center {
+  display: flex;
+  align-items: center;
+}
+
+.center_c {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.grid2 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+}
+.grid3 {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+}
+
+.max_width {
+  width: 100%;
+  max-width: 1600px;
+}
+.max_height {
+  height: 100%;
+  max-height: 720px;
+}
+
+/*? ┌────────────────────────┐ */
+/*? │ 6. COMPONENTES E CARDS │ */
+/*? └────────────────────────┘ */
+
+.card,
+.card_login,
+.card_small,
+.card_mapa,
+.card_scroll,
+.card_scroll_h {
+  position: relative;
+  box-shadow: var(--shadow);
+  background-color: var(--white);
+  width: 100%;
+  display: flex;
+  border-radius: 24px;
+}
+
+.card {
+  padding: 24px;
+  flex-direction: column;
+}
+
+.card_login {
+  min-width: 480px;
+  max-width: 480px;
+  padding: 24px;
+  flex-direction: column;
+}
+
+.card_small {
+  height: 72px;
+  padding: 12px;
+  flex-direction: column;
+}
+
+.card_mapa {
+  flex-direction: column;
+  overflow: hidden;
+  color: var(--white);
+
+  & h2,
+  & h4,
+  & {
+    color: var(--white);
+  }
+
+  & .smooth_info,
+  & .smooth_info p {
+    color: var(--white);
+    opacity: 0.9;
+  }
+}
+
+.card_scroll {
+  padding: 24px 24px 0;
+  flex-direction: column;
+}
+
+.card_scroll_h {
+  padding: 24px 0;
+  flex-direction: row;
+}
+
+.scroll {
+  display: flex;
+  flex-direction: column;
+  overflow-y: scroll;
+  padding: 24px 12px 36px;
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
+.scroll_h {
+  width: 100%;
+  display: flex;
+  overflow-x: scroll;
+  padding: 12px 24px;
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 4%,
+    black 96%,
+    transparent 100%
+  );
+}
+
+/*? ┌──────────────────────────────────────────────┐ */
+/*? │ 7. CLASSES UTILITÁRIAS E TIPOGRAFIA AUXILIAR │ */
+/*? └──────────────────────────────────────────────┘ */
+.user {
+  border-radius: 8px;
+  overflow: hidden;
+  object-fit: contain;
+}
+
+.upper {
+  text-transform: uppercase;
+}
+
+.icon {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 10px;
+  pointer-events: none;
+  transition: 0.1s ease-in-out;
+}
+
+.small_txt {
+  color: var(--off);
+  font-size: 0.8rem;
+  line-height: 16px;
+}
+
+.smooth_info,
+.smooth_info p {
+  color: var(--foreground);
+  opacity: 0.75;
+}
+
+.big_txt {
+  color: var(--foreground);
+  font-weight: 700;
+  font-size: 3rem;
+}
+
+/*? ┌───────────────────┐ */
+/*? │ 8. RESPONSIVIDADE │ */
+/*? └───────────────────┘ */
+@media (max-width: 1680px) {
+  section {
+    margin: 2.5% 0;
+  }
+  .max_width {
+    max-width: 1280px;
+  }
+}
+
+@media (max-width: 1366px) {
+  html {
+    font-size: 85%;
+  }
+  .max_width {
+    max-width: 1080px;
+  }
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --spacing: 0.2rem;
+  }
+
+  main > .grid,
+  .flex_c > .grid,
+  main > .grid2,
+  main > .grid3 {
+    grid-template-columns: 1fr;
+  }
+
+  .max_width {
+    max-width: min(640px, 80%);
+  }
+}
+
+@media (max-height: 840px) {
+  :root {
+    --spacing: 0.1rem;
+  }
+  html {
+    font-size: 85%;
+  }
+  .max_height {
+    height: 640px;
+    max-height: 640px;
+  }
+}
+
+/*? ┌───────────────────────┐ */
+/*? │ 9. LOADING (SKELETON) │ */
+/*? └───────────────────────┘ */
+.skeleton,
+.skeleton_text,
+.skeleton_button,
+.skeleton_circle {
+  background: linear-gradient(
+    90deg,
+    var(--surface) 25%,
+    color-mix(in srgb, var(--primary) 8%, var(--surface)) 50%,
+    var(--surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  will-change: background-position;
+  border-radius: 8px;
+  pointer-events: none;
+  user-select: none;
+}
+
+.skeleton_text {
+  height: 1em;
+  border-radius: 4px;
+  display: inline-block;
+}
+
+.skeleton_button {
+  height: 40px;
+  width: 160px;
+  display: inline-block;
+}
+
+.skeleton_circle {
+  border-radius: 50%;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .skeleton {
+    animation: none;
+    background: var(--surface);
+    opacity: 0.7;
+  }
+}
+
+/*? ┌──────────────┐ */
+/*? │ 10. ANIMAÇÃO │ */
+/*? └──────────────┘ */
+.login_anim {
+  position: absolute;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+/*? ┌───────────┐ */
+/*? │ 11. TOAST │ */
+/*? └───────────┘ */
+/* Toast de Sucesso */
+.Toastify__toast--success {
+  background-color: color-mix(
+    in srgb,
+    var(--success) 100%,
+    var(--foreground) 50%
+  ) !important;
+  color: var(--white) !important;
+}
+
+/* Toast de Erro */
+.Toastify__toast--error {
+  background-color: color-mix(
+    in srgb,
+    var(--error) 100%,
+    var(--foreground) 50%
+  ) !important;
+  color: var(--white) !important;
+}
+
+/* Barrinha de progresso */
+.Toastify__progress-bar--success,
+.Toastify__progress-bar--error {
+  background: color-mix(in srgb, var(--white) 100%, transparent 50%) !important;
+}
+
+/* Toast */
+.Toastify__toast {
+  font-family: var(--font-inter), sans-serif;
+  font-size: 1rem;
+  font-weight: 600;
+  box-shadow: var(--shadow);
+  border-radius: 24px;
 }

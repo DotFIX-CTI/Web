@@ -1,0 +1,10 @@
+.edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0 24px 0 24px;
+  overflow: hidden;
+  cursor: pointer;
+  padding: 12px;
+  color: var(--white);
+}

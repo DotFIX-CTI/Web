@@ -1,0 +1,17 @@
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 7.5vh;
+  padding: 0 10%;
+  background-color: var(--primary);
+  color: var(--white);
+  z-index: 10;
+}
+
+.user, .email {
+  color: var(--white);
+}

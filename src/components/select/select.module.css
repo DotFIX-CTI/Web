@@ -1,0 +1,114 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.selectWrapper {
+  position: relative;
+  width: 100%;
+  color: var(--primary);
+}
+
+.trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 12px;
+  border: 2px solid var(--off);
+  background-color: var(--white);
+  cursor: pointer;
+  outline: none;
+  transition:
+    border-color 0.15s ease-in-out,
+    box-shadow 0.15s ease-in-out;
+}
+
+.trigger:focus,
+.trigger.active {
+  border-color: var(--primary);
+}
+
+.leftIcon {
+  margin-right: 8px;
+  color: var(--primary);
+}
+
+.selectedValue {
+  font-size: 0.85rem;
+  color: var(--foreground);
+}
+
+.placeholder {
+  font-size: 0.85rem;
+  color: var(--off);
+}
+
+.arrowIcon {
+  margin-left: auto;
+  transition: transform 0.2s ease-in-out;
+  color: var(--primary);
+}
+
+.rotated {
+  transform: rotate(180deg);
+}
+
+.optionsList {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  background-color: var(--white);
+  border: 2px solid var(--off);
+  border-radius: 12px;
+  list-style: none;
+  margin: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  animation: fadeInSelect 0.15s ease-in-out;
+}
+
+@keyframes fadeInSelect {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownDown {
+  top: calc(100% + 4px);
+}
+
+.dropdownUp {
+  bottom: calc(100% + 4px);
+}
+
+.optionItem {
+  padding: 10px 16px;
+  font-size: 0.85rem;
+  color: var(--foreground);
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    color 0.15s ease;
+}
+
+.optionItem:hover {
+  background-color: var(--off);
+  color: var(--primary);
+}
+
+.optionItem.selected {
+  background-color: var(--primary);
+  color: var(--white);
+  font-weight: 600;
+}
