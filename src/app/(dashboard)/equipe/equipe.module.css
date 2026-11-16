@@ -1,6 +1,9 @@
 .container {
+  padding: var(--padding-lg) 0 0;
+  margin-top: 7.5vh;
   max-height: 92.5vh;
-  gap: 36px;
+  height: 100%;
+  gap: 24px;
 }
 
 .info {
@@ -10,7 +13,7 @@
 
 .grid_equipe {
   display: grid;
-  grid-template-rows: repeat(2, auto);
+  grid-template-rows: repeat(3, auto);
   grid-auto-flow: column;
   width: 100%;
   overflow-x: auto;
@@ -24,12 +27,12 @@
   max-width: 480px;
 }
 
-/*? ◤=================◥ */
-/*?   ▸ RESPONSIVIDADE   */
-/*? ◣=================◢ */
+/*? ┌───────────────────┐ */
+/*? │ 8. RESPONSIVIDADE │ */
+/*? └───────────────────┘ */
 @media (max-width: 1200px) {
   .container {
-    padding: 24px 0 0;
+    padding: var(--padding-md) 0 0;
     gap: 16px;
   }
 

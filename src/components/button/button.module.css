@@ -6,7 +6,9 @@
   justify-content: center;
   min-height: 40px;
   max-height: 40px;
-  border-radius: 12px;
+  padding: 0 16px;
+  white-space: nowrap;
+  border-radius: var(--border-sm);
   cursor: pointer;
   transition: opacity 0.15s ease-in-out;
   &:hover {

@@ -1,25 +1,39 @@
+import Link from "next/link";
 import Icon from "@/utils/icon";
-import { Props } from "@/utils/status";
+import { mapaStatus } from "@/utils/status";
+import { Agendamento } from "@/api/agendamento";
 
-export default function Card() {
+interface CardAgendamentoProps {
+  agendamento: Agendamento;
+  nomeEquipe?: string;
+}
+
+export default function Card({
+  agendamento,
+  nomeEquipe,
+}: CardAgendamentoProps) {
+  const classeStatus = mapaStatus[agendamento.statusAgendamentoID] || "";
+  const enderecoCompleto = `${agendamento.logradouro}, ${agendamento.numero} - ${agendamento.bairro}, ${agendamento.cidade} - ${agendamento.estado}${
+    agendamento.cep ? `, ${agendamento.cep}` : ""
+  }`;
+
   return (
-    <article
-      className={`card flex_c gap-2 between ${Props.cancelado}`}
-      style={{ width: 400, minHeight: 240 }}
-    >
-      <h3 className="upper">Link dedicado 10gbps</h3>
-      <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus
-        sit amet tellus facilisis consectetur. Proin vel mollis urna. Fusce
-        mollis dignissim luctus. Morbi convallis libero vitae venenatis rutrum.
-      </p>
-      <div className="flex_c gap-2">
-        <h5>Equipe de Redes</h5>
-        <div className="center gap-1 smooth_info">
-          <Icon name="local" size={24} />
-          <p>R. Salgado de Castro, 46 - Centro, Diadema - SP, 09920-690</p>
+    <Link href={`/agendamentos/${agendamento.agendamentoID}`}>
+      <article
+        className={`card flex_c gap-8 between ${classeStatus}`}
+        style={{ width: 400 }}
+      >
+        <h3 className="upper">{agendamento.nomeServico}</h3>
+
+        <div className="flex_c gap-2">
+          <h5>{nomeEquipe || `Equipe #${agendamento.equipeID}`}</h5>
+
+          <div className="center gap-1 smooth_info">
+            <Icon name="local" size={16} />
+            <p>{enderecoCompleto}</p>
+          </div>
         </div>
-      </div>
-    </article>
+      </article>
+    </Link>
   );
 }

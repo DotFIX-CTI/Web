@@ -54,7 +54,11 @@ export default function Button(props: ButtonProps) {
   const variantClass = style[variant] || style.default;
 
   const customStyle: CSSProperties = {
-    ...(fullWidth ? { width: "100%" } : { width: noText ? 40 : 160 }),
+    ...(fullWidth
+      ? { width: "100%" }
+      : noText
+        ? { width: 40, padding: 0 }
+        : { width: "fit-content" }),
     ...(reverse && { flexDirection: "row-reverse" }),
   };
 

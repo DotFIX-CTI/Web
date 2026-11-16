@@ -26,7 +26,7 @@ export function useAuth() {
       }
     }, [erro]);
 
-  // LOGIN
+  // LOGIN - Mockado
   async function login(email: string, senha: string) {
     setLoading(true);
     setErro(null);
@@ -44,7 +44,7 @@ export function useAuth() {
         secureLocalStorage.setItem("Usuario", usuarioTeste);
 
         setUsuario(usuarioTeste);
-        router.push("/dashboard"); // Redireciona após o login
+        router.push("/dashboard");
         toastSucesso("Login realizado com sucesso!");
       } else {
         throw new Error("E-mail ou senha inválidos.");

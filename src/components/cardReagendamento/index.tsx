@@ -1,9 +1,9 @@
-import { Props } from "@/utils/status";
+import { Status } from "@/utils/status";
 import Icon from "@/utils/icon";
 
 export default function CardReagendamento() {
   return (
-    <article className={`card gap-4 ${Props.cancelado}`}>
+    <article className={`card gap-4 ${Status.cancelado}`}>
       <div className="flex_c">
         <h3 className="upper">Link dedicado 10gbps</h3>
         <h5>Equipe de Redes</h5>

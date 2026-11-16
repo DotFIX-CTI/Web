@@ -4,32 +4,31 @@ import Background from "./background";
 interface MainProps {
   children: ReactNode;
   className?: string;
-  patternOpacity?: number;
   error?: boolean;
+  justify?: string;
 }
 
 export default function Main({
   children,
   className,
-  patternOpacity = 0.15,
   error,
+  justify = "center",
 }: MainProps) {
   return (
     <main
       style={{
         position: "relative",
-        minHeight: "100vh",
-        height: "auto",
+        height: "100vh",
         width: "100%",
         overflowY: "auto",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
+        justifyContent: justify,
       }}
       className={className}
     >
-      <Background opacity={patternOpacity} error={error} />
+      <Background opacity={0.05} error={error} />
       {children}
     </main>
   );

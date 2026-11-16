@@ -1,11 +1,11 @@
 .adicionar {
   position: absolute;
-  bottom: 24px;
-  right: 24px;
+  bottom: var(--margin-xd);
+  right: var(--margin-xd);
 }
 
 .deletar {
   position: absolute;
-  top: 24px;
-  right: 24px;
+  top: var(--margin-xd);
+  right: var(--margin-xd);
 }
