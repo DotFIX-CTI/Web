@@ -201,7 +201,7 @@ export default function Agendamento() {
           </div>
           <div className={`grid2 gap-8 ${style.sugestao}`}>
             <div className="flex_c between gap-4">
-              <div className="flex_c">
+              <div className="flex_c gap-2">
                 <Select
                   label="Equipe"
                   placeholder="Selecione a equipe"

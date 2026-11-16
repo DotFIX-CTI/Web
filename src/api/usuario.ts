@@ -10,8 +10,8 @@ export interface Usuario {
 export const usuarioTeste: Usuario = {
   usuarioID: "1",
   nome: "Gustavo",
-  email: "a@a",
-  senha: "a",
+  email: "gustavoanderson@gmail.com",
+  senha: "123456",
 };
 
 // POST
