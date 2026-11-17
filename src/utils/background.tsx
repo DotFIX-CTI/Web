@@ -79,8 +79,8 @@ export default function Background({
           y2="1080"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="var(--primary)" stopOpacity="0" />
-          <stop offset="1" stopColor="var(--primary)" />
+          <stop stopColor="currentColor" stopOpacity="0" />
+          <stop offset="1" stopColor="currentColor" />
         </linearGradient>
         <linearGradient
           id="paint1_linear_251_130"
@@ -90,8 +90,8 @@ export default function Background({
           y2="1080"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="var(--primary)" stopOpacity="0" />
-          <stop offset="1" stopColor="var(--primary)" />
+          <stop stopColor="currentColor" stopOpacity="0" />
+          <stop offset="1" stopColor="currentColor" />
         </linearGradient>
         <linearGradient
           id="paint2_linear_251_130"
@@ -101,8 +101,8 @@ export default function Background({
           y2="1080"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="var(--primary)" stopOpacity="0" />
-          <stop offset="1" stopColor="var(--primary)" />
+          <stop stopColor="currentColor" stopOpacity="0" />
+          <stop offset="1" stopColor="currentColor" />
         </linearGradient>
         <linearGradient
           id="paint3_linear_251_130"
@@ -112,8 +112,8 @@ export default function Background({
           y2="1080"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="var(--primary)" stopOpacity="0" />
-          <stop offset="1" stopColor="var(--primary)" />
+          <stop stopColor="currentColor" stopOpacity="0" />
+          <stop offset="1" stopColor="currentColor" />
         </linearGradient>
       </defs>
     </svg>

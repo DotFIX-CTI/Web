@@ -9,14 +9,9 @@ const minhaFonte = localFont({
   variable: "--font-inter",
 });
 
-const pixelFont = localFont({
-  src: "./fonts/PressStart2P.ttf",
-  variable: "--font-pixel",
-});
-
 export const metadata: Metadata = {
   title: "DotFIX",
-  description: "Sistema de agendamentos de equipes",
+  description: "Sistema de agendamentos e alocação de equipes",
 };
 
 export default function RootLayout({
@@ -29,7 +24,24 @@ export default function RootLayout({
       lang="pt-br"
       className={`${minhaFonte.variable} h-full antialiased`}
       data-scroll-behavior="smooth"
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                try {
+                  var saved = localStorage.getItem('theme');
+                  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                  var theme = saved || (prefersDark ? 'dark' : 'light');
+                  document.documentElement.setAttribute('data-theme', theme);
+                } catch (e) {}
+              })();
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">
         <ToastContainer />
         {children}

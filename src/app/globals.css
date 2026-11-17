@@ -5,7 +5,9 @@
 /*? └──────────────────────────────────────────────┘ */
 :root {
   --background: hsl(0, 0%, 100%);
+  --background-card: hsl(0, 0%, 100%);
   --foreground: hsl(210, 65%, 15%);
+
   --primary: hsl(215, 100%, 30%);
   --primary-surface: hsl(215, 45%, 45%);
 
@@ -16,6 +18,13 @@
   --warning: hsl(55, 100%, 35%);
   --error: hsl(350, 75%, 50%);
   --cancel: hsl(220, 15%, 50%);
+
+  --main-bg: var(--primary);
+
+  --smooth-txt: 0.9;
+
+  --btn-bg: hsl(0, 0%, 100%);
+  --btn-border: hsl(215, 100%, 30%);
 
   --shadow:
     0 0 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
@@ -36,6 +45,9 @@
 
   --border-off: 2px solid var(--off);
   --border-card: 1px solid color-mix(in srgb, var(--off) 20%, transparent 100%);
+
+  --scrollbar: var(--primary);
+  --scrollbar-bg: var(--surface);
 }
 
 @theme inline {
@@ -45,11 +57,22 @@
   --font-mono: var(--font-inter);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground: hsl(210, 65%, 10%);
-    --background: hsl(0, 0%, 100%);
-  }
+[data-theme="dark"] {
+  --background: hsl(210, 65%, 5%);
+  --background-card: hsl(210, 50%, 15%);
+  --foreground: hsl(0, 0%, 100%);
+
+  --primary: hsl(215, 90%, 20%);
+
+  --main-bg: var(--surface);
+
+  --smooth-txt: 1;
+
+  --btn-bg: var(--background);
+  --btn-border: var(--white);
+
+  --scrollbar: var(--surface);
+  --scrollbar-bg: var(--primary);
 }
 
 /*? ┌───────────────────────────┐ */
@@ -62,7 +85,7 @@ html {
 * {
   padding: 0;
   margin: 0;
-  scrollbar-color: var(--primary) var(--surface);
+  scrollbar-color: var(--scrollbar) var(--scrollbar-bg);
   scrollbar-width: thin;
   box-sizing: border-box;
 }
@@ -73,6 +96,10 @@ body {
   font-family: var(--font-inter);
   font-optical-sizing: auto;
   line-height: 1.5;
+}
+
+main {
+  color: var(--main-bg);
 }
 
 h1,
@@ -306,7 +333,7 @@ textarea {
 .card_scroll_h {
   position: relative;
   box-shadow: var(--shadow);
-  background-color: var(--white);
+  background-color: var(--background-card);
   width: 100%;
   display: flex;
   border-radius: var(--border-md);
@@ -344,7 +371,7 @@ textarea {
   & .smooth_info,
   & .smooth_info p {
     color: var(--white);
-    opacity: 0.9;
+    opacity: var(--smooth-txt);
   }
 }
 
@@ -416,8 +443,8 @@ textarea {
 
 .smooth_info,
 .smooth_info p {
-  color: var(--foreground);
-  opacity: 0.75;
+  color: var(--white);
+  opacity: var(--smooth-txt);
 }
 
 .big_txt {
