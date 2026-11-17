@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Agendamento, listarAgendamentoPorId } from "@/api/agendamento";
 
-export function useAgendamento(id: string | undefined) {
+export function useAgendamento(id: number | undefined) {
   const [agendamento, setAgendamento] = useState<Agendamento | null>(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);

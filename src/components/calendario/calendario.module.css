@@ -8,7 +8,6 @@
   height: fit-content;
   border-radius: var(--border-sm);
   overflow: hidden;
-  background-color: var(--white);
 }
 
 .botao {
@@ -22,8 +21,8 @@
   cursor: pointer;
   border: none;
   transition:
-    background 0.15s ease-in-out,
-    transform 0.15s ease-in-out;
+    background 0.1s ease-in-out,
+    transform 0.1s ease-in-out;
 
   &:hover {
     background-color: var(--primary-surface);
@@ -103,11 +102,16 @@
 
 .dia {
   min-height: 72px;
-  border: none;
-  background: transparent;
   cursor: pointer;
   border: 1px solid color-mix(in srgb, var(--off) 50%, transparent 100%);
   background-color: var(--white);
+  transition:
+    background-color 0.1s ease-in-out,
+    color 0.1s ease-in-out;
+
+  &:hover:not(:disabled):not(.selecionado) {
+    background-color: color-mix(in srgb, var(--primary) 8%, var(--white) 92%);
+  }
 
   &:disabled {
     cursor: default;
@@ -122,6 +126,19 @@
 
 .vazio {
   background-color: color-mix(in srgb, var(--off) 50%, transparent 100%);
+}
+
+.comAgendamento {
+  font-weight: 700;
+  position: relative;
+}
+
+.selecionado {
+  background-color: var(--primary);
+  font-weight: 700;
+  h4 {
+    color: var(--white);
+  }
 }
 
 .tituloCompacto {

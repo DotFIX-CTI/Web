@@ -18,8 +18,9 @@ export interface Agendamento {
   data: string;
   latitude: string;
   longitude: string;
-  equipeID: number;
+  AgendamentoID: number;
   statusAgendamentoID: number;
+  equipeID: number;
 }
 
 // POST
@@ -56,7 +57,7 @@ export async function listarAgendamento(): Promise<Agendamento[]> {
 // }
 
 // GET - ID Mockado
-export async function listarEquipePorId(id: number): Promise<Agendamento> {
+export async function listarAgendamentoPorId(id: number): Promise<Agendamento> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(agendamentosMock[id]);

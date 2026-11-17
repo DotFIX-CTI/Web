@@ -1,17 +1,26 @@
-import { Equipe } from "@/api/equipe";
+import { Agendamento } from "@/api/agendamento";
+import { formatarData, formatarHora } from "@/utils/formatarData";
 import { mapaStatus, Status } from "@/utils/status";
 
 interface CardDataProps {
-  equipe: Equipe;
+  agendamento: Agendamento;
+  nomeEquipe?: string;
 }
-export default function CardData({ equipe }: CardDataProps) {
-  const classeStatus = mapaStatus[equipe.statusEquipeID] || Status.cancelado;
+
+export default function CardData({ agendamento, nomeEquipe }: CardDataProps) {
+  const classeStatus =
+    mapaStatus[agendamento.statusAgendamentoID] || Status.cancelado;
+
+  const hora = formatarHora(agendamento.data);
+  const data = formatarData(agendamento.data);
 
   return (
-    <article className={`card ${classeStatus}`} style={{ width: "100%" }}>
-      <h4>01/03/2026</h4>
-      <p>15:00</p>
-      <h5 className="self-end">{equipe.nomeEquipe}</h5>
+    <article className={`card gap-2 ${classeStatus}`} style={{ width: "100%" }}>
+      <div className="flex_c">
+        <h4>{data}</h4>
+        <p>{hora}</p>
+      </div>
+      <h5>{nomeEquipe || `Equipe #${agendamento.equipeID}`}</h5>
     </article>
   );
 }

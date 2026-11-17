@@ -1,7 +1,7 @@
 import { api } from "./api";
 
 export interface Usuario {
-  usuarioID?: string;
+  usuarioID?: number;
   nome: string;
   email: string;
   senha?: string;
@@ -10,7 +10,7 @@ export interface Usuario {
 
 // TESTE
 export const usuarioTeste: Usuario = {
-  usuarioID: "1",
+  usuarioID: 1,
   nome: "Gustavo",
   email: "gustavoanderson@gmail.com",
   senha: "123456",
@@ -18,31 +18,31 @@ export const usuarioTeste: Usuario = {
 
 export const funcionarioMock: Usuario[] = [
   {
-    usuarioID: "2",
+    usuarioID: 2,
     nome: "Arthur Sales",
     email: "arthur@gmail.com",
     equipeID: 1,
   },
   {
-    usuarioID: "3",
+    usuarioID: 3,
     nome: "Diego Castro",
     email: "diego@gmail.com",
     equipeID: 1,
   },
   {
-    usuarioID: "4",
+    usuarioID: 4,
     nome: "Eduardo Borges",
     email: "eduardo@gmail.com",
     equipeID: 2,
   },
   {
-    usuarioID: "5",
+    usuarioID: 5,
     nome: "Guilherme Molina",
     email: "guilherme@gmail.com",
     equipeID: 2,
   },
   {
-    usuarioID: "6",
+    usuarioID: 6,
     nome: "Pablo Pedroza",
     email: "pablo@gmail.com",
     equipeID: 3,
@@ -74,7 +74,7 @@ export async function listarUsuario(): Promise<Usuario[]> {
 }
 
 // GET - ID
-export async function listarUsuarioPorId(id: string): Promise<Usuario> {
+export async function listarUsuarioPorId(id: number): Promise<Usuario> {
   try {
     const response = await api.get<Usuario>("Usuario/" + id);
     return response.data;
@@ -84,7 +84,7 @@ export async function listarUsuarioPorId(id: string): Promise<Usuario> {
 }
 
 // DELETE
-export async function deletarUsuario(usuarioId: string): Promise<void> {
+export async function deletarUsuario(usuarioId: number): Promise<void> {
   try {
     await api.delete("Usuario/" + usuarioId);
   } catch (error: any) {

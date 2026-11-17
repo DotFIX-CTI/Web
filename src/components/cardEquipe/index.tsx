@@ -15,34 +15,25 @@ export default function CardEquipe({ equipe }: CardEquipeProps) {
   return (
     <article className={`card between gap-4 ${classeStatus}`}>
       <h2>{equipe.nomeEquipe}</h2>
+
       <div className="flex_c gap-4">
-        <div className="flex gap-2">
-          <Image
-            src="/img/user.png"
-            width={32}
-            height={32}
-            alt="Foto do membro"
-            className="user"
-          />
-          <div>
-            <h5>Arthur Sales</h5>
-            <p>arthur@gmail.com</p>
+        {equipe.membros?.map((membro) => (
+          <div key={membro.id} className="flex gap-2">
+            <Image
+              src={membro.foto || "/img/user.png"}
+              width={32}
+              height={32}
+              alt={`Foto de ${membro.nome}`}
+              className="user"
+            />
+            <div>
+              <h5>{membro.nome}</h5>
+              <p>{membro.email}</p>
+            </div>
           </div>
-        </div>
-        <div className="flex gap-2">
-          <Image
-            src="/img/user.png"
-            width={32}
-            height={32}
-            alt="Foto do membro"
-            className="user"
-          />
-          <div>
-            <h5>Diego Castro</h5>
-            <p>diego@gmail.com</p>
-          </div>
-        </div>
+        ))}
       </div>
+
       <p className="center gap-1">
         <Icon name="local" size={20} />
         Lat: {equipe.latitude} | Long: {equipe.longitude}
@@ -50,7 +41,7 @@ export default function CardEquipe({ equipe }: CardEquipeProps) {
 
       <div className={`flex_c gap-2 ${style.action} ${classeStatus}_bg`}>
         <Link
-          href={`/adicionarEquipe/${equipe.equipeID}`}
+          href={`/adicionarEquipe?id=${equipe.equipeID}`}
           className={style.link_icon}
         >
           <Icon name="edit" size={24} />

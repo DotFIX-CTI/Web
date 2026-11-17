@@ -1,8 +1,5 @@
 .info {
   width: 100%;
-  gap: 8px;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
   align-items: center;
   border-radius: var(--border-sm);
   background-image: linear-gradient(

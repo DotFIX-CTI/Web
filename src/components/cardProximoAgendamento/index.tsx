@@ -2,24 +2,55 @@ import CardData from "../cardData";
 import style from "./card.module.css";
 import Link from "next/link";
 import Button from "../button";
+import { Agendamento } from "@/api/agendamento";
 
-export default function CardProximoAgendamento(item: any) {
-  const email = true;
-  const number = true;
+interface CardProximoAgendamentoProps {
+  agendamento: Agendamento;
+  nomeEquipe?: string;
+}
+
+export default function CardProximoAgendamento({
+  agendamento,
+  nomeEquipe,
+}: CardProximoAgendamentoProps) {
+  const temEmail = Boolean(agendamento.emailCliente);
+  const temTelefone = Boolean(agendamento.telefoneCliente);
+
+  // Limpa caracteres não numéricos para o link do WhatsApp (ex: "(11) 98765-4321" -> "5511987654321")
+  const telefoneLimpo = agendamento.telefoneCliente?.replace(/\D/g, "");
 
   return (
     <article className="center between gap-2">
-      <Link href="/detalheAgendamento" className={`${style.info}`}>
-        <CardData equipe={item} />
+      <Link
+        href={`/detalheAgendamento/${agendamento.agendamentoID}`}
+        className={`grid3 gap-4 ${style.info}`}
+      >
+        <CardData agendamento={agendamento} nomeEquipe={nomeEquipe} />
+
         <div className="flex_c">
-          <h4>Jucelino Pinheiro</h4>
-          <p>jucelino@gmail.com</p>
+          <h4>{agendamento.nomeCliente}</h4>
+          <p>{agendamento.emailCliente || agendamento.nomeServico}</p>
         </div>
       </Link>
-      {(email || number) && (
-        <div className={`flex ${style.contatos} gap-2`}>
-          {email && <Button icon="mail" noText />}
-          {number && <Button icon="whatsapp" noText />}
+
+      {(temEmail || temTelefone) && (
+        <div
+          className={`flex_c ${style.contatos} gap-2`}
+        >
+          {temEmail && (
+            <Button
+              icon="mail"
+              noText
+              link={`mailto:${agendamento.emailCliente}`}
+            />
+          )}
+          {temTelefone && (
+            <Button
+              icon="whatsapp"
+              noText
+              link={`https://wa.me/55${telefoneLimpo}`}
+            />
+          )}
         </div>
       )}
     </article>

@@ -48,33 +48,7 @@ export default function DetalheEquipe() {
             </div>
 
             <div className="flex_c gap-4">
-              <div key={""} className="flex gap-2">
-                <Image
-                  src={"/img/user.png"}
-                  width={40}
-                  height={40}
-                  alt="Nome integrante"
-                  className="user"
-                />
-                <div>
-                  <h5>Nome integrante</h5>
-                  <p>Email integrante</p>
-                </div>
-              </div>
-              <div key={""} className="flex gap-2">
-                <Image
-                  src={"/img/user.png"}
-                  width={40}
-                  height={40}
-                  alt="Nome integrante"
-                  className="user"
-                />
-                <div>
-                  <h5>Nome integrante</h5>
-                  <p>Email integrante</p>
-                </div>
-              </div>
-              {/* {equipe.membros?.map((membro: any) => (
+              {equipe.membros?.map((membro) => (
                 <div key={membro.id} className="flex gap-2">
                   <Image
                     src={membro.foto || "/img/user.png"}
@@ -88,11 +62,11 @@ export default function DetalheEquipe() {
                     <p>{membro.email}</p>
                   </div>
                 </div>
-              ))} */}
+              ))}
             </div>
 
             <Link
-              href={`/editarEquipe/${equipe.equipeID}`}
+              href={`/adicionarEquipe?id=${equipe.equipeID}`}
               className={`${style.edit} ${Status.cancelado}_bg`}
             >
               <Icon name="edit" size={36} />
