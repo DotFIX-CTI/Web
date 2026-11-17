@@ -1,8 +1,8 @@
-import { Props } from "@/utils/status";
+import { Status } from "@/utils/status";
 
 export default function CardSugestao() {
   return (
-    <article className={`card_small between ${Props.default}`}>
+    <article className={`card_small between ${Status.default}`}>
       <div className="center between">
         <h5>01/03/2026</h5>
         <h5>15:00</h5>

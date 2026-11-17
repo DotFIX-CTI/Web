@@ -3,7 +3,7 @@
   position: fixed;
   top: 37.5vh;
   left: 0;
-  border-radius: 0 20px 20px 0;
+  border-radius: 0 var(--border-md) var(--border-md) 0;
   width: 48px;
   display: grid;
   grid-template-rows: auto 0fr;
@@ -18,7 +18,7 @@
 .menubarExtended {
   grid-template-rows: auto 1fr;
   border-radius: 0;
-  padding-bottom: 12px;
+  padding-bottom: var(--padding-sm);
 }
 
 .option {
@@ -78,5 +78,5 @@
   background-color: var(--white);
   border: none;
   border-radius: 2px;
-  margin: 12px 0;
+  margin: var(--margin-lg) 0;
 }

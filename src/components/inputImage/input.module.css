@@ -2,7 +2,7 @@
   border: dashed 3px color-mix(in srgb, var(--surface), var(--primary-surface));
   width: 120px;
   height: 120px;
-  border-radius: 12px;
+  border-radius: var(--border-sm);
   color: var(--off);
   display: flex;
   align-items: center;

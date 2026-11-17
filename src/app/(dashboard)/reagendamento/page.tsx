@@ -1,5 +1,5 @@
 import Main from "@/utils/main";
-import { Props } from "@/utils/status";
+import { Status } from "@/utils/status";
 import CardReagendamento from "@/components/cardReagendamento";
 import Pesquisa from "@/components/pesquisa";
 import Button from "@/components/button";
@@ -9,7 +9,7 @@ export default function Reagendamento() {
   return (
     <Main>
       <section className="grid gap-12 max_width max_height">
-        <article className={`card between gap-6 ${Props.cancelado}`}>
+        <article className={`card between gap-6 ${Status.cancelado}`}>
           <div className="flex_c gap-1">
             <h1 className="upper">Link dedicado 10gbps</h1>
             <h4>03/03/2026</h4>

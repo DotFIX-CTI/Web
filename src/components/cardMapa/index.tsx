@@ -1,5 +1,5 @@
 import Icon from "@/utils/icon";
-import { Props } from "@/utils/status";
+import { Status } from "@/utils/status";
 import dynamic from "next/dynamic";
 
 const MapaDinamico = dynamic(() => import("@/utils/mapa"), {
@@ -22,7 +22,7 @@ export default function CardMapa() {
   return (
     <article className={`card_mapa`}>
       <div
-        className={`flex_c gap-2 ${Props.cancelado}_bg`}
+        className={`flex_c gap-2 ${Status.cancelado}_bg`}
         style={{ padding: "20px" }}
       >
         <div className={`flex between`}>

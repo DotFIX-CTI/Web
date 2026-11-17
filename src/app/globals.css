@@ -20,6 +20,21 @@
   --shadow:
     4px 4px 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
     0 0 20px color-mix(in srgb, var(--primary) 10%, transparent 100%);
+
+  --border-sm: 4px;
+  --border-md: calc(var(--border-sm) * 2);
+  --border-lg: calc(var(--border-sm) * 3);
+
+  --padding-sm: 12px;
+  --padding-md: calc(var(--padding-sm) * 2);
+  --padding-lg: calc(var(--padding-sm) * 3);
+
+  --margin-sm: 4px;
+  --margin-md: calc(var(--margin-sm) * 2);
+  --margin-lg: calc(var(--margin-sm) * 3);
+  --margin-xg: calc(var(--margin-sm) * 6);
+
+  --border-off: 2px solid var(--off);
 }
 
 @theme inline {
@@ -101,7 +116,7 @@ hr {
   background-color: color-mix(in srgb, var(--foreground) 15%, transparent 100%);
   width: 100%;
   display: block;
-  margin: 4px 0 0;
+  margin: var(--margin-sm) 0 0;
 }
 
 img {
@@ -208,7 +223,7 @@ textarea {
 .error_mensagem {
   border-radius: 12px;
   background-color: color-mix(in srgb, var(--error) 10%, transparent 100%);
-  padding: 8px;
+  padding: var(--padding-sm);
   font-weight: 600;
   font-size: 0.875rem;
   line-height: 1.25rem;
@@ -293,24 +308,24 @@ textarea {
   background-color: var(--white);
   width: 100%;
   display: flex;
-  border-radius: 24px;
+  border-radius: var(--border-md);
 }
 
 .card {
-  padding: 24px;
+  padding: var(--padding-md);
   flex-direction: column;
 }
 
 .card_login {
   min-width: 480px;
   max-width: 480px;
-  padding: 24px;
+  padding: var(--padding-md);
   flex-direction: column;
 }
 
 .card_small {
   height: 72px;
-  padding: 12px;
+  padding: var(--padding-sm);
   flex-direction: column;
 }
 
@@ -333,12 +348,12 @@ textarea {
 }
 
 .card_scroll {
-  padding: 24px 24px 0;
+  padding: var(--padding-md) var(--padding-md) 0;
   flex-direction: column;
 }
 
 .card_scroll_h {
-  padding: 24px 0;
+  padding: var(--padding-md) 0;
   flex-direction: row;
 }
 
@@ -346,7 +361,7 @@ textarea {
   display: flex;
   flex-direction: column;
   overflow-y: scroll;
-  padding: 24px 12px 36px;
+  padding: var(--padding-md) var(--padding-sm) var(--padding-lg);
   mask-image: linear-gradient(
     to bottom,
     transparent 0%,
@@ -360,7 +375,7 @@ textarea {
   width: 100%;
   display: flex;
   overflow-x: scroll;
-  padding: 12px 24px;
+  padding: var(--padding-sm) var(--padding-md);
   mask-image: linear-gradient(
     to right,
     transparent 0%,
@@ -374,7 +389,7 @@ textarea {
 /*? │ 7. CLASSES UTILITÁRIAS E TIPOGRAFIA AUXILIAR │ */
 /*? └──────────────────────────────────────────────┘ */
 .user {
-  border-radius: 8px;
+  border-radius: var(--border-md);
   overflow: hidden;
   object-fit: contain;
 }
@@ -477,14 +492,14 @@ textarea {
   background-size: 200% 100%;
   animation: shimmer 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   will-change: background-position;
-  border-radius: 8px;
+  border-radius: var(--border-md);
   pointer-events: none;
   user-select: none;
 }
 
 .skeleton_text {
   height: 1em;
-  border-radius: 4px;
+  border-radius: var(--border-sm);
   display: inline-block;
 }
 
@@ -563,5 +578,5 @@ textarea {
   font-size: 1rem;
   font-weight: 600;
   box-shadow: var(--shadow);
-  border-radius: 24px;
+  border-radius: var(--border-lg);
 }

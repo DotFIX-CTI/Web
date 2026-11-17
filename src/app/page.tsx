@@ -27,7 +27,7 @@ export default function Login() {
   }
 
   return (
-    <Main patternOpacity={0.05}>
+    <Main>
       <section className="center_c gap-8 relative z-1">
         <Logo height={100} color="var(--primary)" />
 

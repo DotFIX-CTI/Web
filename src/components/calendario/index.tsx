@@ -60,7 +60,7 @@ export default function Calendario({
         </button>
       </div>
 
-      <article className={`${style.calendario}`} style={{ height: "100%" }}>
+      <article className={`${style.calendario}`}>
         {Object.entries(Semana).map(([rawKey, value]) => {
           const key = rawKey as StatusType;
           const diasDaColuna = diasDoMes[key] || [];

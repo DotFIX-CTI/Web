@@ -1,9 +1,9 @@
 import Icon from "@/utils/icon";
-import { Props } from "@/utils/status";
+import { Status } from "@/utils/status";
 
 export default function CardLog() {
   return (
-    <article className={`card gap-2 ${Props.cancelado}`} style={{ width: 640 }}>
+    <article className={`card gap-2 ${Status.cancelado}`} style={{ width: 640 }}>
       <h2>Organização de cabos de redes</h2>
       <div>
         <h5>Há 4 dias</h5>

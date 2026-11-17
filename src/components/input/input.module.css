@@ -3,9 +3,9 @@
   position: relative;
   display: flex;
   align-items: center;
-  border-radius: 12px;
+  border-radius: var(--border-md);
   font-size: 0.85rem;
-  border: 2px solid var(--off);
+  border: var(--border-off);
   background-color: var(--white);
   outline: none;
   resize: none;
@@ -22,8 +22,8 @@
 .code input {
   width: 15%;
   aspect-ratio: 1/1;
-  border-radius: 12px;
-  border: 2px solid var(--off);
+  border-radius: var(--border-sm);
+  border: var(--border-off);
   background-color: var(--white);
 }
 

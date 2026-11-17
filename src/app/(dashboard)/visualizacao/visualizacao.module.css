@@ -1,5 +1,5 @@
 .visualizacao {
-  margin: 0;
+  margin-top: 7.5vh;
   height: 92.5vh;
   width: 100%;
   display: flex;
@@ -15,7 +15,7 @@
 .data {
   width: 100%;
   text-align: center;
-  padding: 0 0 12px;
+  padding: 0 0 var(--padding-sm);
   border-bottom: 2px solid var(--primary);
 }
 
@@ -23,7 +23,7 @@
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  padding: 12px 0 0;
+  padding: var(--padding-sm) 0 0;
   flex-direction: column;
   background-color: var(--white);
   border-right: 4px solid var(--primary);
@@ -34,7 +34,7 @@
   gap: 24px;
   height: 85vh;
   display: flex;
-  padding: 24px;
+  padding: var(--padding-md);
   overflow-y: auto;
   flex-direction: column;
   width: 100%;

@@ -1,7 +1,7 @@
 "use client";
 
 import Main from "@/utils/main";
-import { Props } from "@/utils/status";
+import { Status } from "@/utils/status";
 import CardEquipe from "@/components/cardEquipe";
 import CardMapa from "@/components/cardMapa";
 import Button from "@/components/button";
@@ -11,7 +11,7 @@ export default function DetalheAgendamento() {
     <Main>
       <section className="grid3 gap-12 max_width max_height">
         <div className="flex_c gap-4">
-          <article className={`card between gap-4 ${Props.cancelado}`}>
+          <article className={`card between gap-4 ${Status.cancelado}`}>
             <div className="flex_c gap-4">
               <div className="flex_c">
                 <h1 className="upper">Link dedicado 10gbps</h1>
@@ -28,7 +28,7 @@ export default function DetalheAgendamento() {
               Reagendar
             </Button>
           </article>
-          <CardEquipe />
+          <CardEquipe equipe={undefined} />
         </div>
         <CardMapa />
       </section>
