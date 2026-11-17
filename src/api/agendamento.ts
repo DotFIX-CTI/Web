@@ -41,7 +41,7 @@ export async function listarAgendamento(): Promise<Agendamento[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(agendamentosMock);
-    }, 1000);
+    });
   });
 }
 
@@ -60,7 +60,7 @@ export async function listarAgendamentoPorId(id: number): Promise<Agendamento> {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(agendamentosMock[id]);
-    }, 1000);
+    });
   });
 }
 

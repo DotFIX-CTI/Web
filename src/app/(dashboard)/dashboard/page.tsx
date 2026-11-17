@@ -80,15 +80,15 @@ export default function Dashboard() {
           <Pesquisa />
           <div className="flex_c scroll gap-4">
             {carregando ? (
-              <p>Carregando próximos agendamentos...</p>
+              <h5>Carregando próximos agendamentos...</h5>
             ) : erro ? (
-              <p>{erro}</p>
+              <h5>{erro}</h5>
             ) : proximosAgendamentos.length === 0 ? (
-              <p>
+              <h5>
                 {dataSelecionada
                   ? "Nenhum agendamento encontrado para este dia."
                   : "Nenhum agendamento futuro encontrado."}
-              </p>
+              </h5>
             ) : (
               proximosAgendamentos.map((item) => (
                 <CardProximoAgendamento
