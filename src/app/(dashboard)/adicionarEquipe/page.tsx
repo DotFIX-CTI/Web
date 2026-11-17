@@ -3,64 +3,23 @@
 import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Main from "@/utils/main";
-import style from "./adicionar.module.css";
-import Select, { Option } from "@/components/select";
+import Select from "@/components/select";
 import Integrante from "@/components/integrante";
 import InputImage from "@/components/inputImage";
-import Pesquisa from "@/components/pesquisa";
 import Button from "@/components/button";
 import Input from "@/components/input";
 import Image from "next/image";
 import { useEquipe } from "@/hooks/useEquipe";
 import { Membro } from "@/api/equipe";
-
-// Lista mockada de integrantes disponíveis (pode ser substituída pelo seu hook/API de usuários)
-const listaIntegrantesDisponiveis: Membro[] = [
-  {
-    id: 101,
-    nome: "Arthur Sales",
-    email: "arthur.sales@empresa.com",
-    foto: "/img/user.png",
-  },
-  {
-    id: 102,
-    nome: "Diego Castro",
-    email: "diego.castro@empresa.com",
-    foto: "/img/user.png",
-  },
-  {
-    id: 103,
-    nome: "Lucas Mendes",
-    email: "lucas.mendes@empresa.com",
-    foto: "/img/user.png",
-  },
-  {
-    id: 104,
-    nome: "Camila Rocha",
-    email: "camila.rocha@empresa.com",
-    foto: "/img/user.png",
-  },
-  {
-    id: 105,
-    nome: "Rafael Lima",
-    email: "rafael.lima@empresa.com",
-    foto: "/img/user.png",
-  },
-  {
-    id: 106,
-    nome: "Bruno Costa",
-    email: "bruno.costa@empresa.com",
-    foto: "/img/user.png",
-  },
-];
+import { useEquipes } from "@/hooks/useEquipes";
+import Pesquisa from "@/components/pesquisa";
+import { toastErro, toastInfo, toastSucesso } from "@/utils/toast";
 
 export default function AdicionarEquipe() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const idParam = searchParams.get("id");
   const idEdicao = idParam ? Number(idParam) : undefined;
-
-  const { equipe, carregando } = useEquipe(idEdicao);
 
   const [nomeEquipe, setNomeEquipe] = useState("");
   const [email, setEmail] = useState("");
@@ -70,14 +29,22 @@ export default function AdicionarEquipe() {
   const [membro2Id, setMembro2Id] = useState("");
   const [termoPesquisa, setTermoPesquisa] = useState("");
 
+  const { equipes } = useEquipes();
+  const { equipe, carregando } = useEquipe(idEdicao);
+
   const todosIntegrantes = useMemo(() => {
     const mapa = new Map<number, Membro>();
-    listaIntegrantesDisponiveis.forEach((m) => mapa.set(m.id, m));
-    equipe?.membros?.forEach((m) => mapa.set(m.id, m));
-    return Array.from(mapa.values());
-  }, [equipe]);
 
-  const opcoesIntegrantes: Option[] = useMemo(
+    equipes.forEach((eq) => {
+      eq.membros?.forEach((m) => mapa.set(m.id, m));
+    });
+
+    equipe?.membros?.forEach((m) => mapa.set(m.id, m));
+
+    return Array.from(mapa.values());
+  }, [equipes, equipe]);
+
+  const opcoesIntegrantes = useMemo(
     () =>
       todosIntegrantes.map((m) => ({
         label: m.nome,
@@ -95,6 +62,17 @@ export default function AdicionarEquipe() {
     () => todosIntegrantes.find((m) => String(m.id) === membro2Id),
     [todosIntegrantes, membro2Id],
   );
+
+  const integrantesFiltrados = useMemo(() => {
+    const termo = termoPesquisa.trim().toLowerCase();
+    if (!termo) return todosIntegrantes;
+
+    return todosIntegrantes.filter(
+      (m) =>
+        m.nome.toLowerCase().includes(termo) ||
+        m.email.toLowerCase().includes(termo),
+    );
+  }, [todosIntegrantes, termoPesquisa]);
 
   useEffect(() => {
     if (!equipe) return;
@@ -121,11 +99,14 @@ export default function AdicionarEquipe() {
     try {
       if (idEdicao) {
         router.push(`/detalheEquipe/${idEdicao}`);
+        toastInfo(`Equipe '${equipe?.nomeEquipe}' editada!`);
       } else {
         router.push("/equipe");
+        toastSucesso("Equipe adicionada com sucesso!");
       }
     } catch (error) {
       console.error("Erro ao salvar equipe:", error);
+      toastErro(`Erro ao ${idEdicao ? "editar" : "salvar"} equipe!`);
     }
   };
 
@@ -145,123 +126,142 @@ export default function AdicionarEquipe() {
   return (
     <Main>
       <section className="grid2 gap-8 max_width">
-        <article className="card gap-8 max_height">
-          <h2>{idEdicao ? "Editar Equipe" : "Adicionar Equipe"}</h2>
+        <article className="card between max_height">
+          <div className="flex_c gap-8">
+            <h2>{idEdicao ? "Editar Equipe" : "Adicionar Equipe"}</h2>
+            <div className="grid gap-4">
+              <div className="flex_c gap-4">
+                <div className="center gap-4">
+                  <div>
+                    <InputImage />
+                  </div>
+                  <div className="small_txt">
+                    <p>Observação:</p>
+                    <span>
+                      Caso não tenha imagem, apenas as iniciais do nome da sua
+                      equipe irão aparecer
+                    </span>
+                  </div>
+                </div>
 
-          <div className="grid gap-4">
-            <div className="flex_c gap-4">
-              <div className="center gap-4">
-                <div>
-                  <InputImage />
-                </div>
-                <div className="small_txt">
-                  <p>Observação:</p>
-                  <span>
-                    Caso não tenha imagem, apenas as iniciais do nome da sua
-                    equipe irão aparecer
-                  </span>
-                </div>
+                <Input
+                  label="Nome da Equipe"
+                  placeholder="Gustavo"
+                  icon="user"
+                  value={nomeEquipe}
+                  onChange={(e) => setNomeEquipe(e.target.value)}
+                  required
+                  errorMessage="Nome obrigatório"
+                />
+                <Input
+                  label="Email"
+                  placeholder="gustavo@gmail.com"
+                  icon="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                  errorMessage="Email obrigatório"
+                />
+                <Input
+                  label="Senha de acesso"
+                  placeholder="********"
+                  icon="password"
+                  value={senha}
+                  onChange={(e) => setSenha(e.target.value)}
+                  required={!idEdicao}
+                  errorMessage="Senha obrigatória"
+                />
+                <Input
+                  label="Confirmar Senha"
+                  placeholder="********"
+                  icon="password"
+                  value={confirmarSenha}
+                  onChange={(e) => setConfirmarSenha(e.target.value)}
+                  required={!idEdicao}
+                  errorMessage="Senha incorreta"
+                />
               </div>
 
-              <Input
-                label="Nome da Equipe"
-                placeholder="Gustavo"
-                icon="user"
-                value={nomeEquipe}
-                onChange={(e) => setNomeEquipe(e.target.value)}
-                required
-                errorMessage="Nome obrigatório"
-              />
-              <Input
-                label="Email"
-                placeholder="gustavo@gmail.com"
-                icon="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                errorMessage="Email obrigatório"
-              />
-              <Input
-                label="Senha de acesso"
-                placeholder="********"
-                icon="password"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-                required={!idEdicao}
-                errorMessage="Senha obrigatória"
-              />
-              <Input
-                label="Confirmar Senha"
-                placeholder="********"
-                icon="password"
-                value={confirmarSenha}
-                onChange={(e) => setConfirmarSenha(e.target.value)}
-                required={!idEdicao}
-                errorMessage="Senha incorreta"
-              />
-            </div>
+              <div className="flex_c gap-12">
+                <div className="flex_c gap-4">
+                  <Select
+                    label="1º Integrante"
+                    placeholder="Selecione o primeiro integrante"
+                    options={opcoesIntegrantes}
+                    value={membro1Id}
+                    onChange={(valor: string) => setMembro1Id(valor)}
+                    required
+                    errorMessage="1º Integrante obrigatório"
+                  />
+                  {integrante1 && (
+                    <div className="flex between center gap-2">
+                      <div className="flex center gap-2">
+                        <Image
+                          src={integrante1.foto || "/img/user.png"}
+                          width={40}
+                          height={40}
+                          alt={integrante1.nome}
+                          className="user"
+                        />
+                        <div>
+                          <h5>{integrante1.nome}</h5>
+                          <p>{integrante1.email}</p>
+                        </div>
+                      </div>
 
-            <div className="flex_c gap-12">
-              <div className="flex_c gap-1">
-                <Select
-                  label="1º Integrante"
-                  placeholder="Selecione o primeiro integrante"
-                  options={opcoesIntegrantes}
-                  value={membro1Id}
-                  onChange={(valor: string) => setMembro1Id(valor)}
-                  required
-                  errorMessage="1º Integrante obrigatório"
-                />
-                {integrante1 && (
-                  <div className="flex gap-2">
-                    <Image
-                      src={integrante1.foto || "/img/user.png"}
-                      width={40}
-                      height={40}
-                      alt={integrante1.nome}
-                      className="user"
-                    />
-                    <div>
-                      <h5>{integrante1.nome}</h5>
-                      <p>{integrante1.email}</p>
+                      <Button
+                        icon="cancel"
+                        variant="secondary"
+                        onClick={() => setMembro1Id("")}
+                        noText
+                      />
                     </div>
-                  </div>
-                )}
-              </div>
+                  )}
+                </div>
 
-              <div className="flex_c gap-1">
-                <Select
-                  label="2º Integrante"
-                  placeholder="Selecione o segundo integrante"
-                  options={opcoesIntegrantes}
-                  value={membro2Id}
-                  onChange={(valor: string) => setMembro2Id(valor)}
-                  required
-                  errorMessage="2º Integrante obrigatório"
-                />
-                {integrante2 && (
-                  <div className="flex gap-2">
-                    <Image
-                      src={integrante2.foto || "/img/user.png"}
-                      width={40}
-                      height={40}
-                      alt={integrante2.nome}
-                      className="user"
-                    />
-                    <div>
-                      <h5>{integrante2.nome}</h5>
-                      <p>{integrante2.email}</p>
+                <div className="flex_c gap-4">
+                  <Select
+                    label="2º Integrante"
+                    placeholder="Selecione o segundo integrante"
+                    options={opcoesIntegrantes}
+                    value={membro2Id}
+                    onChange={(valor: string) => setMembro2Id(valor)}
+                    required
+                    errorMessage="2º Integrante obrigatório"
+                  />
+                  {integrante2 && (
+                    <div className="flex between center gap-2">
+                      <div className="flex center gap-2">
+                        <Image
+                          src={integrante2.foto || "/img/user.png"}
+                          width={40}
+                          height={40}
+                          alt={integrante2.nome}
+                          className="user"
+                        />
+                        <div>
+                          <h5>{integrante2.nome}</h5>
+                          <p>{integrante2.email}</p>
+                        </div>
+                      </div>
+
+                      <Button
+                        icon="cancel"
+                        variant="secondary"
+                        onClick={() => setMembro2Id("")}
+                        noText
+                      />
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
               </div>
             </div>
           </div>
 
           <Button
             icon={idEdicao ? "save" : "add"}
-            className={`${style.adicionar}`}
             onClick={handleSalvar}
+            className="self-end"
           >
             {idEdicao ? "Salvar" : "Adicionar"}
           </Button>
@@ -270,7 +270,7 @@ export default function AdicionarEquipe() {
             <Button
               icon="delete"
               variant="attention"
-              className={`${style.deletar}`}
+              className="delete"
               onClick={handleExcluir}
               noText
             />
@@ -278,11 +278,30 @@ export default function AdicionarEquipe() {
         </article>
 
         <article className={`card_scroll max_height`}>
-          <Pesquisa />
+          <Pesquisa
+            value={termoPesquisa}
+            onChange={(e) => setTermoPesquisa(e.target.value)}
+            placeholder="Buscar integrante..."
+          />
           <div className="scroll gap-6">
-            {Array.from({ length: 12 }).map((_, index) => (
-              <Integrante key={index} />
-            ))}
+            {integrantesFiltrados.length === 0 ? (
+              <p>Nenhum integrante encontrado.</p>
+            ) : (
+              integrantesFiltrados.map((membro) => (
+                <Integrante
+                  key={membro.id}
+                  membro={membro}
+                  onSelect={(selecionado) => {
+                    const idStr = String(selecionado.id);
+                    if (!membro1Id) {
+                      setMembro1Id(idStr);
+                    } else if (!membro2Id && membro1Id !== idStr) {
+                      setMembro2Id(idStr);
+                    }
+                  }}
+                />
+              ))
+            )}
           </div>
         </article>
       </section>

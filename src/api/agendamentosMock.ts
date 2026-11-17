@@ -99,9 +99,9 @@ export const agendamentosMock: Agendamento[] = [
   },
   {
     agendamentoID: 6,
-    nomeCliente: "Padaria Bella Paulista",
-    emailCliente: "gerencia@bellapaulista.com.br",
-    telefoneCliente: "(11) 3214-3347",
+    nomeCliente: "Guilherme Molina",
+    emailCliente: "g.molina@aluno.senai.br",
+    telefoneCliente: "(11) 98067-5600",
     nomeServico: "Configuração de Firewall e VPN",
     descricao: "Isolamento da rede de clientes e rede administrativa.",
     cep: "01414-001",

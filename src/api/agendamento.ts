@@ -18,7 +18,6 @@ export interface Agendamento {
   data: string;
   latitude: string;
   longitude: string;
-  AgendamentoID: number;
   statusAgendamentoID: number;
   equipeID: number;
 }

@@ -18,5 +18,11 @@ export const toastSucesso = (msg: string) =>
 export const toastErro = (msg: string) =>
   toast.error(msg, {
     ...defaultOptions,
+    icon: <Icon name="cancel" />,
+  });
+
+export const toastInfo = (msg: string) =>
+  toast.info(msg, {
+    ...defaultOptions,
     icon: <Icon name="info" />,
   });

@@ -16,14 +16,13 @@ export default function CardProximoAgendamento({
   const temEmail = Boolean(agendamento.emailCliente);
   const temTelefone = Boolean(agendamento.telefoneCliente);
 
-  // Limpa caracteres não numéricos para o link do WhatsApp (ex: "(11) 98765-4321" -> "5511987654321")
   const telefoneLimpo = agendamento.telefoneCliente?.replace(/\D/g, "");
 
   return (
-    <article className="center between gap-2">
+    <article className={`center between gap-2 ${style.info}`}>
       <Link
         href={`/detalheAgendamento/${agendamento.agendamentoID}`}
-        className={`grid3 gap-4 ${style.info}`}
+        className={`grid3 gap-4 items-center`}
       >
         <CardData agendamento={agendamento} nomeEquipe={nomeEquipe} />
 
@@ -34,9 +33,7 @@ export default function CardProximoAgendamento({
       </Link>
 
       {(temEmail || temTelefone) && (
-        <div
-          className={`flex_c ${style.contatos} gap-2`}
-        >
+        <div className={`flex_c ${style.contatos} gap-2`}>
           {temEmail && (
             <Button
               icon="mail"
@@ -48,7 +45,8 @@ export default function CardProximoAgendamento({
             <Button
               icon="whatsapp"
               noText
-              link={`https://wa.me/55${telefoneLimpo}`}
+              target="_blank"
+              link={`https://wa.me/55${telefoneLimpo}?text=Olá, ${agendamento.nomeCliente}! Nós da DotFIX queremos entrar em contato com você(s)`}
             />
           )}
         </div>

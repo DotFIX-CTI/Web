@@ -49,8 +49,8 @@ export default function DetalheAgendamento() {
   return (
     <Main>
       <section className="grid3 gap-12 max_width max_height">
-        <div className="flex_c gap-4">
-          <article className={`card between gap-4 ${classeStatus}`}>
+        <div className="flex_c gap-8">
+          <article className={`card between gap-4 h-[100%] ${classeStatus}`}>
             <div className="flex_c gap-4">
               <div className="flex_c">
                 <h1 className="upper">{agendamento.nomeServico}</h1>
@@ -73,6 +73,7 @@ export default function DetalheAgendamento() {
               <Button
                 icon="edit"
                 link={`/agendamento?id=${agendamento.agendamentoID}`}
+                variant="secondary"
               >
                 Editar
               </Button>
@@ -86,7 +87,7 @@ export default function DetalheAgendamento() {
             <p>Equipe não encontrada.</p>
           )}
         </div>
-        <CardMapa />
+        <CardMapa agendamento={agendamento} />
       </section>
     </Main>
   );

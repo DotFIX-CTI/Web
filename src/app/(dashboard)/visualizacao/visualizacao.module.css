@@ -1,11 +1,14 @@
+.container {
+  border-left: 48px solid var(--primary);
+  background-color: var(--white);
+}
+
 .visualizacao {
   margin-top: 7.5vh;
   height: 92.5vh;
   width: 100%;
   display: flex;
   overflow-x: auto;
-  background-color: var(--white);
-  border-left: 48px solid var(--primary);
 }
 
 .visualizacao::-webkit-scrollbar {

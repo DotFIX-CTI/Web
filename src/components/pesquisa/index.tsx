@@ -1,15 +1,22 @@
 import Icon from "@/utils/icon";
 import style from "./pesquisa.module.css";
 
-export default function Pesquisa() {
+interface PesquisaProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+export default function Pesquisa({
+  placeholder = "Pesquisar...",
+  className = "",
+  ...rest
+}: PesquisaProps) {
   return (
-    <div className={`container ${style.pesquisa}`}>
+    <div className={`container ${style.pesquisa} ${className}`}>
       <input
         type="text"
-        className={`${style.pesquisa_input}`}
-        placeholder="Pesquisar..."
+        className={style.pesquisa_input}
+        placeholder={placeholder}
+        {...rest}
       />
-      <Icon name="search" className="icon" size={20}/>
+      <Icon name="search" className="icon" size={20} />
     </div>
   );
 }

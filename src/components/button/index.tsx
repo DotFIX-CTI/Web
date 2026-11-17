@@ -20,6 +20,7 @@ type BaseProps = {
   fullWidth?: boolean;
   loading?: boolean;
   disabled?: boolean;
+  target?: string;
 };
 
 // Botão Comum
@@ -48,6 +49,7 @@ export default function Button(props: ButtonProps) {
     fullWidth,
     loading,
     disabled,
+    target = "_blank",
     ...rest
   } = props;
 
@@ -68,6 +70,7 @@ export default function Button(props: ButtonProps) {
         href={link}
         className={`${style.button} ${variantClass} ${className}`}
         style={customStyle}
+        target={target}
         {...(rest as AnchorHTMLAttributes<HTMLAnchorElement>)}
       >
         {icon && <Icon name={icon} size={20} />}

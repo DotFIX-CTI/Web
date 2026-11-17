@@ -18,7 +18,7 @@
   --cancel: hsl(220, 15%, 50%);
 
   --shadow:
-    4px 4px 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
+    0 0 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
     0 0 20px color-mix(in srgb, var(--primary) 10%, transparent 100%);
 
   --border-sm: 4px;
@@ -35,6 +35,7 @@
   --margin-xg: calc(var(--margin-sm) * 6);
 
   --border-off: 2px solid var(--off);
+  --border-card: 1px solid color-mix(in srgb, var(--off) 20%, transparent 100%);
 }
 
 @theme inline {
@@ -137,11 +138,9 @@ textarea {
   & h1,
   & h2,
   & h3,
-  & h4 {
-    color: var(--success);
-  }
-  & a {
-    background-color: var(--success);
+  & h4,
+  & h5 {
+    color: color-mix(in srgb, var(--success) 100%, var(--foreground) 50%);
   }
 }
 .default_bg {
@@ -153,8 +152,9 @@ textarea {
   & h1,
   & h2,
   & h3,
-  & h4 {
-    color: var(--warning);
+  & h4,
+  & h5 {
+    color: color-mix(in srgb, var(--warning) 100%, var(--foreground) 50%);
   }
 }
 .pendente_bg {
@@ -166,8 +166,9 @@ textarea {
   & h1,
   & h2,
   & h3,
-  & h4 {
-    color: var(--error);
+  & h4,
+  & h5 {
+    color: color-mix(in srgb, var(--error) 100%, var(--foreground) 50%);
   }
 }
 .atrasado_bg {
@@ -179,8 +180,9 @@ textarea {
   & h1,
   & h2,
   & h3,
-  & h4 {
-    color: var(--cancel);
+  & h4,
+  & h5 {
+    color: color-mix(in srgb, var(--cancel) 100%, var(--foreground) 50%);
   }
 }
 .cancelado_bg {
@@ -296,7 +298,6 @@ textarea {
 /*? ┌────────────────────────┐ */
 /*? │ 6. COMPONENTES E CARDS │ */
 /*? └────────────────────────┘ */
-
 .card,
 .card_login,
 .card_small,
@@ -336,7 +337,7 @@ textarea {
 
   & h2,
   & h4,
-  & {
+  & h5 {
     color: var(--white);
   }
 
@@ -423,6 +424,23 @@ textarea {
   color: var(--foreground);
   font-weight: 700;
   font-size: 3rem;
+}
+
+.edit {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 0 var(--border-md) 0 var(--border-md);
+  overflow: hidden;
+  cursor: pointer;
+  padding: var(--padding-sm);
+  color: var(--white);
+}
+
+.delete {
+  position: absolute;
+  top: var(--margin-xg);
+  right: var(--margin-xg);
 }
 
 /*? ┌───────────────────┐ */
@@ -566,9 +584,20 @@ textarea {
   color: var(--white) !important;
 }
 
+/* Toast de Informação */
+.Toastify__toast--info {
+  background-color: color-mix(
+    in srgb,
+    var(--primary) 100%,
+    var(--foreground) 50%
+  ) !important;
+  color: var(--white) !important;
+}
+
 /* Barrinha de progresso */
 .Toastify__progress-bar--success,
-.Toastify__progress-bar--error {
+.Toastify__progress-bar--error,
+.Toastify__progress-bar--info {
   background: color-mix(in srgb, var(--white) 100%, transparent 50%) !important;
 }
 

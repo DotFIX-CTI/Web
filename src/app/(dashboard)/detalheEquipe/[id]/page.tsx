@@ -3,7 +3,6 @@
 import { useParams } from "next/navigation";
 import Main from "@/utils/main";
 import Icon from "@/utils/icon";
-import style from "./detalhe.module.css";
 import CardMapa from "@/components/cardMapa";
 import CardLog from "@/components/cardLog";
 import Image from "next/image";
@@ -33,8 +32,8 @@ export default function DetalheEquipe() {
 
   return (
     <Main>
-      <section className="flex_c gap-12 max_width">
-        <div className="grid gap-12">
+      <section className="grid gap-12 max_width">
+        <div className="flex_c gap-8 max_height">
           <article className="card gap-4">
             <div className="center gap-4">
               <Image
@@ -67,7 +66,7 @@ export default function DetalheEquipe() {
 
             <Link
               href={`/adicionarEquipe?id=${equipe.equipeID}`}
-              className={`${style.edit} ${Status.cancelado}_bg`}
+              className={`edit ${Status.cancelado}_bg`}
             >
               <Icon name="edit" size={36} />
             </Link>
@@ -75,10 +74,9 @@ export default function DetalheEquipe() {
 
           <CardMapa />
         </div>
-
-        <article className="card_scroll_h">
-          <div className="scroll_h gap-8">
-            {Array.from({ length: 6 }).map((_, index) => (
+        <article className="card_scroll max_height">
+          <div className="scroll gap-4">
+            {Array.from({ length: 12 }).map((_, index) => (
               <CardLog key={index} />
             ))}
           </div>

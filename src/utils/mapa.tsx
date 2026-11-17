@@ -1,4 +1,5 @@
 "use client";
+
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
@@ -14,14 +15,29 @@ L.Icon.Default.mergeOptions({
     "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
 });
 
-const location = {
-  lat: -23.68395,
-  lng: -46.61802,
+const corPorClasse: Record<string, string> = {
+  default: "var(--success)",
+  pendente: "var(--warning)",
+  atrasado: "var(--error)",
+  cancelado: "var(--cancel)",
 };
 
-const position: [number, number] = [location.lat, location.lng];
+interface MapaProps {
+  latitude?: number;
+  longitude?: number;
+  tituloPopup?: string;
+  classeStatus?: string;
+}
 
-export default function Mapa() {
+export default function Mapa({
+  latitude = -23.68395,
+  longitude = -46.61802,
+  tituloPopup = "Local do Agendamento",
+  classeStatus = "default",
+}: MapaProps) {
+  const position: [number, number] = [latitude, longitude];
+  const corDestaque = corPorClasse[classeStatus] || "var(--foreground)";
+
   return (
     <div
       style={{
@@ -38,14 +54,14 @@ export default function Mapa() {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage:
-            "linear-gradient(to bottom, color-mix(in srgb, var(--foreground), transparent) 0%, transparent 15%)",
+          backgroundImage: `linear-gradient(to bottom, color-mix(in srgb, ${corDestaque} 65%, transparent) 0%, transparent 18%)`,
           zIndex: 1000,
           pointerEvents: "none",
         }}
       />
 
       <MapContainer
+        key={`${latitude}-${longitude}`}
         center={position}
         zoom={15}
         scrollWheelZoom={false}
@@ -59,7 +75,7 @@ export default function Mapa() {
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         <Marker position={position}>
-          <Popup>Sede CTI</Popup>
+          <Popup>{tituloPopup}</Popup>
         </Marker>
       </MapContainer>
     </div>
