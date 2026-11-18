@@ -27,6 +27,7 @@ export default function Background({
         objectFit: "cover",
         pointerEvents: "none",
         zIndex: -1,
+        filter: "var(--404)",
       }}
     />
   ) : (

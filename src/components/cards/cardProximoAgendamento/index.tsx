@@ -1,7 +1,7 @@
 import CardData from "../cardData";
 import style from "./card.module.css";
 import Link from "next/link";
-import Button from "../button";
+import Button from "../../button";
 import { Agendamento } from "@/api/agendamento";
 
 interface CardProximoAgendamentoProps {

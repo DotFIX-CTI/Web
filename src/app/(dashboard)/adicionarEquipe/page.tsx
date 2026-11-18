@@ -4,7 +4,7 @@ import { useState, useEffect, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import Main from "@/utils/main";
 import Select from "@/components/select";
-import Integrante from "@/components/integrante";
+import Integrante from "@/utils/integrante";
 import InputImage from "@/components/inputImage";
 import Button from "@/components/button";
 import Input from "@/components/input";

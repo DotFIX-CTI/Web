@@ -3,8 +3,8 @@
 import { useParams } from "next/navigation";
 import Main from "@/utils/main";
 import { mapaStatus, Status } from "@/utils/status";
-import CardEquipe from "@/components/cardEquipe";
-import CardMapa from "@/components/cardMapa";
+import CardEquipe from "@/components/cards/cardEquipe";
+import CardMapa from "@/components/cards/cardMapa";
 import Button from "@/components/button";
 import { useAgendamento } from "@/hooks/useAgendamento";
 import { useEquipe } from "@/hooks/useEquipe";

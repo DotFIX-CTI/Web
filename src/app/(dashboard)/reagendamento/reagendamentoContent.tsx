@@ -4,7 +4,7 @@ import { useState, useMemo, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Main from "@/utils/main";
 import { Status, mapaStatus } from "@/utils/status";
-import CardReagendamento from "@/components/cardReagendamento";
+import CardReagendamento from "@/components/cards/cardReagendamento";
 import Pesquisa from "@/components/pesquisa";
 import Button from "@/components/button";
 import Image from "next/image";

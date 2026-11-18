@@ -47,7 +47,7 @@ export default function Mapa({
         width: "100%",
       }}
     >
-      <div  
+      <div
         style={{
           position: "absolute",
           top: 0,

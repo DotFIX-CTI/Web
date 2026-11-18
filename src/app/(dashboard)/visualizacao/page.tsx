@@ -3,7 +3,7 @@
 import { useMemo } from "react";
 import Main from "@/utils/main";
 import style from "./visualizacao.module.css";
-import Card from "@/components/card";
+import Card from "@/components/cards/card";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { useEquipes } from "@/hooks/useEquipes";
 import { Agendamento } from "@/api/agendamento";

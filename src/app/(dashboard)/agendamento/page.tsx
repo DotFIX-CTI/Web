@@ -6,7 +6,7 @@ import Main from "@/utils/main";
 import { estado } from "@/utils/estados";
 import style from "./agendamento.module.css";
 import Select, { Option } from "@/components/select";
-import CardSugestao from "@/components/cardSugestao";
+import CardSugestao from "@/components/cards/cardSugestao";
 import Calendario from "@/components/calendario";
 import Button from "@/components/button";
 import Input from "@/components/input";
@@ -90,7 +90,21 @@ export default function Agendamento() {
   }, [agendamento]);
 
   const alternarFase = () => {
-    setFase((faseAnterior) => !faseAnterior);
+    setFase((faseAnterior) => {
+      const novaFase = !faseAnterior;
+      if (typeof window !== "undefined") {
+        setTimeout(() => {
+          if (novaFase) {
+            const el = document.getElementById("etapa3");
+            el?.scrollIntoView({ behavior: "smooth", block: "start" });
+          } else {
+            const el = document.getElementById("etapa1");
+            el?.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 80);
+      }
+      return novaFase;
+    });
   };
 
   const handleSalvar = async () => {
@@ -141,9 +155,10 @@ export default function Agendamento() {
     <Main>
       <section className={`flex ${style.containerEtapas}`}>
         <article
+          id="etapa1"
           className={`card gap-8 between ${style.parte1} ${
             fase ? style.after : style.before
-          }`}
+          } ${fase ? style.parte1MobileHidden : ""}`}
         >
           <div className="flex_c gap-4">
             <div>
@@ -215,8 +230,8 @@ export default function Agendamento() {
                     error={!!erroCep}
                     errorMessage={erroCep}
                   />
-                  <div className="center gap-4">
-                    <div className={`center_c self-end ${style.uf}`}>
+                  <div className={style.estadoWrapper}>
+                    <div className={style.uf}>
                       <p>{endereco.estado || "--"}</p>
                     </div>
                     <Select
@@ -296,7 +311,7 @@ export default function Agendamento() {
             </div>
           </div>
 
-          <div className="flex between">
+          <div className={style.botoes}>
             <Button icon="cancel" link="/dashboard" variant="secondary">
               Cancelar
             </Button>
@@ -311,15 +326,16 @@ export default function Agendamento() {
         </article>
 
         <article
+          id="etapa3"
           className={`card gap-4 between ${style.parte2} ${
-            !fase && style.display
+            !fase ? style.display : ""
           }`}
         >
           <div>
             <h2>3ª Etapa - Equipe & Local</h2>
             <hr />
           </div>
-          <div className={`grid2 gap-8 ${style.sugestao}`}>
+          <div className={style.sugestao}>
             <div className="flex_c between gap-4">
               <div className="flex_c gap-2">
                 <Select
@@ -359,16 +375,25 @@ export default function Agendamento() {
               />
             </div>
 
-            <div className="flex_c gap-6">
+            <div className={style.sugestoesLista}>
               {Array.from({ length: 6 }).map((_, index) => (
                 <CardSugestao key={index} />
               ))}
             </div>
           </div>
 
-          <Button icon="save" className="self-end" onClick={handleSalvar}>
-            {idEdicao ? "Atualizar" : "Salvar"}
-          </Button>
+          <div className={style.botoes}>
+            <Button
+              icon="left"
+              variant="secondary"
+              onClick={alternarFase}
+            >
+              Voltar
+            </Button>
+            <Button icon="save" onClick={handleSalvar}>
+              {idEdicao ? "Atualizar" : "Salvar"}
+            </Button>
+          </div>
         </article>
       </section>
     </Main>

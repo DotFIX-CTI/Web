@@ -3,8 +3,8 @@
 import { useParams } from "next/navigation";
 import Main from "@/utils/main";
 import Icon from "@/utils/icon";
-import CardMapa from "@/components/cardMapa";
-import CardLog from "@/components/cardLog";
+import CardMapa from "@/components/cards/cardMapa";
+import CardLog from "@/components/cards/cardLog";
 import Image from "next/image";
 import Link from "next/link";
 import { Status } from "@/utils/status";

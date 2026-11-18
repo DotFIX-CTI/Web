@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Main from "@/utils/main";
-import CardProximoAgendamento from "@/components/cardProximoAgendamento";
+import CardProximoAgendamento from "@/components/cards/cardProximoAgendamento";
 import Calendario from "@/components/calendario";
 import Button from "@/components/button";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
