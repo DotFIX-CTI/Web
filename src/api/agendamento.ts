@@ -23,16 +23,26 @@ export interface Agendamento {
 }
 
 // POST
-export async function cadastrarAgendamento(dados: Agendamento): Promise<any> {
+export async function cadastrarAgendamento(
+  dados: Omit<Agendamento, "agendamentoID"> | Agendamento,
+): Promise<Agendamento> {
   try {
     const response = await api.post("Agendamento", dados);
     return response.data;
-  } catch (error: any) {
-    const mensagemErro =
-      error.response?.data?.message ||
-      error.response?.data ||
-      "Erro ao cadastrar Agendamento";
-    throw new Error(mensagemErro);
+  } catch {
+    const novoID =
+      agendamentosMock.length > 0
+        ? Math.max(...agendamentosMock.map((a) => a.agendamentoID)) + 1
+        : 1;
+    const novo: Agendamento = {
+      ...(dados as Agendamento),
+      agendamentoID:
+        "agendamentoID" in dados && dados.agendamentoID
+          ? dados.agendamentoID
+          : novoID,
+    };
+    agendamentosMock.unshift(novo);
+    return novo;
   }
 }
 
@@ -40,7 +50,7 @@ export async function cadastrarAgendamento(dados: Agendamento): Promise<any> {
 export async function listarAgendamento(): Promise<Agendamento[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(agendamentosMock);
+      resolve([...agendamentosMock]);
     });
   });
 }
@@ -57,9 +67,14 @@ export async function listarAgendamento(): Promise<Agendamento[]> {
 
 // GET - ID Mockado
 export async function listarAgendamentoPorId(id: number): Promise<Agendamento> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(agendamentosMock[id]);
+      const item = agendamentosMock.find((a) => a.agendamentoID === id);
+      if (item) {
+        resolve(item);
+      } else {
+        reject(new Error("Agendamento não encontrado."));
+      }
     });
   });
 }
@@ -74,11 +89,35 @@ export async function listarAgendamentoPorId(id: number): Promise<Agendamento> {
 //   }
 // }
 
+// PUT
+export async function atualizarAgendamento(
+  id: number,
+  dados: Partial<Agendamento>,
+): Promise<Agendamento> {
+  try {
+    const response = await api.put(`Agendamento/${id}`, dados);
+    return response.data;
+  } catch {
+    const index = agendamentosMock.findIndex((a) => a.agendamentoID === id);
+    if (index !== -1) {
+      agendamentosMock[index] = { ...agendamentosMock[index], ...dados };
+      return agendamentosMock[index];
+    }
+    throw new Error("Agendamento não encontrado para atualização.");
+  }
+}
+
 // DELETE
-export async function deletarAgendamento(AgendamentoId: string): Promise<void> {
+export async function deletarAgendamento(
+  AgendamentoId: string | number,
+): Promise<void> {
   try {
     await api.delete("Agendamento/" + AgendamentoId);
-  } catch (error: any) {
-    throw new Error(error.response?.data || "Erro ao deletar Agendamento.");
+  } catch {
+    const idNum = Number(AgendamentoId);
+    const index = agendamentosMock.findIndex((a) => a.agendamentoID === idNum);
+    if (index !== -1) {
+      agendamentosMock.splice(index, 1);
+    }
   }
 }

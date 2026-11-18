@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 interface BackgroundProps {
   className?: string;
   opacity?: number;
@@ -10,11 +12,12 @@ export default function Background({
   error,
 }: BackgroundProps) {
   return error ? (
-    <img
+    <Image
       src="/img/404.png"
       width={1920}
       height={1080}
       alt="Erro 404"
+      priority
       style={{
         position: "absolute",
         top: 0,

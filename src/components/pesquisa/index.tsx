@@ -1,7 +1,7 @@
 import Icon from "@/utils/icon";
 import style from "./pesquisa.module.css";
 
-interface PesquisaProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+type PesquisaProps = React.InputHTMLAttributes<HTMLInputElement>;
 
 export default function Pesquisa({
   placeholder = "Pesquisar...",

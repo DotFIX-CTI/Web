@@ -112,16 +112,13 @@
   .containerEtapas {
     flex-direction: column;
     height: auto;
-    max-height: none;
-    overflow-y: auto;
     gap: 24px;
   }
 
   .parte1,
   .parte2 {
-    height: fit-content;
+    height: 100%;
     margin: auto;
-    width: minmax(600px, 60%) !important;
     border-radius: var(--border-md) !important;
   }
 

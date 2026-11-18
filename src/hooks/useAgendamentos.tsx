@@ -3,6 +3,7 @@ import {
   Agendamento,
   listarAgendamento,
   cadastrarAgendamento,
+  atualizarAgendamento,
   deletarAgendamento,
 } from "@/api/agendamento";
 import { toastErro } from "@/utils/toast";
@@ -33,9 +34,25 @@ export function useAgendamentos() {
   const criar = async (novoAgendamento: Omit<Agendamento, "agendamentoID">) => {
     try {
       setErro(null);
-      const criado = await cadastrarAgendamento(novoAgendamento as Agendamento);
-      setAgendamentos((prev) => [...prev, criado]);
+      const criado = await cadastrarAgendamento(novoAgendamento);
+      setAgendamentos((prev) => [criado, ...prev]);
       return criado;
+    } catch (error: any) {
+      setErro(error.message);
+      throw error;
+    }
+  };
+
+  const atualizar = async (id: number, dados: Partial<Agendamento>) => {
+    try {
+      setErro(null);
+      const atualizado = await atualizarAgendamento(id, dados);
+      setAgendamentos((prev) =>
+        prev.map((item) =>
+          item.agendamentoID === id ? { ...item, ...atualizado } : item,
+        ),
+      );
+      return atualizado;
     } catch (error: any) {
       setErro(error.message);
       throw error;
@@ -61,6 +78,7 @@ export function useAgendamentos() {
     erro,
     recarregar: carregar,
     criar,
+    atualizar,
     remover,
   };
 }

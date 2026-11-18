@@ -1,9 +1,8 @@
 import axios from "axios";
 import secureLocalStorage from "react-secure-storage";
 
-// const API_URL = process.env.NEXT_PUBLIC_API_URL;
-// const API_URL = "https://localhost:7299/api/";
-const API_URL = "https://jsonplaceholder.typicode.com/";
+const API_URL =
+  process.env.NEXT_PUBLIC_API_URL || "https://jsonplaceholder.typicode.com/";
 
 export const api = axios.create({
   baseURL: API_URL,
@@ -24,6 +23,17 @@ api.interceptors.request.use(
     return config;
   },
   (error) => {
+    return Promise.reject(error);
+  },
+);
+
+api.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401 && typeof window !== "undefined") {
+      secureLocalStorage.removeItem("Token");
+      secureLocalStorage.removeItem("Usuario");
+    }
     return Promise.reject(error);
   },
 );

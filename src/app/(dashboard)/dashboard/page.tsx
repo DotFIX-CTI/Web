@@ -13,6 +13,7 @@ export default function Dashboard() {
   const { agendamentos, carregando, erro } = useAgendamentos();
   const { equipes } = useEquipes();
   const [dataSelecionada, setDataSelecionada] = useState<Date | null>(null);
+  const [termoPesquisa, setTermoPesquisa] = useState("");
 
   // Mapeia ID -> Nome da equipe para repassar ao card
   const mapaEquipes = useMemo(() => {
@@ -26,13 +27,25 @@ export default function Dashboard() {
   // Filtra por data selecionada (se houver) ou exibe os próximos agendamentos futuros
   const proximosAgendamentos = useMemo(() => {
     const agora = new Date();
+    const termo = termoPesquisa.trim().toLowerCase();
 
     return agendamentos
       .filter((item) => {
         const dataAgendamento = new Date(item.data);
-        const naoCancelado = item.statusAgendamentoID !== 3;
+        const naoCancelado = item.statusAgendamentoID !== 4;
 
         if (!naoCancelado) return false;
+
+        if (termo) {
+          const nomeCliente = item.nomeCliente?.toLowerCase() || "";
+          const nomeServico = item.nomeServico?.toLowerCase() || "";
+          const nomeEq = (mapaEquipes[item.equipeID] || "").toLowerCase();
+          const batePesquisa =
+            nomeCliente.includes(termo) ||
+            nomeServico.includes(termo) ||
+            nomeEq.includes(termo);
+          if (!batePesquisa) return false;
+        }
 
         // Se o usuário clicou em um dia no calendário, filtra exatamente aquele dia
         if (dataSelecionada) {
@@ -47,7 +60,7 @@ export default function Dashboard() {
         return dataAgendamento >= agora;
       })
       .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
-  }, [agendamentos, dataSelecionada]);
+  }, [agendamentos, dataSelecionada, termoPesquisa, mapaEquipes]);
 
   return (
     <Main>
@@ -77,7 +90,11 @@ export default function Dashboard() {
             </h2>
             <hr />
           </div>
-          <Pesquisa />
+          <Pesquisa
+            value={termoPesquisa}
+            onChange={(e) => setTermoPesquisa(e.target.value)}
+            placeholder="Pesquisar agendamento..."
+          />
           <div className="flex_c scroll gap-4">
             {carregando ? (
               <h5>Carregando próximos agendamentos...</h5>

@@ -19,16 +19,27 @@ export interface Equipe {
 }
 
 // POST
-export async function cadastrarEquipe(dados: Equipe): Promise<any> {
+export async function cadastrarEquipe(
+  dados: Omit<Equipe, "equipeID"> | Equipe,
+): Promise<Equipe> {
   try {
     const response = await api.post("Equipe", dados);
     return response.data;
-  } catch (error: any) {
-    const mensagemErro =
-      error.response?.data?.message ||
-      error.response?.data ||
-      "Erro ao cadastrar Equipe";
-    throw new Error(mensagemErro);
+  } catch {
+    const novoID =
+      equipesMock.length > 0
+        ? Math.max(...equipesMock.map((e) => e.equipeID)) + 1
+        : 1;
+    const novaEquipe: Equipe = {
+      ...(dados as Equipe),
+      equipeID:
+        "equipeID" in dados && dados.equipeID ? dados.equipeID : novoID,
+      latitude: dados.latitude ?? -23.55052,
+      longitude: dados.longitude ?? -46.633308,
+      statusEquipeID: dados.statusEquipeID ?? 1,
+    };
+    equipesMock.push(novaEquipe);
+    return novaEquipe;
   }
 }
 
@@ -36,7 +47,7 @@ export async function cadastrarEquipe(dados: Equipe): Promise<any> {
 export async function listarEquipe(): Promise<Equipe[]> {
   return new Promise((resolve) => {
     setTimeout(() => {
-      resolve(equipesMock);
+      resolve([...equipesMock]);
     });
   });
 }
@@ -51,11 +62,16 @@ export async function listarEquipe(): Promise<Equipe[]> {
 //   }
 // }
 
-// GET - ID Original
+// GET - ID Mockado
 export async function listarEquipePorId(id: number): Promise<Equipe> {
-  return new Promise((resolve) => {
+  return new Promise((resolve, reject) => {
     setTimeout(() => {
-      resolve(equipesMock[id]);
+      const item = equipesMock.find((e) => e.equipeID === id);
+      if (item) {
+        resolve(item);
+      } else {
+        reject(new Error("Equipe não encontrada."));
+      }
     });
   });
 }
@@ -70,11 +86,35 @@ export async function listarEquipePorId(id: number): Promise<Equipe> {
 //   }
 // }
 
+// PUT
+export async function atualizarEquipe(
+  id: number,
+  dados: Partial<Equipe>,
+): Promise<Equipe> {
+  try {
+    const response = await api.put(`Equipe/${id}`, dados);
+    return response.data;
+  } catch {
+    const index = equipesMock.findIndex((e) => e.equipeID === id);
+    if (index !== -1) {
+      equipesMock[index] = { ...equipesMock[index], ...dados };
+      return equipesMock[index];
+    }
+    throw new Error("Equipe não encontrada para atualização.");
+  }
+}
+
 // DELETE
-export async function deletarEquipe(EquipeId: string): Promise<void> {
+export async function deletarEquipe(
+  EquipeId: string | number,
+): Promise<void> {
   try {
     await api.delete("Equipe/" + EquipeId);
-  } catch (error: any) {
-    throw new Error(error.response?.data || "Erro ao deletar Equipe.");
+  } catch {
+    const idNum = Number(EquipeId);
+    const index = equipesMock.findIndex((e) => e.equipeID === idNum);
+    if (index !== -1) {
+      equipesMock.splice(index, 1);
+    }
   }
 }

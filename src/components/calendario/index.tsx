@@ -48,7 +48,7 @@ export default function Calendario({
     const mapa = new Map<number, string>();
 
     agendamentos.forEach((ag) => {
-      if (ag.statusAgendamentoID === 3) return;
+      if (ag.statusAgendamentoID === 4) return;
 
       // Garante leitura correta da data mesmo se vier como "YYYY-MM-DD" sem hora
       const dataStr = String(ag.data);

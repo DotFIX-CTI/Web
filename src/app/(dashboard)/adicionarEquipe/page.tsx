@@ -29,7 +29,7 @@ export default function AdicionarEquipe() {
   const [membro2Id, setMembro2Id] = useState("");
   const [termoPesquisa, setTermoPesquisa] = useState("");
 
-  const { equipes } = useEquipes();
+  const { equipes, criar, atualizar, remover } = useEquipes();
   const { equipe, carregando } = useEquipe(idEdicao);
 
   const todosIntegrantes = useMemo(() => {
@@ -88,21 +88,33 @@ export default function AdicionarEquipe() {
   }, [equipe]);
 
   const handleSalvar = async () => {
+    if (!nomeEquipe.trim()) {
+      toastErro("Por favor, informe o nome da equipe.");
+      return;
+    }
+
+    if (!integrante1 || !integrante2) {
+      toastErro("Selecione os 2 integrantes da equipe.");
+      return;
+    }
+
     const payload = {
       nomeEquipe,
-      email,
-      ...(senha ? { senha } : {}),
+      latitude: equipe?.latitude ?? -23.55052,
+      longitude: equipe?.longitude ?? -46.633308,
       statusEquipeID: equipe?.statusEquipeID ?? 1,
-      membros: integrante1 && integrante2 ? [integrante1, integrante2] : [],
+      membros: [integrante1, integrante2] as [Membro, Membro],
     };
 
     try {
       if (idEdicao) {
+        await atualizar(idEdicao, payload);
+        toastInfo(`Equipe '${nomeEquipe}' editada com sucesso!`);
         router.push(`/detalheEquipe/${idEdicao}`);
-        toastInfo(`Equipe '${equipe?.nomeEquipe}' editada!`);
       } else {
-        router.push("/equipe");
+        await criar(payload);
         toastSucesso("Equipe adicionada com sucesso!");
+        router.push("/equipe");
       }
     } catch (error) {
       console.error("Erro ao salvar equipe:", error);
@@ -112,7 +124,13 @@ export default function AdicionarEquipe() {
 
   const handleExcluir = async () => {
     if (!idEdicao) return;
-    router.push("/equipe");
+    try {
+      await remover(idEdicao);
+      toastSucesso("Equipe excluída com sucesso!");
+      router.push("/equipe");
+    } catch {
+      toastErro("Erro ao excluir equipe.");
+    }
   };
 
   if (idEdicao && carregando) {

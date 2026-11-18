@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Header from "@/components/header";
 import Menubar from "@/components/menubar";
 
@@ -9,8 +10,12 @@ export default function DashboardLayout({
   return (
     <>
       <Header />
-      <Menubar />
-      {children}
+      <Suspense fallback={null}>
+        <Menubar />
+      </Suspense>
+      <Suspense fallback={<div className="flex center p-8">Carregando...</div>}>
+        {children}
+      </Suspense>
     </>
   );
 }

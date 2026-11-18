@@ -32,7 +32,7 @@ export default function Agendamento() {
     useAgendamento(idEdicao);
 
   const [fase, setFase] = useState(false);
-  const { criar } = useAgendamentos();
+  const { criar, atualizar } = useAgendamentos();
   const { equipes } = useEquipes();
 
   // Estados controlados dos campos do formulário
@@ -53,7 +53,6 @@ export default function Agendamento() {
     handleEnderecoChange,
   } = useBuscarCep();
 
-  // Opções reais de equipes para o Select da 3ª etapa
   const opcoesEquipes: Option[] = useMemo(
     () =>
       equipes.map((eq) => ({
@@ -63,13 +62,11 @@ export default function Agendamento() {
     [equipes],
   );
 
-  // Equipe selecionada no Select (para listar os membros logo abaixo)
   const equipeAtual = useMemo(
     () => equipes.find((eq) => String(eq.equipeID) === equipeIdSelecionada),
     [equipes, equipeIdSelecionada],
   );
 
-  // Preenche todos os campos automaticamente quando estiver no modo edição
   useEffect(() => {
     if (!agendamento) return;
 
@@ -81,7 +78,6 @@ export default function Agendamento() {
     setEquipeIdSelecionada(String(agendamento.equipeID || ""));
     setDataSelecionada(agendamento.data || "");
 
-    // Preenche o hook useBuscarCep com o endereço vindo do banco
     if (agendamento.cep) {
       handleCepChange({ target: { value: agendamento.cep } } as any);
     }
@@ -99,7 +95,6 @@ export default function Agendamento() {
 
   const handleSalvar = async () => {
     const payload: Parameters<typeof criar>[0] = {
-      agendamentoID: 0,
       nomeCliente,
       emailCliente,
       telefoneCliente,
@@ -121,12 +116,11 @@ export default function Agendamento() {
 
     try {
       if (idEdicao) {
+        await atualizar(idEdicao, payload);
         router.push(`/detalheAgendamento/${idEdicao}`);
       } else {
         const novo = await criar(payload);
-        router.push(
-          `/detalheAgendamento/${novo.AgendamentoID ?? novo.agendamentoID}`,
-        );
+        router.push(`/detalheAgendamento/${novo.agendamentoID}`);
       }
       toastSucesso(`Agendamento ${idEdicao ? "editado" : "salvo"} com sucesso`);
     } catch (error) {
@@ -145,7 +139,7 @@ export default function Agendamento() {
 
   return (
     <Main>
-      <section className={`flex max_height ${style.containerEtapas}`}>
+      <section className={`flex ${style.containerEtapas}`}>
         <article
           className={`card gap-8 between ${style.parte1} ${
             fase ? style.after : style.before
@@ -338,7 +332,6 @@ export default function Agendamento() {
                   errorMessage="Equipe obrigatório"
                 />
 
-                {/* Renderiza os membros da equipe selecionada (ou fallback) */}
                 <div className="flex_c gap-6">
                   {equipeAtual?.membros?.map((membro) => (
                     <div key={membro.id} className="flex gap-2">

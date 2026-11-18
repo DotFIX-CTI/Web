@@ -4,7 +4,7 @@ import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import L from "leaflet";
 
-//@ts-ignore
+// @ts-expect-error - Leaflet private property
 delete L.Icon.Default.prototype._getIconUrl;
 L.Icon.Default.mergeOptions({
   iconRetinaUrl:
@@ -47,14 +47,14 @@ export default function Mapa({
         width: "100%",
       }}
     >
-      <div
+      <div  
         style={{
           position: "absolute",
           top: 0,
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundImage: `linear-gradient(to bottom, color-mix(in srgb, ${corDestaque} 65%, transparent) 0%, transparent 18%)`,
+          backgroundImage: `linear-gradient(to bottom, color-mix(in srgb, ${corDestaque} 50%, transparent 100%) 0%, transparent 15%)`,
           zIndex: 1000,
           pointerEvents: "none",
         }}
