@@ -15,6 +15,7 @@ import { useBuscarCep } from "@/hooks/useBuscarCep";
 import { useAgendamento } from "@/hooks/useAgendamento";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { useEquipes } from "@/hooks/useEquipes";
+import { toastErro, toastSucesso } from "@/utils/toast";
 
 const opcoesEstados: Option[] = Object.entries(estado).map(([sigla, nome]) => ({
   label: nome,
@@ -98,7 +99,7 @@ export default function Agendamento() {
 
   const handleSalvar = async () => {
     const payload: Parameters<typeof criar>[0] = {
-      AgendamentoID: 0,
+      agendamentoID: 0,
       nomeCliente,
       emailCliente,
       telefoneCliente,
@@ -127,8 +128,10 @@ export default function Agendamento() {
           `/detalheAgendamento/${novo.AgendamentoID ?? novo.agendamentoID}`,
         );
       }
+      toastSucesso(`Agendamento ${idEdicao ? "editado" : "salvo"} com sucesso`);
     } catch (error) {
       console.error("Erro ao salvar agendamento:", error);
+      toastErro("Não foi possível salvar agendamento");
     }
   };
 

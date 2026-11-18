@@ -39,8 +39,7 @@
 }
 
 .inactive:hover {
-  background-color: var(--primary-surface);
-  opacity: 0.8;
+  background-color: color-mix(in srgb, var(--primary-surface) 100%, var(--primary) 100%);
 }
 
 .active {

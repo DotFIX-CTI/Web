@@ -4,7 +4,7 @@ import { FormEvent, useState } from "react";
 import Main from "@/utils/main";
 import Logo from "@/utils/logo";
 import Button from "@/components/button";
-import Loader from "@/components/loader";
+import Loader from "@/utils/loader";
 import Input from "@/components/input";
 import { useAuth } from "@/hooks/useAuth";
 import { toastSucesso } from "@/utils/toast";
@@ -29,7 +29,7 @@ export default function Login() {
   return (
     <Main>
       <section className="center_c gap-8 relative z-1">
-        <Logo height={100} color="var(--primary)" />
+        <Logo height={100} color="var(--logo)" />
 
         {step === 0 && (
           <div className="center_c">
@@ -66,7 +66,7 @@ export default function Login() {
                     onClick={() => setStep(1)}
                     className="small_txt self-end cursor-pointer mt-1"
                     style={{
-                      color: "var(--primary)",
+                      color: "var(--input-icon)",
                       textDecoration: "underline",
                       fontWeight: 600,
                     }}

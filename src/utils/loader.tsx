@@ -28,7 +28,7 @@ export default function Loader(className?: string, props?: any) {
               width: size,
               height: size,
               borderRadius: index % 3 === 0 ? "50%" : "6px",
-              background: "var(--primary)",
+              background: "var(--foreground)",
               position: "absolute",
               top: `${(index * 19) % 85}%`,
               left: `${(index * 23) % 85}%`,

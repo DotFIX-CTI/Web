@@ -153,7 +153,7 @@ export default function Calendario({
                       style={
                         corEvento && !estaSelecionado
                           ? {
-                              backgroundColor: `color-mix(in srgb, ${corEvento} 10%, var(--white) 100%)`,
+                              backgroundColor: `color-mix(in srgb, ${corEvento} 20%, var(--background) 100%)`,
                             }
                           : undefined
                       }

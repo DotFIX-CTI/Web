@@ -3,7 +3,7 @@
   grid-template-columns: repeat(7, 1fr);
   position: relative;
   box-shadow: var(--shadow);
-  background-color: var(--white);
+  background-color: var(--background);
   width: 100%;
   height: fit-content;
   border-radius: var(--border-sm);
@@ -25,7 +25,11 @@
     transform 0.1s ease-in-out;
 
   &:hover {
-    background-color: var(--primary-surface);
+    background-color: color-mix(
+      in srgb,
+      var(--primary-surface),
+      var(--foreground)
+    );
   }
   &:active {
     background-color: color-mix(
@@ -104,13 +108,17 @@
   min-height: 72px;
   cursor: pointer;
   border: 1px solid color-mix(in srgb, var(--off) 50%, transparent 100%);
-  background-color: var(--white);
+  background-color: var(--background);
   transition:
     background-color 0.1s ease-in-out,
     color 0.1s ease-in-out;
 
   &:hover:not(:disabled):not(.selecionado) {
-    background-color: color-mix(in srgb, var(--primary) 8%, var(--white) 92%);
+    background-color: color-mix(
+      in srgb,
+      var(--primary-surface) 25%,
+      var(--background) 100%
+    );
   }
 
   &:disabled {

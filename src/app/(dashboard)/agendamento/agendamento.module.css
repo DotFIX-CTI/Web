@@ -48,7 +48,7 @@
   height: 100%;
   width: 640px;
   border-radius: 0 24px 24px 0;
-  background-color: var(--surface);
+  background-color: var(--primary-surface);
   z-index: 1;
   transform: translateX(0);
   visibility: visible;
@@ -96,12 +96,12 @@
   max-width: 40px;
   min-height: 40px;
   max-height: 40px;
-  background: var(--white);
-  border: var(--border-off);
+  background: var(--background);
+  border: var(--border-input);
   border-radius: 12px;
   p {
     font-weight: 600;
-    color: var(--primary);
+    color: color-mix(in srgb, var(--primary) 100%, var(--foreground) 100%);
   }
 }
 

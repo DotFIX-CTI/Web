@@ -19,8 +19,8 @@
   height: 40px;
   padding: 0 var(--padding-sm);
   border-radius: var(--border-md);
-  border: var(--border-off);
-  background-color: var(--white);
+  border: var(--border-input);
+  background-color: var(--background);
   cursor: pointer;
   outline: none;
   transition:
@@ -63,8 +63,8 @@
   left: 0;
   right: 0;
   z-index: 50;
-  background-color: var(--white);
-  border: var(--border-off);
+  background-color: var(--background);
+  border: var(--border-input);
   border-radius: 12px;
   list-style: none;
   margin: 0;

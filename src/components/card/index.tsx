@@ -28,7 +28,7 @@ export default function Card({
         <div className="flex_c gap-2">
           <h5>{nomeEquipe || `Equipe #${agendamento.equipeID}`}</h5>
 
-          <div className="center gap-1 smooth_info">
+          <div className="center gap-1 smooth_info_card">
             <Icon name="local" size={16} />
             <p>{enderecoCompleto}</p>
           </div>

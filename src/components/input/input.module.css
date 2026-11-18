@@ -5,8 +5,8 @@
   align-items: center;
   border-radius: var(--border-md);
   font-size: 0.85rem;
-  border: var(--border-off);
-  background-color: var(--white);
+  border: var(--border-input);
+  background-color: var(--background);
   outline: none;
   resize: none;
   transition:
@@ -24,7 +24,7 @@
   aspect-ratio: 1/1;
   border-radius: var(--border-sm);
   border: var(--border-off);
-  background-color: var(--white);
+  background-color: var(--background);
 }
 
 .input {
@@ -53,21 +53,15 @@
 
 .input svg,
 .textarea svg {
-  color: var(--primary);
+  color: var(--input-icon);
 }
 
 .input:hover,
 .input:focus-within,
 .textarea:hover,
 .textarea:focus-within {
-  border: 2px solid var(--primary-surface);
-}
-
-.input:hover svg,
-.input:focus-within svg,
-.textarea:hover svg,
-.textarea:focus-within svg {
-  color: var(--primary);
+  border: 2px solid
+    color-mix(in srgb, var(--primary-surface) 100%, var(--white) 100%);
 }
 
 .input input::placeholder,

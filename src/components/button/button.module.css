@@ -22,9 +22,9 @@
 }
 
 .secondary {
-  color: var(--primary);
-  background-color: var(--white);
-  border: 2px solid var(--primary);
+  color: var(--btn-border);
+  background-color: var(--btn-background);
+  border: 2px solid var(--btn-border);
 }
 
 .attention {
@@ -33,10 +33,10 @@
 }
 
 .logout {
-  border: 2px solid var(--primary-surface);
-  transition: background-color 0.15s ease-in-out;
+  border: 2px solid var(--white);
+  transition: opacity 0.15s ease-in-out;
   &:hover {
-    background-color: var(--primary-surface);
+    opacity: 0.75;
   }
 }
 

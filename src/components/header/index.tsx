@@ -5,7 +5,6 @@ import Logo from "@/utils/logo";
 import style from "./header.module.css";
 import Button from "../button";
 import { useAuth } from "@/hooks/useAuth";
-import DarkMode from "@/utils/darkMode";
 
 export default function Header() {
   const { usuario, logout, loading } = useAuth();
@@ -34,7 +33,6 @@ export default function Header() {
         >
           Sair
         </Button>
-        <DarkMode />
       </div>
     </header>
   );

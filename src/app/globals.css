@@ -4,27 +4,31 @@
 /*? │ 1. VARIÁVEIS GLOBAIS E DESIGN SYSTEM (:root) │ */
 /*? └──────────────────────────────────────────────┘ */
 :root {
-  --background: hsl(0, 0%, 100%);
+  --background: hsl(215, 98%, 98%);
   --background-card: hsl(0, 0%, 100%);
   --foreground: hsl(210, 65%, 15%);
 
   --primary: hsl(215, 100%, 30%);
-  --primary-surface: hsl(215, 45%, 45%);
-
+  --primary-surface: hsl(215, 100%, 90%);
   --surface: hsl(205, 100%, 96%);
+
   --white: hsl(0, 0%, 100%);
   --off: hsl(215, 10%, 80%);
+
   --success: hsl(140, 100%, 35%);
   --warning: hsl(55, 100%, 35%);
   --error: hsl(350, 75%, 50%);
   --cancel: hsl(220, 15%, 50%);
 
   --main-bg: var(--primary);
+  --logo: var(--primary);
+  --toast: hsl(210, 65%, 15%);
 
   --smooth-txt: 0.9;
 
   --btn-bg: hsl(0, 0%, 100%);
   --btn-border: hsl(215, 100%, 30%);
+  --input-icon: hsl(215, 100%, 30%);
 
   --shadow:
     0 0 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
@@ -43,6 +47,7 @@
   --margin-lg: calc(var(--margin-sm) * 3);
   --margin-xg: calc(var(--margin-sm) * 6);
 
+  --border-input: 2px solid hsl(215, 10%, 80%);
   --border-off: 2px solid var(--off);
   --border-card: 1px solid color-mix(in srgb, var(--off) 20%, transparent 100%);
 
@@ -59,17 +64,26 @@
 
 [data-theme="dark"] {
   --background: hsl(210, 65%, 5%);
-  --background-card: hsl(210, 50%, 15%);
+  --background-card: hsl(210, 40%, 10%);
   --foreground: hsl(0, 0%, 100%);
 
   --primary: hsl(215, 90%, 20%);
+  --primary-surface: hsl(225, 35%, 15%);
 
   --main-bg: var(--surface);
+  --logo: var(--white);
+
+  --shadow:
+    0 0 4px color-mix(in srgb, var(--background) 10%, transparent 100%),
+    0 0 20px color-mix(in srgb, var(--background) 50%, transparent 100%);
 
   --smooth-txt: 1;
 
+  --border-input: 2px solid hsl(215, 25%, 25%);
+
   --btn-bg: var(--background);
-  --btn-border: var(--white);
+  --btn-border: hsl(216, 20%, 95%);
+  --input-icon: hsl(215, 75%, 65%);
 
   --scrollbar: var(--surface);
   --scrollbar-bg: var(--primary);
@@ -220,7 +234,7 @@ textarea {
 /*? │ 4. FORMULÁRIOS E ESTADOS DE ERRO │ */
 /*? └──────────────────────────────────┘ */
 .label {
-  color: var(--primary);
+  color: color-mix(in srgb, var(--primary) 100%, var(--foreground) 100%);
   font-weight: 600;
   display: block;
 }
@@ -447,6 +461,12 @@ textarea {
   opacity: var(--smooth-txt);
 }
 
+.smooth_info_card,
+.smooth_info_card p {
+  color: var(--foreground);
+  opacity: var(--smooth-txt);
+}
+
 .big_txt {
   color: var(--foreground);
   font-weight: 700;
@@ -588,6 +608,25 @@ textarea {
   z-index: 0;
 }
 
+.darkmode {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 100;
+  color: var(--white);
+  background: var(--primary);
+  border-radius: 100% 0 0 0;
+  padding: 36px 12px 12px 36px;
+}
+
+.darkmode .themetoggle {
+  transition: rotate 0.5s cubic-bezier(0.1, 0.825, 0.15, 1);
+
+  &:hover {
+    rotate: -90deg;
+  }
+}
+
 /*? ┌───────────┐ */
 /*? │ 11. TOAST │ */
 /*? └───────────┘ */
@@ -596,7 +635,7 @@ textarea {
   background-color: color-mix(
     in srgb,
     var(--success) 100%,
-    var(--foreground) 50%
+    var(--toast) 25%
   ) !important;
   color: var(--white) !important;
 }
@@ -606,7 +645,7 @@ textarea {
   background-color: color-mix(
     in srgb,
     var(--error) 100%,
-    var(--foreground) 50%
+    var(--toast) 25%
   ) !important;
   color: var(--white) !important;
 }
@@ -616,7 +655,7 @@ textarea {
   background-color: color-mix(
     in srgb,
     var(--primary) 100%,
-    var(--foreground) 50%
+    var(--toast) 25%
   ) !important;
   color: var(--white) !important;
 }

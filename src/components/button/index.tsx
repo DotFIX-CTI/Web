@@ -49,7 +49,7 @@ export default function Button(props: ButtonProps) {
     fullWidth,
     loading,
     disabled,
-    target = "_blank",
+    target,
     ...rest
   } = props;
 

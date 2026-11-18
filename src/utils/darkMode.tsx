@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Button from "@/components/button";
 import Icon from "./icon";
 
 export default function DarkMode() {
@@ -33,8 +32,16 @@ export default function DarkMode() {
   }
 
   return (
-    <button onClick={toggleTheme} aria-label="Alternar modo escuro">
-      <Icon name={theme === "light" ? "moon" : "sun"} />
+    <button
+      onClick={toggleTheme}
+      aria-label="Alternar modo escuro"
+      className="center_c darkmode"
+    >
+      <Icon
+        name={theme === "light" ? "moon" : "sun"}
+        size={48}
+        className="themetoggle"
+      />
     </button>
   );
 }

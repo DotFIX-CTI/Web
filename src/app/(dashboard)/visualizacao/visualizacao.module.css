@@ -1,6 +1,6 @@
 .container {
   border-left: 48px solid var(--primary);
-  background-color: var(--white);
+  background-color: var(--background);
 }
 
 .visualizacao {
@@ -28,7 +28,7 @@
   justify-content: flex-end;
   padding: var(--padding-sm) 0 0;
   flex-direction: column;
-  background-color: var(--white);
+  background-color: var(--background);
   border-right: 4px solid var(--primary);
   height: 100%;
 }

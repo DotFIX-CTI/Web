@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer } from "react-toastify";
+import DarkMode from "@/utils/darkMode";
 
 const minhaFonte = localFont({
   src: "./fonts/Inter.ttf",
@@ -43,8 +44,9 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <ToastContainer />
         {children}
+        <ToastContainer />
+        <DarkMode />
       </body>
     </html>
   );

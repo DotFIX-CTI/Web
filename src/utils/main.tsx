@@ -28,7 +28,7 @@ export default function Main({
       }}
       className={className}
     >
-      <Background opacity={0.05} error={error} />
+      <Background opacity={0.075} error={error} />
       {children}
     </main>
   );

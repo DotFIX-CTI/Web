@@ -6,7 +6,7 @@ interface BackgroundProps {
 
 export default function Background({
   className,
-  opacity = 0.2,
+  opacity = 0.25,
   error,
 }: BackgroundProps) {
   return error ? (
