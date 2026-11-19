@@ -27,6 +27,7 @@
   --smooth-txt: 0.9;
 
   --btn-bg: hsl(0, 0%, 100%);
+  --input-bg: hsl(0, 0%, 100%);
   --btn-border: hsl(215, 100%, 30%);
   --input-icon: hsl(215, 100%, 30%);
 
@@ -69,14 +70,15 @@
   --logo: var(--white);
 
   --shadow:
-    0 0 4px color-mix(in srgb, var(--background) 10%, transparent 100%),
-    0 0 20px color-mix(in srgb, var(--background) 50%, transparent 100%);
+    0 0 4px color-mix(in srgb, var(--foreground) 5%, transparent 100%),
+    0 0 20px color-mix(in srgb, var(--foreground) 10%, transparent 100%);
 
   --smooth-txt: 1;
 
   --border-input: 2px solid hsl(215, 25%, 25%);
 
   --btn-bg: var(--background);
+  --input-bg: hsl(210, 65%, 5%);
   --btn-border: hsl(216, 20%, 95%);
   --input-icon: hsl(215, 75%, 65%);
 
@@ -462,12 +464,6 @@ textarea {
 .smooth_info,
 .smooth_info p {
   color: var(--white);
-  opacity: var(--smooth-txt);
-}
-
-.smooth_info_card,
-.smooth_info_card p {
-  color: var(--foreground);
   opacity: var(--smooth-txt);
 }
 

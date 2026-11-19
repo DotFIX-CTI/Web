@@ -1,0 +1,11 @@
+.informacoes {
+  & h2 {
+    font-size: 1.2rem;
+  }
+  & h5 {
+    font-size: 1rem;
+  }
+  & .local p {
+    font-size: 0.8rem;
+  }
+}

@@ -26,12 +26,18 @@ export default function Agendamento() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const idParam = searchParams.get("id");
+  const modo = searchParams.get("modo");
+  const isReagendamento = modo === "reagendar";
   const idEdicao = idParam ? Number(idParam) : undefined;
 
   const { agendamento, carregando: carregandoAgendamento } =
     useAgendamento(idEdicao);
 
+  // false = 1ª e 2ª etapa (avançar para "Próximo")
+  // true  = 3ª etapa aberta (permite "Voltar")
   const [fase, setFase] = useState(false);
+  const [faseInicialDefinida, setFaseInicialDefinida] = useState(false);
+
   const { criar, atualizar } = useAgendamentos();
   const { equipes } = useEquipes();
 
@@ -87,24 +93,31 @@ export default function Agendamento() {
     handleEnderecoChange("cidade", agendamento.cidade || "");
     handleEnderecoChange("complemento", agendamento.complemento || "");
     handleEnderecoChange("numero", agendamento.numero || "");
-  }, [agendamento]);
 
-  const alternarFase = () => {
-    setFase((faseAnterior) => {
-      const novaFase = !faseAnterior;
-      if (typeof window !== "undefined") {
-        setTimeout(() => {
-          if (novaFase) {
-            const el = document.getElementById("etapa3");
-            el?.scrollIntoView({ behavior: "smooth", block: "start" });
-          } else {
-            const el = document.getElementById("etapa1");
-            el?.scrollIntoView({ behavior: "smooth", block: "start" });
-          }
-        }, 80);
-      }
-      return novaFase;
-    });
+    if (isReagendamento && !faseInicialDefinida) {
+      setFase(true);
+      setFaseInicialDefinida(true);
+    }
+  }, [agendamento, isReagendamento, faseInicialDefinida]);
+
+  useEffect(() => {
+    if (typeof window === "undefined") return;
+
+    const targetId = fase ? "etapa3" : "etapa1";
+    const timer = window.setTimeout(() => {
+      const el = document.getElementById(targetId);
+      el?.scrollIntoView({ behavior: "smooth", block: "start" });
+    }, 80);
+
+    return () => window.clearTimeout(timer);
+  }, [fase]);
+
+  const irParaProximaEtapa = () => {
+    setFase(true);
+  };
+
+  const voltarEtapaAnterior = () => {
+    setFase(false);
   };
 
   const handleSalvar = async () => {
@@ -136,7 +149,11 @@ export default function Agendamento() {
         const novo = await criar(payload);
         router.push(`/detalheAgendamento/${novo.agendamentoID}`);
       }
-      toastSucesso(`Agendamento ${idEdicao ? "editado" : "salvo"} com sucesso`);
+      toastSucesso(
+        isReagendamento
+          ? "Agendamento reagendado com sucesso"
+          : `Agendamento ${idEdicao ? "editado" : "salvo"} com sucesso`,
+      );
     } catch (error) {
       console.error("Erro ao salvar agendamento:", error);
       toastErro("Não foi possível salvar agendamento");
@@ -316,11 +333,13 @@ export default function Agendamento() {
               Cancelar
             </Button>
             <Button
+              type="button"
               icon="next"
-              onClick={alternarFase}
-              className={fase ? style.btnRotated : ""}
+              onClick={irParaProximaEtapa}
+              disabled={fase}
+              className={fase ? style.btnOff : ""}
             >
-              {fase ? "Voltar" : "Próximo"}
+              Próximo
             </Button>
           </div>
         </article>
@@ -348,7 +367,7 @@ export default function Agendamento() {
                   errorMessage="Equipe obrigatório"
                 />
 
-                <div className="flex_c gap-6">
+                <div className="flex_c gap-2">
                   {equipeAtual?.membros?.map((membro) => (
                     <div key={membro.id} className="flex gap-2">
                       <Image
@@ -384,14 +403,21 @@ export default function Agendamento() {
 
           <div className={style.botoes}>
             <Button
-              icon="left"
+              type="button"
+              icon="next"
               variant="secondary"
-              onClick={alternarFase}
+              onClick={voltarEtapaAnterior}
+              disabled={!fase}
+              className={`${style.btnRotated} ${!fase ? style.btnOff : ""}`}
             >
               Voltar
             </Button>
-            <Button icon="save" onClick={handleSalvar}>
-              {idEdicao ? "Atualizar" : "Salvar"}
+            <Button type="button" icon="save" onClick={handleSalvar}>
+              {isReagendamento
+                ? "Reagendar"
+                : idEdicao
+                  ? "Atualizar"
+                  : "Salvar"}
             </Button>
           </div>
         </article>

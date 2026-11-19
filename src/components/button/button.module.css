@@ -23,7 +23,7 @@
 
 .secondary {
   color: var(--btn-border);
-  background-color: var(--btn-background);
+  background-color: var(--btn-bg);
   border: 2px solid var(--btn-border);
 }
 

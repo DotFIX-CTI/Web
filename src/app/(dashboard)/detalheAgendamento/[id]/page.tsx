@@ -65,7 +65,7 @@ export default function DetalheAgendamento() {
             <div className="flex between">
               <Button
                 icon="reschudule"
-                link={`/reagendamento/${agendamento.agendamentoID}`}
+                link={`/agendamento?id=${agendamento.agendamentoID}&modo=reagendar`}
                 variant="attention"
               >
                 Reagendar

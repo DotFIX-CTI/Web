@@ -11,6 +11,11 @@
   width: 100%;
 }
 
+.filtro {
+  width: 100%;
+  max-width: 640px;
+}
+
 .grid_equipe {
   display: grid;
   grid-template-rows: repeat(3, auto);

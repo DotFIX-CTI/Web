@@ -2,6 +2,7 @@ import Link from "next/link";
 import Icon from "@/utils/icon";
 import { mapaStatus } from "@/utils/status";
 import { Agendamento } from "@/api/agendamento";
+import style from "./card.module.css";
 
 interface CardAgendamentoProps {
   agendamento: Agendamento;
@@ -20,15 +21,15 @@ export default function Card({
   return (
     <Link href={`/detalheAgendamento/${agendamento.agendamentoID}`}>
       <article
-        className={`card flex_c gap-8 between ${classeStatus}`}
-        style={{ width: 400 }}
+        className={`card flex_c gap-2 between ${classeStatus} ${style.informacoes}`}
+        style={{ width: 320 }}
       >
-        <h3 className="upper">{agendamento.nomeServico}</h3>
+        <h2 className="upper">{agendamento.nomeServico}</h2>
 
         <div className="flex_c gap-2">
           <h5>{nomeEquipe || `Equipe #${agendamento.equipeID}`}</h5>
 
-          <div className="center gap-1 smooth_info_card">
+          <div className={`center gap-1 ${style.local}`}>
             <Icon name="local" size={16} />
             <p>{enderecoCompleto}</p>
           </div>

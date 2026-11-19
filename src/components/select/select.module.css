@@ -20,7 +20,7 @@
   padding: 0 var(--padding-sm);
   border-radius: var(--border-md);
   border: var(--border-input);
-  background-color: var(--background);
+  background-color: var(--input-bg);
   cursor: pointer;
   outline: none;
   transition:
@@ -48,10 +48,10 @@
   color: var(--off);
 }
 
-.arrowIcon {
+.selectWrapper svg {
   margin-left: auto;
   transition: transform 0.2s ease-in-out;
-  color: var(--primary);
+  color: var(--foreground);
 }
 
 .rotated {
@@ -63,7 +63,7 @@
   left: 0;
   right: 0;
   z-index: 50;
-  background-color: var(--background);
+  background-color: var(--input-bg);
   border: var(--border-input);
   border-radius: 12px;
   list-style: none;

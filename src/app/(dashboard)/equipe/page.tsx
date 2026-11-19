@@ -41,9 +41,9 @@ export default function Equipes() {
 
   return (
     <Main className={`flex_c ${style.container}`} justify="flex-start">
-      <div className={`center between ${style.info}`}>
+      <div className={`center between gap-12 ${style.info}`}>
         <h1>Equipes do Sistema</h1>
-        <div className="flex gap-4">
+        <div className={`flex gap-4 ${style.filtro}`}>
           <Pesquisa
             value={termoPesquisa}
             onChange={(e) => setTermoPesquisa(e.target.value)}

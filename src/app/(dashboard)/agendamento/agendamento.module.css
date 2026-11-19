@@ -58,7 +58,7 @@
   min-width: 44px;
   max-width: 44px;
   height: 40px;
-  background: var(--background);
+  background: var(--input-bg);
   border: var(--border-input);
   border-radius: var(--border-md);
   display: flex;
@@ -71,11 +71,10 @@
 .uf p {
   font-weight: 700;
   font-size: 0.85rem;
-  color: var(--primary);
+  color: var(--foreground);
   margin: 0;
 }
 
-/* Botões do rodapé dos cards */
 .botoes {
   display: flex;
   justify-content: space-between;
@@ -84,16 +83,25 @@
   width: 100%;
   margin-top: auto;
   padding-top: 16px;
+  position: relative;
+  z-index: 5;
 }
 
 .btnRotated svg {
   transform: rotate(180deg);
 }
 
+.btnOff {
+  cursor: default;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 /* Parte 1 (1ª e 2ª Etapa) e Parte 2 (3ª Etapa) - DESKTOP LARGO (> 1400px) */
 .parte1 {
   height: auto;
-  min-height: 680px;
+  min-height: 700px;
+  max-height: 700px;
   width: 840px;
   max-width: 840px;
   z-index: 2;
@@ -104,7 +112,8 @@
 
 .parte2 {
   height: auto;
-  min-height: 680px;
+  min-height: 700px;
+  max-height: 700px;
   width: 640px;
   max-width: 640px;
   border-radius: 0 var(--border-md) var(--border-md) 0;
@@ -152,9 +161,9 @@
   gap: 12px;
 }
 
-/* ======================================================== */
-/* RESPONSIVIDADE: Notebooks e Telas Médias (<= 1400px)     */
-/* ======================================================== */
+/* ==================================================== */
+/* RESPONSIVIDADE: Notebooks e Telas Médias (<= 1400px) */
+/* ==================================================== */
 @media (max-width: 1400px) {
   .containerEtapas {
     flex-direction: column;
@@ -194,9 +203,9 @@
   }
 }
 
-/* ======================================================== */
-/* RESPONSIVIDADE: Tablets e Telas Menores (<= 992px)       */
-/* ======================================================== */
+/* ================================================== */
+/* RESPONSIVIDADE: Tablets e Telas Menores (<= 992px) */
+/* ================================================== */
 @media (max-width: 992px) {
   .grid_etapa2 {
     grid-template-columns: 1fr;
@@ -215,9 +224,9 @@
   }
 }
 
-/* ======================================================== */
-/* RESPONSIVIDADE: Dispositivos Móveis (<= 768px)          */
-/* ======================================================== */
+/* ============================================== */
+/* RESPONSIVIDADE: Dispositivos Móveis (<= 768px) */
+/* ============================================== */
 @media (max-width: 768px) {
   .containerEtapas {
     padding: 0 12px;
@@ -241,9 +250,9 @@
   }
 }
 
-/* ======================================================== */
-/* RESPONSIVIDADE: Smartphones Pequenos (<= 480px)          */
-/* ======================================================== */
+/* =============================================== */
+/* RESPONSIVIDADE: Smartphones Pequenos (<= 480px) */
+/* =============================================== */
 @media (max-width: 480px) {
   .grid_etapa2_2 {
     grid-template-columns: 1fr;

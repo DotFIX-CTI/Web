@@ -104,7 +104,7 @@ export default function Select({
           <Icon
             name="dropdown"
             size={16}
-            className={`${style.arrowIcon} ${isOpen ? style.rotated : ""}`}
+            className={`${isOpen ? style.rotated : ""}`}
           />
         </button>
 

@@ -6,7 +6,7 @@
   border-radius: var(--border-md);
   font-size: 0.85rem;
   border: var(--border-input);
-  background-color: var(--background);
+  background-color: var(--input-bg);
   outline: none;
   resize: none;
   transition:
