@@ -1,18 +1,14 @@
 "use client";
 
-import { useMemo } from "react";
 import Main from "@/utils/main";
-import style from "./visualizacao.module.css";
 import Card from "@/components/cards/card";
-import { useAgendamentos } from "@/hooks/useAgendamentos";
+import style from "./visualizacao.module.css";
+import { useMemo } from "react";
 import { useEquipes } from "@/hooks/useEquipes";
 import { Agendamento } from "@/api/agendamento";
+import { useAgendamentos } from "@/hooks/useAgendamentos";
+import { obterDadosAgendamento } from "@/utils/agendamento";
 import { useVisualizacao } from "@/context/visualizacaoContext";
-
-function formatarData(dataISO: string): string {
-  const data = new Date(dataISO);
-  return data.toLocaleDateString("pt-BR");
-}
 
 function normalizarTexto(texto: string): string {
   return texto
@@ -42,40 +38,45 @@ export default function Visualizacao() {
     inicioHoje.setHours(0, 0, 0, 0);
 
     const filtrados = agendamentos.filter((item) => {
-      const dataItem = new Date(item.data);
-      const ehPassado = dataItem < inicioHoje;
+      const { dataAgendamento, equipeExibida } = obterDadosAgendamento(
+        item,
+        undefined,
+        mapaEquipes,
+      );
 
-      // Filtro histórico
+      const dataItem = dataAgendamento ? new Date(dataAgendamento) : null;
+      const ehPassado =
+        dataItem && !Number.isNaN(dataItem.getTime())
+          ? dataItem < inicioHoje
+          : false;
+
       if (apenasHistorico ? !ehPassado : ehPassado) {
         return false;
       }
 
-      // Filtro de pesquisa
       if (busca) {
-        const nomeEquipe = mapaEquipes[item.equipeID] ?? "";
-        const camposTexto = [nomeEquipe]
-          .filter(Boolean)
-          .map((v) => normalizarTexto(String(v)));
-
-        const corresponde = camposTexto.some((campo) => campo.includes(busca));
+        const corresponde = normalizarTexto(equipeExibida).includes(busca);
         if (!corresponde) return false;
       }
 
       return true;
     });
 
-    const ordenados = [...filtrados].sort(
-      (a, b) => new Date(a.data).getTime() - new Date(b.data).getTime(),
-    );
+    const ordenados = [...filtrados].sort((a, b) => {
+      const dataA = obterDadosAgendamento(a).dataAgendamento;
+      const dataB = obterDadosAgendamento(b).dataAgendamento;
+      return new Date(dataA).getTime() - new Date(dataB).getTime();
+    });
 
     return ordenados.reduce<Record<string, Agendamento[]>>((acc, item) => {
-      const dataFormatada = formatarData(item.data);
+      const { dataFormatada } = obterDadosAgendamento(item);
+      const chaveData = dataFormatada || "Sem data";
 
-      if (!acc[dataFormatada]) {
-        acc[dataFormatada] = [];
+      if (!acc[chaveData]) {
+        acc[chaveData] = [];
       }
 
-      acc[dataFormatada].push(item);
+      acc[chaveData].push(item);
       return acc;
     }, {});
   }, [agendamentos, mapaEquipes, termoBusca, apenasHistorico]);
@@ -107,13 +108,21 @@ export default function Visualizacao() {
           <div className={style.secao} key={data}>
             <h2 className={style.data}>{data}</h2>
             <div className={style.scroll_secao}>
-              {listaDoDia.map((agendamento) => (
-                <Card
-                  key={agendamento.agendamentoID}
-                  agendamento={agendamento}
-                  nomeEquipe={mapaEquipes[agendamento.equipeID]}
-                />
-              ))}
+              {listaDoDia.map((agendamento) => {
+                const { equipeExibida } = obterDadosAgendamento(
+                  agendamento,
+                  undefined,
+                  mapaEquipes,
+                );
+
+                return (
+                  <Card
+                    key={agendamento.agendamentoID}
+                    agendamento={agendamento}
+                    nomeEquipe={equipeExibida}
+                  />
+                );
+              })}
             </div>
           </div>
         ))}

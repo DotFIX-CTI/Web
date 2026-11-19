@@ -1,13 +1,13 @@
 "use client";
 
-import { useParams } from "next/navigation";
-import Main from "@/utils/main";
-import Icon from "@/utils/icon";
-import CardMapa from "@/components/cards/cardMapa";
-import CardLog from "@/components/cards/cardLog";
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+import Icon from "@/utils/icon";
+import Main from "@/utils/main";
+import CardLog from "@/components/cards/cardLog";
+import CardMapa from "@/components/cards/cardMapa";
 import { Status } from "@/utils/status";
+import { useParams } from "next/navigation";
 import { useEquipe } from "@/hooks/useEquipe";
 
 export default function DetalheEquipe() {
@@ -47,18 +47,18 @@ export default function DetalheEquipe() {
             </div>
 
             <div className="flex_c gap-4">
-              {equipe.membros?.map((membro) => (
-                <div key={membro.id} className="flex gap-2">
+              {equipe.funcionarios?.map((funcionario) => (
+                <div key={funcionario.funcionarioID} className="flex gap-2">
                   <Image
-                    src={membro.foto || "/img/user.png"}
+                    src={funcionario.foto || "/img/user.png"}
                     width={40}
                     height={40}
-                    alt={membro.nome}
+                    alt={funcionario.nome}
                     className="user"
                   />
                   <div>
-                    <h5>{membro.nome}</h5>
-                    <p>{membro.email}</p>
+                    <h5>{funcionario.nome}</h5>
+                    <p>{funcionario.email}</p>
                   </div>
                 </div>
               ))}

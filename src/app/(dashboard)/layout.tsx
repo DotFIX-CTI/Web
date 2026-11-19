@@ -1,5 +1,5 @@
-import Header from "@/components/header"; // ajuste o caminho se for diferente
-import Menubar from "@/components/menubar"; // ajuste o caminho se for diferente
+import Header from "@/components/header";
+import Menubar from "@/components/menubar";
 import { VisualizacaoProvider } from "@/context/visualizacaoContext";
 import { Suspense, ReactNode } from "react";
 

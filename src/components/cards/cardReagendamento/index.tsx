@@ -1,9 +1,10 @@
 import { Status, mapaStatus } from "@/utils/status";
 import Icon from "@/utils/icon";
 import { Agendamento } from "@/api/agendamento";
+import { obterDadosAgendamento } from "@/utils/agendamento";
 
 interface CardReagendamentoProps {
-  agendamento?: Agendamento;
+  agendamento: Agendamento;
   nomeEquipe?: string;
   ativo?: boolean;
   onClick?: () => void;
@@ -15,6 +16,8 @@ export default function CardReagendamento({
   ativo,
   onClick,
 }: CardReagendamentoProps) {
+  obterDadosAgendamento(agendamento, nomeEquipe);
+
   const classeStatus = agendamento
     ? mapaStatus[agendamento.statusAgendamentoID] || Status.cancelado
     : Status.cancelado;

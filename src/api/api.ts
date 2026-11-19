@@ -2,7 +2,7 @@ import axios from "axios";
 import secureLocalStorage from "react-secure-storage";
 
 const API_URL =
-  process.env.NEXT_PUBLIC_API_URL || "https://jsonplaceholder.typicode.com/";
+  process.env.NEXT_PUBLIC_API_URL;
 
 export const api = axios.create({
   baseURL: API_URL,

@@ -1,17 +1,18 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
-import { useRouter } from "next/navigation";
-import Main from "@/utils/main";
-import { Status, mapaStatus } from "@/utils/status";
-import CardReagendamento from "@/components/cards/cardReagendamento";
-import Pesquisa from "@/components/pesquisa";
-import Button from "@/components/button";
 import Image from "next/image";
-import { useAgendamentos } from "@/hooks/useAgendamentos";
+import Main from "@/utils/main";
+import Button from "@/components/button";
+import Pesquisa from "@/components/pesquisa";
+import CardReagendamento from "@/components/cards/cardReagendamento";
+import { useRouter } from "next/navigation";
 import { useEquipes } from "@/hooks/useEquipes";
-import { formatarDataEHora } from "@/utils/formatarData";
+import { Status, mapaStatus } from "@/utils/status";
+import { useState, useMemo, useEffect } from "react";
 import { toastSucesso, toastErro } from "@/utils/toast";
+import { formatarDataEHora } from "@/utils/formatarData";
+import { useAgendamentos } from "@/hooks/useAgendamentos";
+import { obterDadosAgendamento } from "@/utils/agendamento";
 
 interface ReagendamentoContentProps {
   idInicial?: number;
@@ -50,9 +51,15 @@ export default function ReagendamentoContent({
     if (!termo) return agendamentos;
 
     return agendamentos.filter((a) => {
+      const { equipeExibida } = obterDadosAgendamento(
+        a,
+        undefined,
+        mapaEquipes,
+      );
       const nomeCliente = a.nomeCliente?.toLowerCase() || "";
       const nomeServico = a.nomeServico?.toLowerCase() || "";
-      const nomeEq = (mapaEquipes[a.equipeID] || "").toLowerCase();
+      const nomeEq = equipeExibida.toLowerCase();
+
       return (
         nomeCliente.includes(termo) ||
         nomeServico.includes(termo) ||
@@ -71,10 +78,15 @@ export default function ReagendamentoContent({
     return agendamentosFiltrados[0] || agendamentos[0] || null;
   }, [selecionadoId, agendamentos, agendamentosFiltrados]);
 
-  const equipeAtiva = useMemo(() => {
+  const dadosAtivos = useMemo(() => {
     if (!agendamentoAtivo) return null;
-    return equipes.find((e) => e.equipeID === agendamentoAtivo.equipeID) || null;
-  }, [agendamentoAtivo, equipes]);
+    return obterDadosAgendamento(agendamentoAtivo, undefined, mapaEquipes);
+  }, [agendamentoAtivo, mapaEquipes]);
+
+  const equipeAtiva = useMemo(() => {
+    if (!dadosAtivos?.equipeId) return null;
+    return equipes.find((e) => e.equipeID === dadosAtivos.equipeId) || null;
+  }, [dadosAtivos, equipes]);
 
   const handleValidar = async () => {
     if (!agendamentoAtivo) return;
@@ -107,11 +119,13 @@ export default function ReagendamentoContent({
   return (
     <Main>
       <section className="grid gap-12 max_width max_height">
-        {agendamentoAtivo ? (
+        {agendamentoAtivo && dadosAtivos ? (
           <article className={`card between gap-6 ${classeStatus}`}>
             <div className="flex_c gap-1">
               <h1 className="upper">{agendamentoAtivo.nomeServico}</h1>
-              <h4>{formatarDataEHora(agendamentoAtivo.data)}</h4>
+              {dadosAtivos.dataAgendamento && (
+                <h4>{formatarDataEHora(dadosAtivos.dataAgendamento)}</h4>
+              )}
               <p>
                 {agendamentoAtivo.descricao ||
                   "Nenhuma descrição detalhada informada."}
@@ -130,25 +144,22 @@ export default function ReagendamentoContent({
             </div>
 
             <div className="flex_c gap-4">
-              <h3>
-                {equipeAtiva?.nomeEquipe ||
-                  mapaEquipes[agendamentoAtivo.equipeID] ||
-                  "Equipe Alocada"}
-              </h3>
+              <h3>{equipeAtiva?.nomeEquipe || dadosAtivos.equipeExibida}</h3>
               <div className="flex_c gap-4">
-                {equipeAtiva?.membros && equipeAtiva.membros.length > 0 ? (
-                  equipeAtiva.membros.map((membro) => (
-                    <div key={membro.id} className="flex gap-2">
+                {equipeAtiva?.funcionarios &&
+                equipeAtiva.funcionarios.length > 0 ? (
+                  equipeAtiva.funcionarios.map((funcionario) => (
+                    <div key={funcionario.funcionarioID} className="flex gap-2">
                       <Image
-                        src={membro.foto || "/img/user.png"}
+                        src={funcionario.foto || "/img/user.png"}
                         width={40}
                         height={40}
-                        alt={`Foto de ${membro.nome}`}
+                        alt={`Foto de ${funcionario.nome}`}
                         className="user"
                       />
                       <div>
-                        <h5>{membro.nome}</h5>
-                        <p>{membro.email}</p>
+                        <h5>{funcionario.nome}</h5>
+                        <p>{funcionario.email}</p>
                       </div>
                     </div>
                   ))
@@ -158,11 +169,11 @@ export default function ReagendamentoContent({
                       src="/img/user.png"
                       width={40}
                       height={40}
-                      alt="Foto de membro"
+                      alt="Foto de funcionário"
                       className="user"
                     />
                     <div>
-                      <h5>Membros não vinculados</h5>
+                      <h5>Funcionários não vinculados</h5>
                       <p>Equipe em alocação</p>
                     </div>
                   </div>
@@ -196,15 +207,25 @@ export default function ReagendamentoContent({
             {agendamentosFiltrados.length === 0 ? (
               <p className="p-4 text-center">Nenhum agendamento encontrado.</p>
             ) : (
-              agendamentosFiltrados.map((item) => (
-                <CardReagendamento
-                  key={item.agendamentoID}
-                  agendamento={item}
-                  nomeEquipe={mapaEquipes[item.equipeID]}
-                  ativo={agendamentoAtivo?.agendamentoID === item.agendamentoID}
-                  onClick={() => setSelecionadoId(item.agendamentoID)}
-                />
-              ))
+              agendamentosFiltrados.map((item) => {
+                const { equipeExibida } = obterDadosAgendamento(
+                  item,
+                  undefined,
+                  mapaEquipes,
+                );
+
+                return (
+                  <CardReagendamento
+                    key={item.agendamentoID}
+                    agendamento={item}
+                    nomeEquipe={equipeExibida}
+                    ativo={
+                      agendamentoAtivo?.agendamentoID === item.agendamentoID
+                    }
+                    onClick={() => setSelecionadoId(item.agendamentoID)}
+                  />
+                );
+              })
             )}
           </div>
         </article>

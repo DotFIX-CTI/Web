@@ -1,14 +1,14 @@
 "use client";
 
-import { useParams } from "next/navigation";
 import Main from "@/utils/main";
-import { mapaStatus, Status } from "@/utils/status";
-import CardEquipe from "@/components/cards/cardEquipe";
-import CardMapa from "@/components/cards/cardMapa";
 import Button from "@/components/button";
-import { useAgendamento } from "@/hooks/useAgendamento";
+import CardMapa from "@/components/cards/cardMapa";
+import CardEquipe from "@/components/cards/cardEquipe";
+import { useParams } from "next/navigation";
 import { useEquipe } from "@/hooks/useEquipe";
+import { useAgendamento } from "@/hooks/useAgendamento";
 import { formatarDataEHora } from "@/utils/formatarData";
+import { obterDadosAgendamento } from "@/utils/agendamento";
 
 export default function DetalheAgendamento() {
   const params = useParams<{ id: string }>();
@@ -20,9 +20,13 @@ export default function DetalheAgendamento() {
     erro,
   } = useAgendamento(Number(params.id));
 
+  const dadosAgendamento = agendamento
+    ? obterDadosAgendamento(agendamento)
+    : null;
+
   // 2. Busca os dados da equipe vinculada assim que o agendamento carregar
   const { equipe, carregando: carregandoEq } = useEquipe(
-    agendamento ? Number(agendamento.equipeID) : undefined,
+    dadosAgendamento?.equipeId,
   );
 
   if (carregandoAg) {
@@ -33,7 +37,7 @@ export default function DetalheAgendamento() {
     );
   }
 
-  if (erro || !agendamento) {
+  if (erro || !agendamento || !dadosAgendamento) {
     return (
       <Main>
         <h1>{erro ?? "Agendamento não encontrado."}</h1>
@@ -41,20 +45,21 @@ export default function DetalheAgendamento() {
     );
   }
 
-  const classeStatus =
-    mapaStatus[agendamento.statusAgendamentoID] || Status.cancelado;
-
-  const dataFormatada = formatarDataEHora(agendamento.data);
+  const dataFormatada = dadosAgendamento.dataAgendamento
+    ? formatarDataEHora(dadosAgendamento.dataAgendamento)
+    : "";
 
   return (
     <Main>
       <section className="grid3 gap-12 max_width max_height">
         <div className="flex_c gap-8">
-          <article className={`card between gap-4 h-[100%] ${classeStatus}`}>
+          <article
+            className={`card between gap-4 h-[100%] ${dadosAgendamento.classeStatus}`}
+          >
             <div className="flex_c gap-4">
               <div className="flex_c">
                 <h1 className="upper">{agendamento.nomeServico}</h1>
-                <h4>{dataFormatada}</h4>
+                {dataFormatada && <h4>{dataFormatada}</h4>}
               </div>
               <p>
                 {agendamento.descricao ||

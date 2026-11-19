@@ -1,13 +1,35 @@
 "use client";
 
-import { useState, useMemo } from "react";
 import Main from "@/utils/main";
-import CardProximoAgendamento from "@/components/cards/cardProximoAgendamento";
-import Calendario from "@/components/calendario";
 import Button from "@/components/button";
-import { useAgendamentos } from "@/hooks/useAgendamentos";
-import { useEquipes } from "@/hooks/useEquipes";
 import Pesquisa from "@/components/pesquisa";
+import Calendario from "@/components/calendario";
+import CardProximoAgendamento from "@/components/cards/cardProximoAgendamento";
+import { useState, useMemo } from "react";
+import { useEquipes } from "@/hooks/useEquipes";
+import { useAgendamentos } from "@/hooks/useAgendamentos";
+import { obterDadosAgendamento } from "@/utils/agendamento";
+
+function parseDataLocal(dataStr: string): Date {
+  if (!dataStr) return new Date(NaN);
+
+  if (/[zZ]|[+-]\d{2}:?\d{2}$/.test(dataStr)) {
+    return new Date(dataStr);
+  }
+
+  const [dataParte, horaParte = "00:00:00"] = dataStr.split("T");
+  const [ano, mes, dia] = dataParte.split("-").map(Number);
+  const [hora, minuto, segundo = 0] = horaParte.split(":").map(Number);
+
+  return new Date(
+    ano,
+    (mes || 1) - 1,
+    dia || 1,
+    hora || 0,
+    minuto || 0,
+    segundo || 0,
+  );
+}
 
 export default function Dashboard() {
   const { agendamentos, carregando, erro } = useAgendamentos();
@@ -31,15 +53,20 @@ export default function Dashboard() {
 
     return agendamentos
       .filter((item) => {
-        const dataAgendamento = new Date(item.data);
         const naoCancelado = item.statusAgendamentoID !== 4;
-
         if (!naoCancelado) return false;
+
+        const { dataAgendamento, equipeExibida } = obterDadosAgendamento(
+          item,
+          undefined,
+          mapaEquipes,
+        );
+        const dataItem = parseDataLocal(dataAgendamento);
 
         if (termo) {
           const nomeCliente = item.nomeCliente?.toLowerCase() || "";
           const nomeServico = item.nomeServico?.toLowerCase() || "";
-          const nomeEq = (mapaEquipes[item.equipeID] || "").toLowerCase();
+          const nomeEq = equipeExibida.toLowerCase();
           const batePesquisa =
             nomeCliente.includes(termo) ||
             nomeServico.includes(termo) ||
@@ -47,19 +74,29 @@ export default function Dashboard() {
           if (!batePesquisa) return false;
         }
 
+        if (Number.isNaN(dataItem.getTime())) return false;
+
         // Se o usuário clicou em um dia no calendário, filtra exatamente aquele dia
         if (dataSelecionada) {
           return (
-            dataAgendamento.getFullYear() === dataSelecionada.getFullYear() &&
-            dataAgendamento.getMonth() === dataSelecionada.getMonth() &&
-            dataAgendamento.getDate() === dataSelecionada.getDate()
+            dataItem.getFullYear() === dataSelecionada.getFullYear() &&
+            dataItem.getMonth() === dataSelecionada.getMonth() &&
+            dataItem.getDate() === dataSelecionada.getDate()
           );
         }
 
         // Caso contrário, mantém o comportamento padrão (agendamentos futuros)
-        return dataAgendamento >= agora;
+        return dataItem >= agora;
       })
-      .sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
+      .sort((a, b) => {
+        const dataA = parseDataLocal(
+          obterDadosAgendamento(a).dataAgendamento,
+        ).getTime();
+        const dataB = parseDataLocal(
+          obterDadosAgendamento(b).dataAgendamento,
+        ).getTime();
+        return dataA - dataB;
+      });
   }, [agendamentos, dataSelecionada, termoPesquisa, mapaEquipes]);
 
   return (
@@ -107,13 +144,21 @@ export default function Dashboard() {
                   : "Nenhum agendamento futuro encontrado."}
               </h5>
             ) : (
-              proximosAgendamentos.map((item) => (
-                <CardProximoAgendamento
-                  key={item.agendamentoID}
-                  agendamento={item}
-                  nomeEquipe={mapaEquipes[item.equipeID]}
-                />
-              ))
+              proximosAgendamentos.map((item) => {
+                const { equipeExibida } = obterDadosAgendamento(
+                  item,
+                  undefined,
+                  mapaEquipes,
+                );
+
+                return (
+                  <CardProximoAgendamento
+                    key={item.agendamentoID}
+                    agendamento={item}
+                    nomeEquipe={equipeExibida}
+                  />
+                );
+              })
             )}
           </div>
         </article>

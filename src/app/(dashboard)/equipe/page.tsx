@@ -8,6 +8,14 @@ import Button from "@/components/button";
 import { useEquipes } from "@/hooks/useEquipes";
 import Pesquisa from "@/components/pesquisa";
 
+function normalizarTexto(texto: string): string {
+  return texto
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim();
+}
+
 export default function Equipes() {
   const { carregando, equipes } = useEquipes();
   const [termoPesquisa, setTermoPesquisa] = useState("");
@@ -24,17 +32,18 @@ export default function Equipes() {
   };
 
   const equipesFiltradas = useMemo(() => {
-    const termo = termoPesquisa.trim().toLowerCase();
+    const termo = normalizarTexto(termoPesquisa);
     if (!termo) return equipes;
 
     return equipes.filter((eq) => {
-      const nome = eq.nomeEquipe?.toLowerCase() || "";
-      const membro1 = eq.membros?.[0]?.nome?.toLowerCase() || "";
-      const membro2 = eq.membros?.[1]?.nome?.toLowerCase() || "";
+      const nome = normalizarTexto(eq.nomeEquipe || "");
+      const funcionario1 = normalizarTexto(eq.funcionarios?.[0]?.nome || "");
+      const funcionario2 = normalizarTexto(eq.funcionarios?.[1]?.nome || "");
+
       return (
         nome.includes(termo) ||
-        membro1.includes(termo) ||
-        membro2.includes(termo)
+        funcionario1.includes(termo) ||
+        funcionario2.includes(termo)
       );
     });
   }, [equipes, termoPesquisa]);
@@ -47,7 +56,7 @@ export default function Equipes() {
           <Pesquisa
             value={termoPesquisa}
             onChange={(e) => setTermoPesquisa(e.target.value)}
-            placeholder="Pesquisar equipes ou membros..."
+            placeholder="Pesquisar equipes ou funcionários..."
           />
           <Button icon="add" link="/adicionarEquipe">
             Equipe

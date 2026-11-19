@@ -19,6 +19,7 @@ export function useAgendamentos() {
       setErro(null);
       const dados = await listarAgendamento();
       setAgendamentos(dados);
+      console.log(dados)
     } catch (error: any) {
       setErro(error.message || "Erro ao carregar agendamentos.");
       toastErro(error.message);

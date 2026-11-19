@@ -15,6 +15,7 @@ import { useBuscarCep } from "@/hooks/useBuscarCep";
 import { useAgendamento } from "@/hooks/useAgendamento";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { useEquipes } from "@/hooks/useEquipes";
+import { obterDadosAgendamento } from "@/utils/agendamento";
 import { toastErro, toastSucesso } from "@/utils/toast";
 
 const opcoesEstados: Option[] = Object.entries(estado).map(([sigla, nome]) => ({
@@ -76,13 +77,15 @@ export default function Agendamento() {
   useEffect(() => {
     if (!agendamento) return;
 
+    const { equipeId, dataAgendamento } = obterDadosAgendamento(agendamento);
+
     setNomeCliente(agendamento.nomeCliente || "");
     setEmailCliente(agendamento.emailCliente || "");
     setTelefoneCliente(agendamento.telefoneCliente || "");
     setNomeServico(agendamento.nomeServico || "");
     setDescricao(agendamento.descricao || "");
-    setEquipeIdSelecionada(String(agendamento.equipeID || ""));
-    setDataSelecionada(agendamento.data || "");
+    setEquipeIdSelecionada(equipeId ? String(equipeId) : "");
+    setDataSelecionada(dataAgendamento);
 
     if (agendamento.cep) {
       handleCepChange({ target: { value: agendamento.cep } } as any);
@@ -121,6 +124,9 @@ export default function Agendamento() {
   };
 
   const handleSalvar = async () => {
+    const dataFinal = dataSelecionada || new Date().toISOString();
+    const equipeNum = Number(equipeIdSelecionada);
+
     const payload: Parameters<typeof criar>[0] = {
       nomeCliente,
       emailCliente,
@@ -134,10 +140,11 @@ export default function Agendamento() {
       estado: endereco.estado,
       complemento: endereco.complemento,
       numero: endereco.numero,
-      data: dataSelecionada || new Date().toISOString(),
+      dataAgendamento: dataFinal,
+      data: dataFinal,
       latitude: agendamento?.latitude || "0",
       longitude: agendamento?.longitude || "0",
-      equipeID: Number(equipeIdSelecionada),
+      equipeID: equipeNum,
       statusAgendamentoID: agendamento?.statusAgendamentoID || 1,
     };
 
@@ -368,18 +375,18 @@ export default function Agendamento() {
                 />
 
                 <div className="flex_c gap-2">
-                  {equipeAtual?.membros?.map((membro) => (
-                    <div key={membro.id} className="flex gap-2">
+                  {equipeAtual?.funcionarios?.map((funcionario) => (
+                    <div key={funcionario.funcionarioID} className="flex gap-2">
                       <Image
-                        src={membro.foto || "/img/user.png"}
+                        src={funcionario.foto || "/img/user.png"}
                         width={32}
                         height={32}
-                        alt={membro.nome}
+                        alt={funcionario.nome}
                         className="user"
                       />
                       <div>
-                        <h5>{membro.nome}</h5>
-                        <p>{membro.email}</p>
+                        <h5>{funcionario.nome}</h5>
+                        <p>{funcionario.email}</p>
                       </div>
                     </div>
                   ))}

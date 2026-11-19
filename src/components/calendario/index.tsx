@@ -1,23 +1,44 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import Icon from "@/utils/icon";
 import style from "./calendario.module.css";
+import { useState, useMemo } from "react";
+import { mapaStatus } from "@/utils/status";
+import { Agendamento } from "@/api/agendamento";
+import { obterDadosAgendamento } from "@/utils/agendamento";
 import {
   obterDiasDoMesPorSemana,
   Semana,
   StatusType,
 } from "@/utils/calendario";
-import Icon from "@/utils/icon";
-import { Agendamento } from "@/api/agendamento";
-import { mapaStatus } from "@/utils/status";
 
-// Mapeia as classes do mapaStatus para as variáveis CSS reais do global.css
 const corPorStatus: Record<string, string> = {
   default: "var(--success)",
   pendente: "var(--warning)",
   atrasado: "var(--error)",
   cancelado: "var(--cancel)",
 };
+
+function parseDataCalendario(dataStr: string): Date {
+  if (!dataStr) return new Date(NaN);
+
+  if (/[zZ]|[+-]\d{2}:?\d{2}$/.test(dataStr)) {
+    return new Date(dataStr);
+  }
+
+  const [dataParte, horaParte = "12:00:00"] = dataStr.split("T");
+  const [ano, mes, dia] = dataParte.split("-").map(Number);
+  const [hora, minuto, segundo = 0] = horaParte.split(":").map(Number);
+
+  return new Date(
+    ano,
+    (mes || 1) - 1,
+    dia || 1,
+    hora || 0,
+    minuto || 0,
+    segundo || 0,
+  );
+}
 
 interface CalendarioProps {
   compact?: boolean;
@@ -50,13 +71,14 @@ export default function Calendario({
     agendamentos.forEach((ag) => {
       if (ag.statusAgendamentoID === 4) return;
 
-      // Garante leitura correta da data mesmo se vier como "YYYY-MM-DD" sem hora
-      const dataStr = String(ag.data);
-      const dataAg = dataStr.includes("T")
-        ? new Date(dataStr)
-        : new Date(`${dataStr}T12:00:00`);
+      const { dataAgendamento } = obterDadosAgendamento(ag);
+      const dataAg = parseDataCalendario(dataAgendamento);
 
-      if (dataAg.getFullYear() === ano && dataAg.getMonth() === mes) {
+      if (
+        !Number.isNaN(dataAg.getTime()) &&
+        dataAg.getFullYear() === ano &&
+        dataAg.getMonth() === mes
+      ) {
         const chaveStatus = mapaStatus[ag.statusAgendamentoID] || "default";
         const variavelCor = corPorStatus[chaveStatus] || "var(--primary)";
         mapa.set(dataAg.getDate(), variavelCor);

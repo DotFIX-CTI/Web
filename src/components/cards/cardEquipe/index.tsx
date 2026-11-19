@@ -17,18 +17,18 @@ export default function CardEquipe({ equipe }: CardEquipeProps) {
       <h2>{equipe.nomeEquipe}</h2>
 
       <div className="flex_c gap-4">
-        {equipe.membros?.map((membro) => (
-          <div key={membro.id} className="flex gap-2">
+        {equipe.funcionarios?.map((funcionarios) => (
+          <div key={funcionarios.funcionarioID} className="flex gap-2">
             <Image
-              src={membro.foto || "/img/user.png"}
+              src={funcionarios.foto || "/img/user.png"}
               width={32}
               height={32}
-              alt={`Foto de ${membro.nome}`}
+              alt={`Foto de ${funcionarios.nome}`}
               className="user"
             />
             <div>
-              <h5>{membro.nome}</h5>
-              <p>{membro.email}</p>
+              <h5>{funcionarios.nome}</h5>
+              <p>{funcionarios.email}</p>
             </div>
           </div>
         ))}

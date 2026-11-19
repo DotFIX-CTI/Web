@@ -1,11 +1,11 @@
 import { api } from "./api";
-import { equipesMock } from "./equipesMock";
+import { DomainException } from "./domainException";
 
-export interface Membro {
-  id: number;
+export interface Funcionario {
+  funcionarioID: number;
   nome: string;
   email: string;
-  foto?: string;
+  foto?: string; // Não presente na API ainda
 }
 
 export interface Equipe {
@@ -14,77 +14,43 @@ export interface Equipe {
   latitude: number;
   longitude: number;
   statusEquipeID: number;
-  foto?: string;
-  membros: [Membro, Membro]; // Exige exatamente 2 membros por equipe
+  nomeStatus: string;
+  enderecoAtual: string;
+  funcionarios: [Funcionario, Funcionario]; // Exige exatamente 2 membros por equipe
+  foto?: string; // Não presente na API ainda
 }
 
 // POST
 export async function cadastrarEquipe(
-  dados: Omit<Equipe, "equipeID"> | Equipe,
+  dados: Omit<Equipe, "equipeID">,
 ): Promise<Equipe> {
   try {
-    const response = await api.post("Equipe", dados);
+    const response = await api.post<Equipe>("Equipe", dados);
     return response.data;
-  } catch {
-    const novoID =
-      equipesMock.length > 0
-        ? Math.max(...equipesMock.map((e) => e.equipeID)) + 1
-        : 1;
-    const novaEquipe: Equipe = {
-      ...(dados as Equipe),
-      equipeID:
-        "equipeID" in dados && dados.equipeID ? dados.equipeID : novoID,
-      latitude: dados.latitude ?? -23.55052,
-      longitude: dados.longitude ?? -46.633308,
-      statusEquipeID: dados.statusEquipeID ?? 1,
-    };
-    equipesMock.push(novaEquipe);
-    return novaEquipe;
+  } catch (error: any) {
+    throw new Error(DomainException(error, "Erro ao cadastrar Equipe"));
   }
 }
 
-// GET Mock
+// GET (todos)
 export async function listarEquipe(): Promise<Equipe[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve([...equipesMock]);
-    });
-  });
+  try {
+    const response = await api.get<Equipe[]>("Equipe");
+    return response.data;
+  } catch (error: any) {
+    throw new Error(DomainException(error, "Erro ao listar Equipes"));
+  }
 }
 
-// GET Original
-// export async function listarEquipe(): Promise<Equipe[]> {
-//   try {
-//     const response = await api.get<Equipe[]>("Equipe");
-//     return response.data;
-//   } catch (error: any) {
-//     throw new Error(error.response?.data || "Erro ao listar Equipes");
-//   }
-// }
-
-// GET - ID Mockado
-export async function listarEquipePorId(id: number): Promise<Equipe> {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      const item = equipesMock.find((e) => e.equipeID === id);
-      if (item) {
-        resolve(item);
-      } else {
-        reject(new Error("Equipe não encontrada."));
-      }
-    });
-  });
+// GET (por ID)
+export async function listarEquipePorId(id: string | number): Promise<Equipe> {
+  try {
+    const response = await api.get<Equipe>(`Equipe/${id}`);
+    return response.data;
+  } catch (error: any) {
+    throw new Error(DomainException(error, "Erro ao buscar Equipe"));
+  }
 }
-
-// GET - ID Original
-// export async function listarEquipePorId(id: string): Promise<Equipe> {
-//   try {
-//     const response = await api.get<Equipe>("Equipe/" + id);
-//     return response.data;
-//   } catch (error: any) {
-//     throw new Error(error.response?.data || "Erro ao buscar Equipe");
-//   }
-// }
 
 // PUT
 export async function atualizarEquipe(
@@ -92,29 +58,18 @@ export async function atualizarEquipe(
   dados: Partial<Equipe>,
 ): Promise<Equipe> {
   try {
-    const response = await api.put(`Equipe/${id}`, dados);
+    const response = await api.put<Equipe>(`Equipe/${id}`, dados);
     return response.data;
-  } catch {
-    const index = equipesMock.findIndex((e) => e.equipeID === id);
-    if (index !== -1) {
-      equipesMock[index] = { ...equipesMock[index], ...dados };
-      return equipesMock[index];
-    }
-    throw new Error("Equipe não encontrada para atualização.");
+  } catch (error: any) {
+    throw new Error(DomainException(error, "Erro ao atualizar Equipe"));
   }
 }
 
 // DELETE
-export async function deletarEquipe(
-  EquipeId: string | number,
-): Promise<void> {
+export async function deletarEquipe(equipeId: string | number): Promise<void> {
   try {
-    await api.delete("Equipe/" + EquipeId);
-  } catch {
-    const idNum = Number(EquipeId);
-    const index = equipesMock.findIndex((e) => e.equipeID === idNum);
-    if (index !== -1) {
-      equipesMock.splice(index, 1);
-    }
+    await api.delete(`Equipe/${equipeId}`);
+  } catch (error: any) {
+    throw new Error(DomainException(error, "Erro ao excluir Equipe"));
   }
 }

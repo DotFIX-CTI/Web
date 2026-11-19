@@ -3,7 +3,7 @@
   position: absolute;
   top: 0;
   right: 0;
-  border-radius: 0 var(--border-md) 0 var(--border-md);
+  border-radius: 0 0 0 var(--border-lg);
   overflow: hidden;
   cursor: pointer;
   padding: var(--padding-sm);

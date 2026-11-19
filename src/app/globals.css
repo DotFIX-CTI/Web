@@ -181,6 +181,7 @@ textarea {
 /*? │ 3. CLASSES DE STATUS (Cards e Elementos) │  */
 /*? └──────────────────────────────────────────┘ */
 .default {
+  border: 1px solid var(--success);
   border-left: 12px solid var(--success);
   & h1,
   & h2,
@@ -195,6 +196,7 @@ textarea {
 }
 
 .pendente {
+  border: 1px solid var(--warning);
   border-left: 12px solid var(--warning);
   & h1,
   & h2,
@@ -209,6 +211,7 @@ textarea {
 }
 
 .atrasado {
+  border: 1px solid var(--error);
   border-left: 12px solid var(--error);
   & h1,
   & h2,
@@ -223,6 +226,7 @@ textarea {
 }
 
 .cancelado {
+  border: 1px solid var(--cancel);
   border-left: 12px solid var(--cancel);
   & h1,
   & h2,

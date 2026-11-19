@@ -10,7 +10,7 @@ import Button from "@/components/button";
 import Input from "@/components/input";
 import Image from "next/image";
 import { useEquipe } from "@/hooks/useEquipe";
-import { Membro } from "@/api/equipe";
+import { Funcionario } from "@/api/equipe";
 import { useEquipes } from "@/hooks/useEquipes";
 import Pesquisa from "@/components/pesquisa";
 import { toastErro, toastInfo, toastSucesso } from "@/utils/toast";
@@ -25,65 +25,67 @@ export default function AdicionarEquipe() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [confirmarSenha, setConfirmarSenha] = useState("");
-  const [membro1Id, setMembro1Id] = useState("");
-  const [membro2Id, setMembro2Id] = useState("");
+  const [funcionario1Id, setFuncionario1Id] = useState("");
+  const [funcionario2Id, setFuncionario2Id] = useState("");
   const [termoPesquisa, setTermoPesquisa] = useState("");
 
   const { equipes, criar, atualizar, remover } = useEquipes();
   const { equipe, carregando } = useEquipe(idEdicao);
 
-  const todosIntegrantes = useMemo(() => {
-    const mapa = new Map<number, Membro>();
+  const todosFuncionarios = useMemo(() => {
+    const mapa = new Map<number, Funcionario>();
 
     equipes.forEach((eq) => {
-      eq.membros?.forEach((m) => mapa.set(m.id, m));
+      eq.funcionarios?.forEach((f) => mapa.set(f.funcionarioID, f));
     });
 
-    equipe?.membros?.forEach((m) => mapa.set(m.id, m));
+    equipe?.funcionarios?.forEach((f) => mapa.set(f.funcionarioID, f));
 
     return Array.from(mapa.values());
   }, [equipes, equipe]);
 
-  const opcoesIntegrantes = useMemo(
+  const opcoesFuncionarios = useMemo(
     () =>
-      todosIntegrantes.map((m) => ({
-        label: m.nome,
-        value: String(m.id),
+      todosFuncionarios.map((f) => ({
+        label: f.nome,
+        value: String(f.funcionarioID),
       })),
-    [todosIntegrantes],
+    [todosFuncionarios],
   );
 
-  const integrante1 = useMemo(
-    () => todosIntegrantes.find((m) => String(m.id) === membro1Id),
-    [todosIntegrantes, membro1Id],
+  const funcionario1 = useMemo(
+    () =>
+      todosFuncionarios.find((f) => String(f.funcionarioID) === funcionario1Id),
+    [todosFuncionarios, funcionario1Id],
   );
 
-  const integrante2 = useMemo(
-    () => todosIntegrantes.find((m) => String(m.id) === membro2Id),
-    [todosIntegrantes, membro2Id],
+  const funcionario2 = useMemo(
+    () =>
+      todosFuncionarios.find((f) => String(f.funcionarioID) === funcionario2Id),
+    [todosFuncionarios, funcionario2Id],
   );
 
-  const integrantesFiltrados = useMemo(() => {
+  const funcionariosFiltrados = useMemo(() => {
     const termo = termoPesquisa.trim().toLowerCase();
-    if (!termo) return todosIntegrantes;
+    if (!termo) return todosFuncionarios;
 
-    return todosIntegrantes.filter(
-      (m) =>
-        m.nome.toLowerCase().includes(termo) ||
-        m.email.toLowerCase().includes(termo),
+    return todosFuncionarios.filter(
+      (f) =>
+        f.nome.toLowerCase().includes(termo) ||
+        f.email.toLowerCase().includes(termo),
     );
-  }, [todosIntegrantes, termoPesquisa]);
+  }, [todosFuncionarios, termoPesquisa]);
 
   useEffect(() => {
     if (!equipe) return;
 
     setNomeEquipe(equipe.nomeEquipe || "");
 
-    if (equipe.membros?.[0]) {
-      setMembro1Id(String(equipe.membros[0].id));
+    if (equipe.funcionarios?.[0]) {
+      setFuncionario1Id(String(equipe.funcionarios[0].funcionarioID));
     }
-    if (equipe.membros?.[1]) {
-      setMembro2Id(String(equipe.membros[1].id));
+    if (equipe.funcionarios?.[1]) {
+      setFuncionario2Id(String(equipe.funcionarios[1].funcionarioID));
     }
   }, [equipe]);
 
@@ -93,8 +95,13 @@ export default function AdicionarEquipe() {
       return;
     }
 
-    if (!integrante1 || !integrante2) {
-      toastErro("Selecione os 2 integrantes da equipe.");
+    if (!funcionario1 || !funcionario2) {
+      toastErro("Selecione os 2 funcionários da equipe.");
+      return;
+    }
+
+    if (funcionario1.funcionarioID === funcionario2.funcionarioID) {
+      toastErro("Selecione dois funcionários diferentes para a equipe.");
       return;
     }
 
@@ -103,7 +110,9 @@ export default function AdicionarEquipe() {
       latitude: equipe?.latitude ?? -23.55052,
       longitude: equipe?.longitude ?? -46.633308,
       statusEquipeID: equipe?.statusEquipeID ?? 1,
-      membros: [integrante1, integrante2] as [Membro, Membro],
+      nomeStatus: equipe?.nomeStatus ?? "Disponível",
+      enderecoAtual: equipe?.enderecoAtual ?? "",
+      funcionarios: [funcionario1, funcionario2] as [Funcionario, Funcionario],
     };
 
     try {
@@ -203,34 +212,34 @@ export default function AdicionarEquipe() {
               <div className="flex_c gap-12">
                 <div className="flex_c gap-4">
                   <Select
-                    label="1º Integrante"
-                    placeholder="Selecione o primeiro integrante"
-                    options={opcoesIntegrantes}
-                    value={membro1Id}
-                    onChange={(valor: string) => setMembro1Id(valor)}
+                    label="1º Funcionário"
+                    placeholder="Selecione o primeiro funcionário"
+                    options={opcoesFuncionarios}
+                    value={funcionario1Id}
+                    onChange={(valor: string) => setFuncionario1Id(valor)}
                     required
-                    errorMessage="1º Integrante obrigatório"
+                    errorMessage="1º Funcionário obrigatório"
                   />
-                  {integrante1 && (
+                  {funcionario1 && (
                     <div className="flex between center gap-2">
                       <div className="flex center gap-2">
                         <Image
-                          src={integrante1.foto || "/img/user.png"}
+                          src={funcionario1.foto || "/img/user.png"}
                           width={40}
                           height={40}
-                          alt={integrante1.nome}
+                          alt={funcionario1.nome}
                           className="user"
                         />
                         <div>
-                          <h5>{integrante1.nome}</h5>
-                          <p>{integrante1.email}</p>
+                          <h5>{funcionario1.nome}</h5>
+                          <p>{funcionario1.email}</p>
                         </div>
                       </div>
 
                       <Button
                         icon="cancel"
                         variant="secondary"
-                        onClick={() => setMembro1Id("")}
+                        onClick={() => setFuncionario1Id("")}
                         noText
                       />
                     </div>
@@ -239,34 +248,34 @@ export default function AdicionarEquipe() {
 
                 <div className="flex_c gap-4">
                   <Select
-                    label="2º Integrante"
-                    placeholder="Selecione o segundo integrante"
-                    options={opcoesIntegrantes}
-                    value={membro2Id}
-                    onChange={(valor: string) => setMembro2Id(valor)}
+                    label="2º Funcionário"
+                    placeholder="Selecione o segundo funcionário"
+                    options={opcoesFuncionarios}
+                    value={funcionario2Id}
+                    onChange={(valor: string) => setFuncionario2Id(valor)}
                     required
-                    errorMessage="2º Integrante obrigatório"
+                    errorMessage="2º Funcionário obrigatório"
                   />
-                  {integrante2 && (
+                  {funcionario2 && (
                     <div className="flex between center gap-2">
                       <div className="flex center gap-2">
                         <Image
-                          src={integrante2.foto || "/img/user.png"}
+                          src={funcionario2.foto || "/img/user.png"}
                           width={40}
                           height={40}
-                          alt={integrante2.nome}
+                          alt={funcionario2.nome}
                           className="user"
                         />
                         <div>
-                          <h5>{integrante2.nome}</h5>
-                          <p>{integrante2.email}</p>
+                          <h5>{funcionario2.nome}</h5>
+                          <p>{funcionario2.email}</p>
                         </div>
                       </div>
 
                       <Button
                         icon="cancel"
                         variant="secondary"
-                        onClick={() => setMembro2Id("")}
+                        onClick={() => setFuncionario2Id("")}
                         noText
                       />
                     </div>
@@ -299,22 +308,22 @@ export default function AdicionarEquipe() {
           <Pesquisa
             value={termoPesquisa}
             onChange={(e) => setTermoPesquisa(e.target.value)}
-            placeholder="Buscar integrante..."
+            placeholder="Buscar funcionário..."
           />
           <div className="scroll gap-6">
-            {integrantesFiltrados.length === 0 ? (
-              <p>Nenhum integrante encontrado.</p>
+            {funcionariosFiltrados.length === 0 ? (
+              <p>Nenhum funcionário encontrado.</p>
             ) : (
-              integrantesFiltrados.map((membro) => (
+              funcionariosFiltrados.map((funcionario) => (
                 <Integrante
-                  key={membro.id}
-                  membro={membro}
+                  key={funcionario.funcionarioID}
+                  membro={funcionario}
                   onSelect={(selecionado) => {
-                    const idStr = String(selecionado.id);
-                    if (!membro1Id) {
-                      setMembro1Id(idStr);
-                    } else if (!membro2Id && membro1Id !== idStr) {
-                      setMembro2Id(idStr);
+                    const idStr = String(selecionado.funcionarioID);
+                    if (!funcionario1Id) {
+                      setFuncionario1Id(idStr);
+                    } else if (!funcionario2Id && funcionario1Id !== idStr) {
+                      setFuncionario2Id(idStr);
                     }
                   }}
                 />
