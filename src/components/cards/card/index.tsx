@@ -21,7 +21,7 @@ export default function Card({
   return (
     <Link href={`/detalheAgendamento/${agendamento.agendamentoID}`}>
       <article
-        className={`card flex_c gap-2 between ${classeStatus} ${style.informacoes}`}
+        className={`card_small flex_c gap-2 between ${classeStatus} ${style.informacoes}`}
         style={{ width: 320 }}
       >
         <h2 className="upper">{agendamento.nomeServico}</h2>

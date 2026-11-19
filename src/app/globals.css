@@ -181,7 +181,7 @@ textarea {
 /*? │ 3. CLASSES DE STATUS (Cards e Elementos) │  */
 /*? └──────────────────────────────────────────┘ */
 .default {
-  border-left: 20px solid var(--success);
+  border-left: 12px solid var(--success);
   & h1,
   & h2,
   & h3,
@@ -195,7 +195,7 @@ textarea {
 }
 
 .pendente {
-  border-left: 20px solid var(--warning);
+  border-left: 12px solid var(--warning);
   & h1,
   & h2,
   & h3,
@@ -209,7 +209,7 @@ textarea {
 }
 
 .atrasado {
-  border-left: 20px solid var(--error);
+  border-left: 12px solid var(--error);
   & h1,
   & h2,
   & h3,
@@ -223,7 +223,7 @@ textarea {
 }
 
 .cancelado {
-  border-left: 20px solid var(--cancel);
+  border-left: 12px solid var(--cancel);
   & h1,
   & h2,
   & h3,
@@ -356,7 +356,7 @@ textarea {
   background-color: var(--background-card);
   width: 100%;
   display: flex;
-  border-radius: var(--border-md);
+  border-radius: var(--border-sm);
 }
 
 .card {
@@ -372,7 +372,6 @@ textarea {
 }
 
 .card_small {
-  height: 72px;
   padding: var(--padding-sm);
   flex-direction: column;
 }

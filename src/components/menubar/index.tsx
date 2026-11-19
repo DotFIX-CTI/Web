@@ -5,10 +5,27 @@ import style from "./menubar.module.css";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Button from "../button";
+import { useVisualizacao } from "@/context/visualizacaoContext";
 
 export default function Menubar() {
   const pathname = usePathname();
   const isVisualizacao = pathname === "/visualizacao";
+
+  const {
+    buscaAberta,
+    setBuscaAberta,
+    termoBusca,
+    setTermoBusca,
+    apenasHistorico,
+    setApenasHistorico,
+  } = useVisualizacao();
+
+  const handleToggleBusca = () => {
+    setBuscaAberta((prev) => {
+      if (prev) setTermoBusca("");
+      return !prev;
+    });
+  };
 
   return (
     <nav
@@ -40,13 +57,40 @@ export default function Menubar() {
           <Icon name="table" />
         </Link>
       </div>
+
       {isVisualizacao && (
         <div className={style.extraContainer}>
           <hr />
           <div className={`${style.icons} gap-2`}>
-            <Button icon="log" noText />
-            <Button icon="search" noText />
+            <Button
+              icon="log"
+              noText
+              onClick={() => setApenasHistorico((prev) => !prev)}
+              aria-pressed={apenasHistorico}
+              title={
+                apenasHistorico
+                  ? "Mostrar todos os agendamentos"
+                  : "Ver histórico"
+              }
+            />
+            <Button
+              icon="search"
+              noText
+              onClick={handleToggleBusca}
+              aria-pressed={buscaAberta}
+              title="Pesquisar agendamentos"
+            />
           </div>
+
+          {buscaAberta && (
+            <input
+              type="text"
+              value={termoBusca}
+              onChange={(e) => setTermoBusca(e.target.value)}
+              placeholder="Buscar por equipe ou agendamento..."
+              autoFocus
+            />
+          )}
         </div>
       )}
     </nav>

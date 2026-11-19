@@ -1,7 +1,7 @@
 .info {
   width: 100%;
   border: var(--border-card);
-  border-radius: var(--border-lg);
+  border-radius: var(--border-sm);
   background-image: linear-gradient(
     to right,
     color-mix(in srgb, var(--primary-surface) 10%, transparent 100%),
