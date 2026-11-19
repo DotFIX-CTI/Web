@@ -116,7 +116,7 @@ export default function Input({
             id={`${label}-${index}`}
             onChange={(e) => handleCodeChange(e, index)}
             onKeyDown={(e) => handleCodeKeyDown(e, index)}
-            style={{ textAlign: "center", fontSize: "1.2rem", fontWeight: 500 }}
+            style={{ textAlign: "center", fontSize: "1.5rem", fontWeight: 500 }}
             {...(required && { required })}
             {...(props as InputHTMLAttributes<HTMLInputElement>)}
           />

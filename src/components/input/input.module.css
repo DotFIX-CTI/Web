@@ -24,7 +24,7 @@
   aspect-ratio: 1/1;
   border-radius: var(--border-sm);
   border: var(--border-off);
-  background-color: var(--background);
+  background-color: var(--input-bg);
 }
 
 .input {
