@@ -39,10 +39,19 @@
 }
 
 .inactive:hover {
-  background-color: color-mix(in srgb, var(--primary-surface) 100%, var(--primary) 100%);
+  background-color: color-mix(
+    in srgb,
+    var(--primary-surface) 100%,
+    var(--primary) 100%
+  );
 }
 
 .active {
+  color: var(--primary);
+  background: var(--surface);
+}
+
+.option.active {
   color: var(--primary);
   background: var(--surface);
 }
@@ -78,4 +87,50 @@
   border: none;
   border-radius: 2px;
   margin: var(--margin-lg) 0;
+}
+
+@keyframes slideInSearch {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.searchFloating {
+  width: 300px;
+  padding: var(--padding-sm);
+  padding-right: var(--padding-md);
+  border-top: 2px solid transparent;
+  border-bottom: 2px solid transparent;
+  border-radius: 0 var(--border-lg) var(--border-lg) 0;
+  background-color: transparent;
+  background-image:
+    linear-gradient(to right, var(--primary-surface), transparent),
+    linear-gradient(to right, var(--primary), transparent 85%),
+    linear-gradient(to right, var(--primary), transparent 85%);
+  background-origin: padding-box, border-box, border-box;
+  background-clip: padding-box, border-box, border-box;
+  background-position:
+    0 0,
+    0 0,
+    0 100%;
+  background-size:
+    100% 100%,
+    100% 2px,
+    100% 2px;
+  background-repeat: no-repeat;
+  position: fixed;
+  left: 48px;
+  top: calc(37.5vh + 255px);
+  z-index: 11;
+  pointer-events: none;
+  animation: slideInSearch 0.2s ease forwards;
+}
+
+.searchFloating > * {
+  pointer-events: auto;
 }

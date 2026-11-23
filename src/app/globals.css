@@ -32,8 +32,8 @@
   --input-icon: hsl(215, 100%, 30%);
 
   --shadow:
-    0 0 4px color-mix(in srgb, var(--primary) 5%, transparent 100%),
-    0 0 20px color-mix(in srgb, var(--primary) 10%, transparent 100%);
+    0 0 4px color-mix(in srgb, var(--primary) 5%, transparent),
+    0 0 20px color-mix(in srgb, var(--primary) 10%, transparent);
 
   --border-sm: 4px;
   --border-md: calc(var(--border-sm) * 2);
@@ -48,9 +48,9 @@
   --margin-lg: calc(var(--margin-sm) * 3);
   --margin-xg: calc(var(--margin-sm) * 6);
 
-  --border-input: 2px solid hsl(215, 10%, 80%);
+  --border-input: 2px solid var(--off);
   --border-off: 2px solid var(--off);
-  --border-card: 1px solid color-mix(in srgb, var(--off) 20%, transparent 100%);
+  --border-card: 1px solid color-mix(in srgb, var(--off) 20%, transparent);
 
   --scrollbar: var(--primary);
   --scrollbar-bg: var(--surface);
@@ -70,8 +70,8 @@
   --logo: var(--white);
 
   --shadow:
-    0 0 4px color-mix(in srgb, var(--foreground) 5%, transparent 100%),
-    0 0 20px color-mix(in srgb, var(--foreground) 10%, transparent 100%);
+    0 0 4px color-mix(in srgb, var(--foreground) 5%, transparent),
+    0 0 20px color-mix(in srgb, var(--foreground) 10%, transparent);
 
   --smooth-txt: 1;
 
@@ -81,6 +81,8 @@
   --input-bg: hsl(210, 65%, 5%);
   --btn-border: hsl(216, 20%, 95%);
   --input-icon: hsl(215, 75%, 65%);
+
+  --border-card: 1px solid color-mix(in srgb, var(--surface) 25%, transparent);
 
   --scrollbar: var(--surface);
   --scrollbar-bg: var(--primary);
@@ -98,194 +100,89 @@
 /*? ┌───────────────────────────┐ */
 /*? │ 2. RESET E ELEMENTOS BASE │ */
 /*? └───────────────────────────┘ */
-html {
-  font-size: 100%;
-}
-
-* {
-  padding: 0;
-  margin: 0;
-  scrollbar-color: var(--scrollbar) var(--scrollbar-bg);
-  scrollbar-width: thin;
-  box-sizing: border-box;
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-inter);
-  font-optical-sizing: auto;
-  line-height: 1.5;
-}
-
-main {
-  color: var(--main-bg);
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-p {
-  color: var(--foreground);
-  line-height: 1;
-}
-
-h1 {
-  font-weight: 700;
-  font-size: 2rem;
-}
-h2 {
-  font-weight: 600;
-  font-size: 1.8rem;
-}
-h3 {
-  font-weight: 600;
-  font-size: 1.6rem;
-}
-h4 {
-  font-weight: 600;
-  font-size: 1.4rem;
-}
-h5 {
-  font-weight: 500;
-  font-size: 1.2rem;
-}
-
-p {
-  font-size: 1rem;
-  opacity: 0.8;
-}
-
-hr {
-  border: 0;
-  height: 1px;
-  background-color: color-mix(in srgb, var(--foreground) 15%, transparent 100%);
-  width: 100%;
-  display: block;
-  margin: var(--margin-sm) 0 0;
-}
-
-img {
-  width: auto;
-  height: auto;
-}
-
-input,
-textarea {
-  outline: none;
-}
-
-/*? ┌──────────────────────────────────────────┐ */
-/*? │ 3. CLASSES DE STATUS (Cards e Elementos) │  */
-/*? └──────────────────────────────────────────┘ */
-.default {
-  border: 1px solid var(--success);
-  border-left: 12px solid var(--success);
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5 {
-    color: color-mix(in srgb, var(--success) 100%, var(--foreground) 50%);
-  }
-}
-.default_bg {
-  background-color: var(--success);
-}
-
-.pendente {
-  border: 1px solid var(--warning);
-  border-left: 12px solid var(--warning);
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5 {
-    color: color-mix(in srgb, var(--warning) 100%, var(--foreground) 50%);
-  }
-}
-.pendente_bg {
-  background-color: var(--warning);
-}
-
-.atrasado {
-  border: 1px solid var(--error);
-  border-left: 12px solid var(--error);
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5 {
-    color: color-mix(in srgb, var(--error) 100%, var(--foreground) 50%);
-  }
-}
-.atrasado_bg {
-  background-color: var(--error);
-}
-
-.cancelado {
-  border: 1px solid var(--cancel);
-  border-left: 12px solid var(--cancel);
-  & h1,
-  & h2,
-  & h3,
-  & h4,
-  & h5 {
-    color: color-mix(in srgb, var(--cancel) 100%, var(--foreground) 50%);
-  }
-}
-.cancelado_bg {
-  background-color: var(--cancel);
-}
-
-/*? ┌──────────────────────────────────┐ */
-/*? │ 4. FORMULÁRIOS E ESTADOS DE ERRO │ */
-/*? └──────────────────────────────────┘ */
-.label {
-  color: color-mix(in srgb, var(--primary) 100%, var(--foreground) 100%);
-  font-weight: 600;
-  display: block;
-}
-
-.input_mensagem {
-  color: var(--error);
-  font-size: 0.75rem;
-  white-space: nowrap;
-}
-
-.error {
-  color: var(--error) !important;
-
-  & label,
-  & svg {
-    color: var(--error) !important;
+@layer base {
+  html {
+    font-size: 100%;
   }
 
-  & input,
-  & textarea,
-  & select,
-  & .input,
-  & .textarea,
-  & .trigger {
-    border-color: var(--error) !important;
+  * {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    scrollbar-color: var(--scrollbar) var(--scrollbar-bg);
+    scrollbar-width: thin;
   }
-}
 
-.error_mensagem {
-  border-radius: 12px;
-  background-color: color-mix(in srgb, var(--error) 10%, transparent 100%);
-  padding: var(--padding-sm);
-  font-weight: 600;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  color: var(--error);
-  border: 1px solid var(--error);
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-inter), sans-serif;
+    font-optical-sizing: auto;
+    line-height: 1.5;
+  }
+
+  main {
+    color: var(--main-bg);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  p {
+    color: var(--foreground);
+    line-height: 1.1;
+  }
+
+  h1 {
+    font-weight: 700;
+    font-size: 2rem;
+  }
+  h2 {
+    font-weight: 600;
+    font-size: 1.8rem;
+  }
+  h3 {
+    font-weight: 600;
+    font-size: 1.6rem;
+  }
+  h4 {
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+  h5 {
+    font-weight: 500;
+    font-size: 1.2rem;
+  }
+
+  p {
+    font-size: 1rem;
+    opacity: 0.8;
+  }
+
+  hr {
+    border: 0;
+    height: 1px;
+    background-color: color-mix(in srgb, var(--foreground) 15%, transparent);
+    width: 100%;
+    display: block;
+    margin: var(--margin-sm) 0 0;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  input,
+  textarea {
+    outline: none;
+  }
 }
 
 /*? ┌────────────────────────────┐ */
-/*? │ 5. LAYOUTS, FLEXBOX E GRID │ */
+/*? │ 3. LAYOUTS, FLEXBOX E GRID │ */
 /*? └────────────────────────────┘ */
 .flex {
   display: flex;
@@ -326,11 +223,13 @@ textarea {
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
 .grid2 {
   width: 100%;
   display: grid;
   grid-template-columns: 1.5fr 1fr;
 }
+
 .grid3 {
   width: 100%;
   display: grid;
@@ -341,244 +240,219 @@ textarea {
   width: 100%;
   max-width: 1600px;
 }
+
 .max_height {
   min-height: 720px;
   max-height: 720px;
 }
 
-/*? ┌────────────────────────┐ */
-/*? │ 6. COMPONENTES E CARDS │ */
-/*? └────────────────────────┘ */
-.card,
-.card_login,
-.card_small,
-.card_mapa,
-.card_scroll,
-.card_scroll_h {
-  position: relative;
-  box-shadow: var(--shadow);
-  background-color: var(--background-card);
-  width: 100%;
-  display: flex;
-  border-radius: var(--border-sm);
-}
-
-.card {
-  padding: var(--padding-md);
-  flex-direction: column;
-}
-
-.card_login {
-  min-width: 480px;
-  max-width: 480px;
-  padding: var(--padding-md);
-  flex-direction: column;
-}
-
-.card_small {
-  padding: var(--padding-sm);
-  flex-direction: column;
-}
-
-.card_mapa {
-  flex-direction: column;
-  overflow: hidden;
-  color: var(--white);
-
-  & h2,
-  & h4,
-  & h5 {
-    color: var(--white);
+/*? ┌──────────────────────────────────┐ */
+/*? │ 4. FORMULÁRIOS E ESTADOS DE ERRO │ */
+/*? └──────────────────────────────────┘ */
+@layer components {
+  .label {
+    color: var(--primary);
+    font-weight: 600;
+    display: block;
   }
 
-  & .smooth_info,
-  & .smooth_info p {
+  .input_mensagem {
+    color: var(--error);
+    font-size: 0.75rem;
+    white-space: nowrap;
+  }
+
+  .error {
+    color: var(--error) !important;
+
+    & label,
+    & svg {
+      color: var(--error) !important;
+    }
+
+    & :is(input, textarea, select, .input, .textarea, .trigger) {
+      border-color: var(--error) !important;
+    }
+  }
+
+  .error_mensagem {
+    border-radius: var(--border-lg);
+    background-color: color-mix(in srgb, var(--error) 10%, transparent);
+    padding: var(--padding-sm);
+    font-weight: 600;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    color: var(--error);
+    border: 1px solid var(--error);
+  }
+
+  .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 10px;
+    pointer-events: none;
+    transition: 0.1s ease-in-out;
+  }
+
+  .user {
+    border-radius: var(--border-md);
+    overflow: hidden;
+    object-fit: contain;
+  }
+}
+
+/*? ┌────────────────────────┐ */
+/*? │ 5. COMPONENTES E CARDS │ */
+/*? └────────────────────────┘ */
+@layer components {
+  .card,
+  .card_login,
+  .card_small,
+  .card_mapa,
+  .card_scroll,
+  .card_scroll_h {
+    position: relative;
+    box-shadow: var(--shadow);
+    background-color: var(--background-card);
+    width: 100%;
+    display: flex;
+    border-radius: var(--border-sm);
+    border: var(--border-card);
+  }
+
+  .card,
+  .card_login {
+    padding: var(--padding-md);
+    flex-direction: column;
+  }
+
+  .card_login {
+    min-width: 480px;
+    max-width: 480px;
+  }
+
+  .card_small {
+    padding: var(--padding-sm);
+    flex-direction: column;
+  }
+
+  .card_mapa {
+    flex-direction: column;
+    overflow: hidden;
+    color: var(--white);
+
+    & :is(h2, h4, h5, .smooth_info, .smooth_info p) {
+      color: var(--white);
+    }
+
+    & :is(.smooth_info, .smooth_info p) {
+      opacity: var(--smooth-txt);
+    }
+  }
+
+  .card_scroll {
+    padding: var(--padding-md) var(--padding-md) 0;
+    flex-direction: column;
+  }
+
+  .card_scroll_h {
+    padding: var(--padding-md) 0;
+    flex-direction: row;
+  }
+
+  .scroll,
+  .scroll_h {
+    display: flex;
+  }
+
+  .scroll {
+    flex-direction: column;
+    overflow-y: auto;
+    padding: var(--padding-md) var(--padding-sm) var(--padding-lg);
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      black 4%,
+      black 96%,
+      transparent 100%
+    );
+  }
+
+  .scroll_h {
+    width: 100%;
+    overflow-x: auto;
+    padding: var(--padding-sm) var(--padding-md);
+    mask-image: linear-gradient(
+      to right,
+      transparent 0%,
+      black 4%,
+      black 96%,
+      transparent 100%
+    );
+  }
+}
+
+/*? ┌─────────────────────────────┐ */
+/*? │ 6. TIPOGRAFIA E UTILITÁRIOS │ */
+/*? └─────────────────────────────┘ */
+@layer utilities {
+  .small_txt {
+    color: var(--off);
+    font-size: 0.8rem;
+    line-height: 16px;
+  }
+
+  .smooth_info,
+  .smooth_info p {
     color: var(--white);
     opacity: var(--smooth-txt);
   }
-}
 
-.card_scroll {
-  padding: var(--padding-md) var(--padding-md) 0;
-  flex-direction: column;
-}
-
-.card_scroll_h {
-  padding: var(--padding-md) 0;
-  flex-direction: row;
-}
-
-.scroll {
-  display: flex;
-  flex-direction: column;
-  overflow-y: scroll;
-  padding: var(--padding-md) var(--padding-sm) var(--padding-lg);
-  mask-image: linear-gradient(
-    to bottom,
-    transparent 0%,
-    black 4%,
-    black 96%,
-    transparent 100%
-  );
-}
-
-.scroll_h {
-  width: 100%;
-  display: flex;
-  overflow-x: scroll;
-  padding: var(--padding-sm) var(--padding-md);
-  mask-image: linear-gradient(
-    to right,
-    transparent 0%,
-    black 4%,
-    black 96%,
-    transparent 100%
-  );
-}
-
-/*? ┌──────────────────────────────────────────────┐ */
-/*? │ 7. CLASSES UTILITÁRIAS E TIPOGRAFIA AUXILIAR │ */
-/*? └──────────────────────────────────────────────┘ */
-.user {
-  border-radius: var(--border-md);
-  overflow: hidden;
-  object-fit: contain;
-}
-
-.upper {
-  text-transform: uppercase;
-}
-
-.icon {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  left: 10px;
-  pointer-events: none;
-  transition: 0.1s ease-in-out;
-}
-
-.small_txt {
-  color: var(--off);
-  font-size: 0.8rem;
-  line-height: 16px;
-}
-
-.smooth_info,
-.smooth_info p {
-  color: var(--white);
-  opacity: var(--smooth-txt);
-}
-
-.big_txt {
-  color: var(--foreground);
-  font-weight: 700;
-  font-size: 3rem;
-}
-
-.edit {
-  position: absolute;
-  top: 0;
-  right: 0;
-  border-radius: 0 var(--border-md) 0 var(--border-md);
-  overflow: hidden;
-  cursor: pointer;
-  padding: var(--padding-sm);
-  color: var(--white);
-}
-
-.delete {
-  position: absolute;
-  top: var(--margin-xg);
-  right: var(--margin-xg);
-}
-
-/*? ┌───────────────────┐ */
-/*? │ 8. RESPONSIVIDADE │ */
-/*? └───────────────────┘ */
-@media (max-width: 1680px) {
-  section {
-    margin: 2.5% 0;
-  }
-  .max_width {
-    max-width: 1280px;
-  }
-}
-
-@media (max-width: 1366px) {
-  html {
-    font-size: 85%;
-  }
-  .max_width {
-    max-width: 1080px;
-  }
-}
-
-@media (max-width: 1200px) {
-  :root {
-    --spacing: 0.2rem;
-  }
-
-  main > .grid,
-  .flex_c > .grid,
-  main > .grid2,
-  main > .grid3 {
-    grid-template-columns: 1fr;
-  }
-
-  .max_width {
-    max-width: min(640px, 80%);
-  }
-}
-
-@media (max-height: 840px) {
-  :root {
-    --spacing: 0.1rem;
-  }
-  html {
-    font-size: 85%;
-  }
-  .max_height {
-    height: 640px;
-    max-height: 640px;
+  .big_txt {
+    color: var(--foreground);
+    font-weight: 700;
+    font-size: 3rem;
   }
 }
 
 /*? ┌───────────────────────┐ */
-/*? │ 9. LOADING (SKELETON) │ */
+/*? │ 7. LOADING (SKELETON) │ */
 /*? └───────────────────────┘ */
-.skeleton,
-.skeleton_text,
-.skeleton_button,
-.skeleton_circle {
-  background: linear-gradient(
-    90deg,
-    var(--surface) 25%,
-    color-mix(in srgb, var(--primary) 8%, var(--surface)) 50%,
-    var(--surface) 75%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  will-change: background-position;
-  border-radius: var(--border-md);
-  pointer-events: none;
-  user-select: none;
-}
+@layer components {
+  .skeleton,
+  .skeleton_text,
+  .skeleton_button,
+  .skeleton_circle {
+    background: linear-gradient(
+      90deg,
+      var(--surface) 25%,
+      color-mix(in srgb, var(--primary) 8%, var(--surface)) 50%,
+      var(--surface) 75%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    will-change: background-position;
+    border-radius: var(--border-md);
+    pointer-events: none;
+    user-select: none;
+  }
 
-.skeleton_text {
-  height: 1em;
-  border-radius: var(--border-sm);
-  display: inline-block;
-}
+  .skeleton_text {
+    height: 1em;
+    border-radius: var(--border-sm);
+    display: inline-block;
+  }
 
-.skeleton_button {
-  height: 40px;
-  width: 160px;
-  display: inline-block;
-}
+  .skeleton_button {
+    height: 40px;
+    width: 160px;
+    display: inline-block;
+  }
 
-.skeleton_circle {
-  border-radius: 50%;
+  .skeleton_circle {
+    border-radius: 50%;
+  }
 }
 
 @keyframes shimmer {
@@ -591,90 +465,191 @@ textarea {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .skeleton {
+  .skeleton,
+  .skeleton_text,
+  .skeleton_button,
+  .skeleton_circle {
     animation: none;
     background: var(--surface);
     opacity: 0.7;
   }
 }
 
-/*? ┌──────────────┐ */
-/*? │ 10. ANIMAÇÃO │ */
-/*? └──────────────┘ */
-.login_anim {
-  position: absolute;
-  inset: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 0;
-}
+/*? ┌────────────────────────────┐ */
+/*? │ 8. ANIMAÇÕES E TEMA TOGGLE │ */
+/*? └────────────────────────────┘ */
+@layer components {
+  .login_anim {
+    position: absolute;
+    inset: 0;
+    width: 100dvw;
+    height: 100dvh;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0;
+  }
 
-.darkmode {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  z-index: 100;
-  color: var(--white);
-  background: var(--primary);
-  border-radius: 100% 0 0 0;
-  padding: 36px 12px 12px 36px;
-}
+  .darkmode {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    z-index: 100;
+    color: var(--white);
+    background: var(--primary);
+    border-radius: 100% 0 0 0;
+    padding: 36px 12px 12px 36px;
 
-.darkmode .themetoggle {
-  transition: rotate 0.5s cubic-bezier(0.1, 0.825, 0.15, 1);
+    & .themetoggle {
+      transition: rotate 0.5s cubic-bezier(0.1, 0.825, 0.15, 1);
 
-  &:hover {
-    rotate: -90deg;
+      &:hover {
+        rotate: -90deg;
+      }
+    }
   }
 }
 
 /*? ┌───────────┐ */
-/*? │ 11. TOAST │ */
+/*? │ 9. TOAST  │ */
 /*? └───────────┘ */
-/* Toast de Sucesso */
 .Toastify__toast--success {
   background-color: color-mix(
     in srgb,
-    var(--success) 100%,
-    var(--toast) 25%
+    var(--success) 75%,
+    var(--toast)
   ) !important;
   color: var(--white) !important;
 }
 
-/* Toast de Erro */
 .Toastify__toast--error {
   background-color: color-mix(
     in srgb,
-    var(--error) 100%,
-    var(--toast) 25%
+    var(--error) 75%,
+    var(--toast)
   ) !important;
   color: var(--white) !important;
 }
 
-/* Toast de Informação */
 .Toastify__toast--info {
   background-color: color-mix(
     in srgb,
-    var(--primary) 100%,
-    var(--toast) 25%
+    var(--primary) 75%,
+    var(--toast)
   ) !important;
   color: var(--white) !important;
 }
 
-/* Barrinha de progresso */
 .Toastify__progress-bar--success,
 .Toastify__progress-bar--error,
 .Toastify__progress-bar--info {
-  background: color-mix(in srgb, var(--white) 100%, transparent 50%) !important;
+  background: color-mix(in srgb, var(--white) 50%, transparent) !important;
 }
 
-/* Toast */
 .Toastify__toast {
   font-family: var(--font-inter), sans-serif;
   font-size: 1rem;
   font-weight: 600;
   box-shadow: var(--shadow);
   border-radius: var(--border-lg);
+}
+
+/*? ┌────────────────────┐ */
+/*? │ 10. RESPONSIVIDADE │ */
+/*? └────────────────────┘ */
+@media (max-width: 1680px) {
+  section {
+    margin: 2.5% 0;
+  }
+
+  .max_width {
+    max-width: 1280px;
+  }
+}
+
+@media (max-width: 1366px) {
+  html {
+    font-size: 85%;
+  }
+
+  .max_width {
+    max-width: 1080px;
+  }
+}
+
+@media (max-width: 1200px) {
+  :root {
+    --spacing: 0.2rem;
+  }
+
+  :is(main > .grid, main > .grid2, main > .grid3, .flex_c > .grid) {
+    grid-template-columns: 1fr;
+  }
+
+  .max_width {
+    max-width: min(640px, 80%);
+  }
+}
+
+@media (max-height: 840px) {
+  :root {
+    --spacing: 0.1rem;
+  }
+
+  html {
+    font-size: 85%;
+  }
+
+  .max_height {
+    height: 640px;
+    max-height: 640px;
+  }
+}
+
+/*? ┌───────────────────────────────────────────┐ */
+/*? │ 11. CLASSES DE STATUS (Cards e Elementos) │ */
+/*? └───────────────────────────────────────────┘ */
+.default,
+.pendente,
+.atrasado,
+.cancelado {
+  border-width: 1px;
+  border-style: solid;
+  border-left-width: 12px;
+}
+
+.default {
+  --status-color: var(--success);
+}
+.pendente {
+  --status-color: var(--warning);
+}
+.atrasado {
+  --status-color: var(--error);
+}
+.cancelado {
+  --status-color: var(--cancel);
+}
+
+.default,
+.pendente,
+.atrasado,
+.cancelado {
+  border-color: var(--status-color);
+
+  & :is(h1, h2, h3, h4, h5) {
+    color: color-mix(in srgb, var(--status-color) 67%, var(--foreground));
+  }
+}
+
+.default_bg {
+  background-color: var(--success);
+}
+.pendente_bg {
+  background-color: var(--warning);
+}
+.atrasado_bg {
+  background-color: var(--error);
+}
+.cancelado_bg {
+  background-color: var(--cancel);
 }

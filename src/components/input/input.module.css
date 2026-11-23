@@ -11,7 +11,8 @@
   resize: none;
   transition:
     color 0.1s ease-in-out,
-    border 0.1s ease-in-out;
+    border-color 0.1s ease-in-out,
+    box-shadow 0.1s ease-in-out;
 }
 
 .code {
@@ -29,7 +30,6 @@
 
 .input {
   height: 40px;
-  padding: 0 0 0 36px;
 }
 
 .textarea {
@@ -51,6 +51,12 @@
   font-family: inherit;
 }
 
+.input input::placeholder,
+.textarea textarea::placeholder {
+  color: var(--foreground);
+  opacity: 0.625;
+}
+
 .input svg,
 .textarea svg {
   color: var(--input-icon);
@@ -60,26 +66,30 @@
 .input:focus-within,
 .textarea:hover,
 .textarea:focus-within {
-  border: 2px solid
+  border-color: color-mix(
+    in srgb,
+    var(--primary-surface) 100%,
+    var(--white) 100%
+  );
+  box-shadow: 0 0 0 1px
     color-mix(in srgb, var(--primary-surface) 100%, var(--white) 100%);
 }
 
-.input input::placeholder,
-.textarea textarea::placeholder {
-  color: var(--off);
-}
-
 .footer {
-  position: absolute;
-  bottom: -20px;
+  position: relative;
+  margin-top: 4px;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
   font-size: 0.75rem;
 }
 
 .counter {
+  position: absolute;
+  bottom: -12px;
+  right: 4px;
   font-size: 0.75rem;
   white-space: nowrap;
-  margin-left: auto;
 }
 
 .password {
@@ -95,7 +105,8 @@
   justify-content: center;
   transition: 0.1s ease-in-out;
   opacity: 0.5;
-  &:hover {
-    opacity: 1;
-  }
+}
+
+.password:hover {
+  opacity: 1;
 }

@@ -32,29 +32,32 @@ function parseDataLocal(dataStr: string): Date {
 }
 
 export default function Dashboard() {
-  const { agendamentos, carregando, erro } = useAgendamentos();
-  const { equipes } = useEquipes();
+  const { agendamentos = [], carregando, erro, recarregar } = useAgendamentos();
+  const { equipes = [] } = useEquipes();
   const [dataSelecionada, setDataSelecionada] = useState<Date | null>(null);
   const [termoPesquisa, setTermoPesquisa] = useState("");
 
-  // Mapeia ID -> Nome da equipe para repassar ao card
   const mapaEquipes = useMemo(() => {
     const mapa: Record<number, string> = {};
+    if (!Array.isArray(equipes)) return mapa;
+
     equipes.forEach((eq) => {
-      mapa[eq.equipeID] = eq.nomeEquipe;
+      if (eq?.equipeID != null) {
+        mapa[eq.equipeID] = eq.nomeEquipe;
+      }
     });
     return mapa;
   }, [equipes]);
 
-  // Filtra por data selecionada (se houver) ou exibe os próximos agendamentos futuros
   const proximosAgendamentos = useMemo(() => {
+    if (!Array.isArray(agendamentos) || agendamentos.length === 0) return [];
+
     const agora = new Date();
     const termo = termoPesquisa.trim().toLowerCase();
 
     return agendamentos
       .filter((item) => {
-        const naoCancelado = item.statusAgendamentoID !== 4;
-        if (!naoCancelado) return false;
+        if (!item || item.statusAgendamentoID === 4) return false;
 
         const { dataAgendamento, equipeExibida } = obterDadosAgendamento(
           item,
@@ -62,6 +65,11 @@ export default function Dashboard() {
           mapaEquipes,
         );
         const dataItem = parseDataLocal(dataAgendamento);
+
+        if (Number.isNaN(dataItem.getTime())) {
+          console.warn("Agendamento com data inválida ignorado:", item);
+          return false;
+        }
 
         if (termo) {
           const nomeCliente = item.nomeCliente?.toLowerCase() || "";
@@ -74,9 +82,6 @@ export default function Dashboard() {
           if (!batePesquisa) return false;
         }
 
-        if (Number.isNaN(dataItem.getTime())) return false;
-
-        // Se o usuário clicou em um dia no calendário, filtra exatamente aquele dia
         if (dataSelecionada) {
           return (
             dataItem.getFullYear() === dataSelecionada.getFullYear() &&
@@ -85,26 +90,93 @@ export default function Dashboard() {
           );
         }
 
-        // Caso contrário, mantém o comportamento padrão (agendamentos futuros)
         return dataItem >= agora;
       })
       .sort((a, b) => {
         const dataA = parseDataLocal(
-          obterDadosAgendamento(a).dataAgendamento,
+          obterDadosAgendamento(a, undefined, mapaEquipes).dataAgendamento,
         ).getTime();
         const dataB = parseDataLocal(
-          obterDadosAgendamento(b).dataAgendamento,
+          obterDadosAgendamento(b, undefined, mapaEquipes).dataAgendamento,
         ).getTime();
         return dataA - dataB;
       });
   }, [agendamentos, dataSelecionada, termoPesquisa, mapaEquipes]);
+
+  const temFiltroAtivo = Boolean(dataSelecionada || termoPesquisa.trim());
+
+  const limparFiltros = () => {
+    setDataSelecionada(null);
+    setTermoPesquisa("");
+  };
+
+  const renderListaAgendamentos = () => {
+    if (carregando) {
+      return <h5>Carregando próximos agendamentos...</h5>;
+    }
+
+    if (erro) {
+      const mensagemSegura =
+        typeof erro === "string" &&
+        (erro.trim().startsWith("<!DOCTYPE") || erro.trim().startsWith("<html"))
+          ? "Rota não encontrada ou resposta inesperada do servidor."
+          : typeof erro === "string"
+            ? erro
+            : "Erro ao consultar a API.";
+
+      return (
+        <div className="flex_c gap-2">
+          <h5>Não foi possível carregar os agendamentos.</h5>
+          <p>{mensagemSegura}</p>
+          <Button icon="loading" variant="secondary" onClick={recarregar}>
+            Tentar novamente
+          </Button>
+        </div>
+      );
+    }
+
+    if (proximosAgendamentos.length === 0) {
+      return (
+        <div className="flex_c gap-2">
+          <h5>
+            {termoPesquisa.trim()
+              ? "Nenhum agendamento encontrado para essa pesquisa."
+              : dataSelecionada
+                ? "Nenhum agendamento encontrado para este dia."
+                : "Nenhum agendamento futuro encontrado."}
+          </h5>
+          {temFiltroAtivo && (
+            <Button icon="delete" variant="secondary" onClick={limparFiltros}>
+              Limpar filtros
+            </Button>
+          )}
+        </div>
+      );
+    }
+
+    return proximosAgendamentos.map((item) => {
+      const { equipeExibida } = obterDadosAgendamento(
+        item,
+        undefined,
+        mapaEquipes,
+      );
+
+      return (
+        <CardProximoAgendamento
+          key={item.agendamentoID}
+          agendamento={item}
+          nomeEquipe={equipeExibida}
+        />
+      );
+    });
+  };
 
   return (
     <Main>
       <section className="grid gap-12 max_width">
         <div className="flex_c between gap-4 self-center">
           <Calendario
-            agendamentos={agendamentos}
+            agendamentos={Array.isArray(agendamentos) ? agendamentos : []}
             onSelectDate={setDataSelecionada}
           />
 
@@ -132,35 +204,7 @@ export default function Dashboard() {
             onChange={(e) => setTermoPesquisa(e.target.value)}
             placeholder="Pesquisar agendamento..."
           />
-          <div className="flex_c scroll gap-4">
-            {carregando ? (
-              <h5>Carregando próximos agendamentos...</h5>
-            ) : erro ? (
-              <h5>{erro}</h5>
-            ) : proximosAgendamentos.length === 0 ? (
-              <h5>
-                {dataSelecionada
-                  ? "Nenhum agendamento encontrado para este dia."
-                  : "Nenhum agendamento futuro encontrado."}
-              </h5>
-            ) : (
-              proximosAgendamentos.map((item) => {
-                const { equipeExibida } = obterDadosAgendamento(
-                  item,
-                  undefined,
-                  mapaEquipes,
-                );
-
-                return (
-                  <CardProximoAgendamento
-                    key={item.agendamentoID}
-                    agendamento={item}
-                    nomeEquipe={equipeExibida}
-                  />
-                );
-              })
-            )}
-          </div>
+          <div className="flex_c scroll gap-4">{renderListaAgendamentos()}</div>
         </article>
       </section>
     </Main>

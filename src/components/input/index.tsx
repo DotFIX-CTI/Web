@@ -9,17 +9,18 @@ import {
   ChangeEvent,
   KeyboardEvent,
   useRef,
+  ChangeEventHandler,
 } from "react";
 import style from "./input.module.css";
 
 interface BaseInputProps extends Omit<
-  InputHTMLAttributes<HTMLInputElement & HTMLTextAreaElement>,
+  InputHTMLAttributes<HTMLInputElement>,
   "onChange" | "value" | "defaultValue"
 > {
   icon?: IconName;
   placeholder?: string;
   type?: string;
-  label: string;
+  label?: string;
   error?: boolean;
   errorMessage?: string;
   textarea?: boolean;
@@ -30,14 +31,15 @@ interface BaseInputProps extends Omit<
   code?: boolean;
   value?: string | number | readonly string[];
   defaultValue?: string | number | readonly string[];
-  onChange?: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
+  onChange?: ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
+  className?: string;
 }
 
 export default function Input({
   icon,
   placeholder = "",
   type = "text",
-  label,
+  label = "",
   textarea,
   error,
   errorMessage,
@@ -49,6 +51,7 @@ export default function Input({
   value,
   defaultValue,
   onChange,
+  className,
   ...props
 }: BaseInputProps) {
   const [verSenha, setVerSenha] = useState(false);
@@ -103,9 +106,11 @@ export default function Input({
 
   return code ? (
     <div className={`container ${error ? "error" : ""}`}>
-      <label htmlFor={label} className="label">
-        {label} {required && "*"}
-      </label>
+      {label && (
+        <label htmlFor={label} className="label">
+          {label} {required && "*"}
+        </label>
+      )}
       <div className={style.code}>
         {Array.from({ length: 6 }).map((_, index) => (
           <input
@@ -113,7 +118,7 @@ export default function Input({
             ref={(el) => {
               codeInputRefs.current[index] = el;
             }}
-            id={`${label}-${index}`}
+            id={label ? `${label}-${index}` : undefined}
             onChange={(e) => handleCodeChange(e, index)}
             onKeyDown={(e) => handleCodeKeyDown(e, index)}
             style={{ textAlign: "center", fontSize: "1.5rem", fontWeight: 500 }}
@@ -127,20 +132,23 @@ export default function Input({
       )}
     </div>
   ) : (
-    <div className={`container ${error ? style.error : ""}`.trim()}>
-      <label htmlFor={label} className="label">
-        {label} {required && "*"}
-      </label>
+    <div className={`container ${error ? style.error : ""}`}>
+      {label && (
+        <label htmlFor={label} className="label">
+          {label} {required && "*"}
+        </label>
+      )}
 
       <div
         className={`
           ${textarea ? style.textarea : style.input} 
           ${!textarea && !icon && !password ? style.noIcon : ""}
-        `.trim()}
+          ${className ?? ""}
+        `}
       >
         {textarea ? (
           <textarea
-            id={label}
+            id={label || undefined}
             placeholder={placeholder}
             maxLength={maxLength > 0 ? maxLength : undefined}
             value={value}
@@ -151,7 +159,7 @@ export default function Input({
         ) : (
           <>
             <input
-              id={label}
+              id={label || undefined}
               type={
                 password
                   ? verSenha
@@ -159,15 +167,18 @@ export default function Input({
                     : "password"
                   : email
                     ? "email"
-                    : "text"
+                    : type || "text"
               }
               placeholder={placeholder}
               maxLength={maxLength > 0 ? maxLength : undefined}
               value={value}
               defaultValue={defaultValue}
               onChange={handleChange}
-              style={password ? { paddingRight: 40 } : { paddingRight: 4 }}
-              {...(required && { required })}
+              style={{
+                paddingLeft: icon ? 36 : 10,
+                paddingRight: password ? 40 : 10,
+                ...props.style,
+              }}
               {...(props as InputHTMLAttributes<HTMLInputElement>)}
             />
             {icon && <Icon name={icon} size={20} className="icon" />}

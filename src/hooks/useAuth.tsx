@@ -1,7 +1,7 @@
-import { useState, useEffect } from "react";
 import secureLocalStorage from "react-secure-storage";
-import { Usuario, usuarioTeste } from "@/api/usuario";
 import { useRouter } from "next/navigation";
+import { useState, useEffect } from "react"; 
+import { Usuario, usuarioTeste } from "@/api/usuario";
 import { toastErro, toastSucesso } from "@/utils/toast";
 
 export function useAuth() {

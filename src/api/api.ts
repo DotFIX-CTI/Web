@@ -2,6 +2,7 @@ import axios from "axios";
 import secureLocalStorage from "react-secure-storage";
 
 const API_URL =
+  // https://localhost:7284/api/;
   process.env.NEXT_PUBLIC_API_URL;
 
 export const api = axios.create({

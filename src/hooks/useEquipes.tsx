@@ -1,3 +1,4 @@
+import { toastErro } from "@/utils/toast";
 import { useEffect, useState, useCallback } from "react";
 import {
   Equipe,
@@ -6,7 +7,6 @@ import {
   atualizarEquipe,
   deletarEquipe,
 } from "@/api/equipe";
-import { toastErro } from "@/utils/toast";
 
 export function useEquipes() {
   const [equipes, setEquipes] = useState<Equipe[]>([]);

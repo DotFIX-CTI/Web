@@ -1,6 +1,6 @@
+import { toastErro } from "@/utils/toast";
 import { useEffect, useState } from "react";
 import { Equipe, listarEquipePorId } from "@/api/equipe";
-import { toastErro } from "@/utils/toast";
 
 export function useEquipe(id: number | undefined) {
   const [equipe, setEquipe] = useState<Equipe | null>(null);
