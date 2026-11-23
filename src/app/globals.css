@@ -300,6 +300,17 @@
     overflow: hidden;
     object-fit: contain;
   }
+
+  .edit {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border-radius: 0 2px 0 var(--border-md);
+    overflow: hidden;
+    cursor: pointer;
+    padding: var(--padding-sm);
+    color: var(--white);
+  }
 }
 
 /*? ┌────────────────────────┐ */

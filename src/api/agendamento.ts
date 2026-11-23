@@ -52,9 +52,7 @@ export async function listarAgendamento(): Promise<Agendamento[]> {
 }
 
 // GET (por ID)
-export async function listarAgendamentoPorId(
-  id: string | number,
-): Promise<Agendamento> {
+export async function listarAgendamentoPorId(id: number): Promise<Agendamento> {
   try {
     const response = await api.get<Agendamento>(`Agendamento/${id}`);
     return response.data;

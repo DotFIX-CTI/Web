@@ -9,10 +9,18 @@ import CardMapa from "@/components/cards/cardMapa";
 import { Status } from "@/utils/status";
 import { useParams } from "next/navigation";
 import { useEquipe } from "@/hooks/useEquipe";
+import { useLog } from "@/hooks/useLog";
 
 export default function DetalheEquipe() {
   const params = useParams<{ id: string }>();
-  const { equipe, carregando, erro } = useEquipe(Number(params.id));
+  const idNumerico = params?.id ? Number(params.id) : NaN;
+
+  const { equipe, carregando, erro } = useEquipe(idNumerico);
+  const {
+    agendamentos: concluidos,
+    carregando: carregandoConcluidos,
+    erro: erroConcluidos,
+  } = useLog(equipe?.equipeID ?? idNumerico);
 
   if (carregando) {
     return (
@@ -74,11 +82,24 @@ export default function DetalheEquipe() {
 
           <CardMapa />
         </div>
+
         <article className="card_scroll max_height">
+          <h2>Histórico de Agendamentos</h2>
           <div className="scroll gap-4">
-            {Array.from({ length: 12 }).map((_, index) => (
-              <CardLog key={index} />
-            ))}
+            {carregandoConcluidos ? (
+              <p>Carregando agendamentos concluídos...</p>
+            ) : erroConcluidos ? (
+              <p>{erroConcluidos}</p>
+            ) : concluidos.length > 0 ? (
+              concluidos.map((agendamento) => (
+                <CardLog
+                  key={agendamento.agendamentoID}
+                  agendamento={agendamento}
+                />
+              ))
+            ) : (
+              <p>Nenhum agendamento concluído para esta equipe.</p>
+            )}
           </div>
         </article>
       </section>

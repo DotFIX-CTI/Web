@@ -2,30 +2,51 @@ import { toastErro } from "@/utils/toast";
 import { useEffect, useState } from "react";
 import { Equipe, listarEquipePorId } from "@/api/equipe";
 
-export function useEquipe(id: number | undefined) {
+export function useEquipe(id: number) {
   const [equipe, setEquipe] = useState<Equipe | null>(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id || Number.isNaN(id)) {
+      setEquipe(null);
+      setErro("ID de equipe inválido.");
+      setCarregando(false);
+      return;
+    }
+
+    let cancelado = false;
 
     async function carregar() {
       try {
         setCarregando(true);
         setErro(null);
-        const dados = await listarEquipePorId(id!);
-        setEquipe(dados);
-      } catch (error: any) {
-        console.error(error);
-        setErro(error.message || "Erro ao carregar os detalhes da equipe.");
-        toastErro(error.message);
+        const dados = await listarEquipePorId(id);
+        if (!cancelado) {
+          setEquipe(dados);
+        }
+      } catch (error: unknown) {
+        if (!cancelado) {
+          const mensagem =
+            error instanceof Error
+              ? error.message
+              : "Erro ao carregar os detalhes da equipe.";
+          console.error(error);
+          setErro(mensagem);
+          toastErro(mensagem);
+        }
       } finally {
-        setCarregando(false);
+        if (!cancelado) {
+          setCarregando(false);
+        }
       }
     }
 
     carregar();
+
+    return () => {
+      cancelado = true;
+    };
   }, [id]);
 
   return { equipe, carregando, erro };
