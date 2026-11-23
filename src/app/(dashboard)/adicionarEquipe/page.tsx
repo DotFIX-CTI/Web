@@ -284,24 +284,23 @@ export default function AdicionarEquipe() {
               </div>
             </div>
           </div>
+          <div className="flex between">
+            {idEdicao ? (
+              <Button
+                icon="delete"
+                variant="attention"
+                className="delete"
+                onClick={handleExcluir}
+                noText
+              />
+            ) : (
+              <span />
+            )}
 
-          <Button
-            icon={idEdicao ? "save" : "add"}
-            onClick={handleSalvar}
-            className="self-end"
-          >
-            {idEdicao ? "Salvar" : "Adicionar"}
-          </Button>
-
-          {idEdicao && (
-            <Button
-              icon="delete"
-              variant="attention"
-              className="delete"
-              onClick={handleExcluir}
-              noText
-            />
-          )}
+            <Button icon={idEdicao ? "save" : "add"} onClick={handleSalvar}>
+              {idEdicao ? "Salvar" : "Adicionar"}
+            </Button>
+          </div>
         </article>
 
         <article className={`card_scroll max_height`}>
