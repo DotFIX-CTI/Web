@@ -55,7 +55,18 @@ export default function Visualizacao() {
       }
 
       if (busca) {
-        const corresponde = normalizarTexto(equipeExibida).includes(busca);
+        const camposPesquisaveis = [
+          equipeExibida,
+          item.nomeServico,
+          item.nomeCliente,
+          item.descricao,
+        ]
+          .filter(Boolean)
+          .map((valor) => normalizarTexto(String(valor)));
+
+        const corresponde = camposPesquisaveis.some((campo) =>
+          campo.includes(busca),
+        );
         if (!corresponde) return false;
       }
 

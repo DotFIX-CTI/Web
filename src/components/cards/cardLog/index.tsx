@@ -47,7 +47,7 @@ export default function CardLog({
   return (
     <article className={`card gap-2 ${statusClass}`}>
       <h2>{tituloFinal}</h2>
-      <div>
+      <div className="flex_c gap-1">
         <h5>{tempoFinal}</h5>
         <div className="center gap-2 smooth_info">
           <Icon name="local" size={20} />
