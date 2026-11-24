@@ -29,7 +29,7 @@ export default function Agendamento() {
   const idParam = searchParams.get("id");
   const modo = searchParams.get("modo");
   const isReagendamento = modo === "reagendar";
-  const idEdicao = idParam ? Number(idParam) : undefined;
+  const idEdicao = idParam ? Number(idParam) : NaN;
 
   const { agendamento, carregando: carregandoAgendamento } =
     useAgendamento(idEdicao);
@@ -141,11 +141,10 @@ export default function Agendamento() {
       complemento: endereco.complemento,
       numero: endereco.numero,
       dataAgendamento: dataFinal,
-      data: dataFinal,
       latitude: agendamento?.latitude || "0",
       longitude: agendamento?.longitude || "0",
-      equipeID: equipeNum,
-      statusAgendamentoID: agendamento?.statusAgendamentoID || 1,
+      equipe: agendamento?.equipe,
+      statusAgendamento: agendamento?.statusAgendamento,
     };
 
     try {

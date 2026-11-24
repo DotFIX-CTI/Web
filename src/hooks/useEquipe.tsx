@@ -3,13 +3,13 @@ import { useEffect, useState } from "react";
 import { Equipe, listarEquipePorId } from "@/api/equipe";
 
 export function useEquipe(id: number) {
-  const [equipe, setEquipe] = useState<Equipe | null>(null);
+  const [equipe, setEquipe] = useState<Equipe | undefined>(undefined);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id || Number.isNaN(id)) {
-      setEquipe(null);
+    if (typeof id !== "number" || !Number.isFinite(id) || id <= 0) {
+      setEquipe(undefined);
       setErro("ID de equipe inválido.");
       setCarregando(false);
       return;

@@ -4,9 +4,6 @@ import { Agendamento, listarAgendamento } from "@/api/agendamento";
 const STATUS_CONCLUIDO_ID = 1;
 
 function pertenceAEquipe(agendamento: Agendamento, equipeId: number): boolean {
-  if (agendamento.equipeID === equipeId) {
-    return true;
-  }
   return Boolean(
     agendamento.equipe?.some((item) => item.equipeID === equipeId),
   );
@@ -24,6 +21,7 @@ export function useLog(equipeId: number | undefined) {
       return;
     }
 
+    const idEquipe = equipeId;
     let cancelado = false;
 
     async function buscar() {
@@ -35,8 +33,9 @@ export function useLog(equipeId: number | undefined) {
         if (!cancelado) {
           const concluidosDaEquipe = todos.filter(
             (item) =>
-              pertenceAEquipe(item, equipeId) &&
-              item.statusAgendamentoID === STATUS_CONCLUIDO_ID,
+              pertenceAEquipe(item, idEquipe) &&
+              item.statusAgendamento?.statusAgendamentoID ===
+                STATUS_CONCLUIDO_ID,
           );
           setAgendamentos(concluidosDaEquipe);
         }

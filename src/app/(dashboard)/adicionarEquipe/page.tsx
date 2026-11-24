@@ -1,25 +1,25 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
 import Main from "@/utils/main";
+import Image from "next/image";
+import Input from "@/components/input";
+import Button from "@/components/button";
 import Select from "@/components/select";
 import Integrante from "@/utils/integrante";
-import InputImage from "@/components/inputImage";
-import Button from "@/components/button";
-import Input from "@/components/input";
-import Image from "next/image";
-import { useEquipe } from "@/hooks/useEquipe";
-import { Funcionario } from "@/api/equipe";
-import { useEquipes } from "@/hooks/useEquipes";
 import Pesquisa from "@/components/pesquisa";
+import InputImage from "@/components/inputImage";
+import { Funcionario } from "@/api/equipe";
+import { useEquipe } from "@/hooks/useEquipe";
+import { useEquipes } from "@/hooks/useEquipes";
+import { useState, useEffect, useMemo } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 import { toastErro, toastInfo, toastSucesso } from "@/utils/toast";
 
 export default function AdicionarEquipe() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const idParam = searchParams.get("id");
-  const idEdicao = idParam ? Number(idParam) : undefined;
+  const idEdicao = idParam ? Number(idParam) : NaN;
 
   const [nomeEquipe, setNomeEquipe] = useState("");
   const [email, setEmail] = useState("");
@@ -316,7 +316,7 @@ export default function AdicionarEquipe() {
               funcionariosFiltrados.map((funcionario) => (
                 <Integrante
                   key={funcionario.funcionarioID}
-                  membro={funcionario}
+                  funcionario={funcionario}
                   onSelect={(selecionado) => {
                     const idStr = String(selecionado.funcionarioID);
                     if (!funcionario1Id) {
