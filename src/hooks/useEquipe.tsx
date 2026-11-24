@@ -2,26 +2,34 @@ import { toastErro } from "@/utils/toast";
 import { useEffect, useState } from "react";
 import { Equipe, listarEquipePorId } from "@/api/equipe";
 
-export function useEquipe(id: number) {
+export function useEquipe(id?: number) {
   const [equipe, setEquipe] = useState<Equipe | null>(null);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id || Number.isNaN(id)) {
+    if (id === undefined) {
+      setEquipe(null);
+      setErro(null);
+      setCarregando(false);
+      return;
+    }
+
+    if (typeof id !== "number" || !Number.isFinite(id) || id <= 0) {
       setEquipe(null);
       setErro("ID de equipe inválido.");
       setCarregando(false);
       return;
     }
 
+    const equipeId = id;
     let cancelado = false;
 
     async function carregar() {
       try {
         setCarregando(true);
         setErro(null);
-        const dados = await listarEquipePorId(id);
+        const dados = await listarEquipePorId(equipeId);
         if (!cancelado) {
           setEquipe(dados);
         }

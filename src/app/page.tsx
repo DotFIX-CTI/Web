@@ -1,12 +1,12 @@
 "use client";
 
-import { FormEvent, useState } from "react";
-import Main from "@/utils/main";
 import Logo from "@/utils/logo";
-import Button from "@/components/button";
+import Main from "@/utils/main";
 import Loader from "@/utils/loader";
 import Input from "@/components/input";
+import Button from "@/components/button";
 import { useAuth } from "@/hooks/useAuth";
+import { FormEvent, useState } from "react";
 import { toastSucesso } from "@/utils/toast";
 
 export default function Login() {

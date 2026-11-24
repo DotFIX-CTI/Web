@@ -1,5 +1,5 @@
-import Button from "@/components/button";
 import Main from "@/utils/main";
+import Button from "@/components/button";
 
 export default function Custom404() {
   return (

@@ -8,7 +8,7 @@ export interface DadosFormatadosAgendamento {
   classeStatus: StatusClasse;
   nomeStatus: string;
   enderecoCompleto: string;
-  equipeId?: number;
+  equipeId: number;
   equipeExibida: string;
   dataAgendamento: string;
   dataFormatada: string;
@@ -76,7 +76,7 @@ export function obterDadosAgendamento(
     nomeEquipe ||
     equipeDoArray?.nomeEquipe ||
     (equipeId && mapaEquipes?.[equipeId]) ||
-    (equipeId ? `Equipe #${equipeId}` : "Sem equipe");
+    `Equipe #${equipeId}`;
 
   const dataAgendamento = agendamento.dataAgendamento || "";
   const dataFormatada = formatarDataAgendamento(dataAgendamento);

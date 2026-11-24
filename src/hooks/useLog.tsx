@@ -4,15 +4,10 @@ import { Agendamento, listarAgendamento } from "@/api/agendamento";
 const STATUS_CONCLUIDO_ID = 1;
 
 function pertenceAEquipe(agendamento: Agendamento, equipeId: number): boolean {
-  if (agendamento.equipeID === equipeId) {
-    return true;
-  }
-  return Boolean(
-    agendamento.equipe?.some((item) => item.equipeID === equipeId),
-  );
+  return agendamento.equipe?.equipeID === equipeId;
 }
 
-export function useLog(equipeId: number | undefined) {
+export function useLog(equipeId: number) {
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
@@ -36,7 +31,8 @@ export function useLog(equipeId: number | undefined) {
           const concluidosDaEquipe = todos.filter(
             (item) =>
               pertenceAEquipe(item, equipeId) &&
-              item.statusAgendamentoID === STATUS_CONCLUIDO_ID,
+              item.statusAgendamento?.statusAgendamentoID ===
+                STATUS_CONCLUIDO_ID,
           );
           setAgendamentos(concluidosDaEquipe);
         }

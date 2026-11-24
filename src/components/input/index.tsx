@@ -148,7 +148,7 @@ export default function Input({
       >
         {textarea ? (
           <textarea
-            id={label || undefined}
+            id={label}
             placeholder={placeholder}
             maxLength={maxLength > 0 ? maxLength : undefined}
             value={value}
@@ -159,7 +159,7 @@ export default function Input({
         ) : (
           <>
             <input
-              id={label || undefined}
+              id={label}
               type={
                 password
                   ? verSenha

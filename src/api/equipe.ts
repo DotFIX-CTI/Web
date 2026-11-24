@@ -1,12 +1,6 @@
 import { api } from "./api";
+import { Funcionario } from "./funcionario";
 import { DomainException } from "./domainException";
-
-export interface Funcionario {
-  funcionarioID: number;
-  nome: string;
-  email: string;
-  foto?: string; // Não presente na API ainda
-}
 
 export interface Equipe {
   equipeID: number;

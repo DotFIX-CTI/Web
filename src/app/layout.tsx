@@ -1,9 +1,9 @@
-import type { Metadata } from "next";
-import localFont from "next/font/local";
 import "./globals.css";
 import "react-toastify/dist/ReactToastify.css";
-import { ToastContainer } from "react-toastify";
 import DarkMode from "@/utils/darkMode";
+import localFont from "next/font/local";
+import type { Metadata } from "next";
+import { ToastContainer } from "react-toastify";
 
 const minhaFonte = localFont({
   src: "./fonts/Inter.ttf",

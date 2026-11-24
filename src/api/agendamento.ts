@@ -24,20 +24,41 @@ export interface Agendamento {
   cidade: string;
   estado: string;
   complemento?: string;
-  numero: string;
+  numero?: string;
   dataAgendamento: string;
   latitude: string;
   longitude: string;
-  equipe?: EquipeResumo[];
-  statusAgendamento?: StatusAgendamento | null;
+  equipe?: EquipeResumo | null;
+  statusAgendamento?: StatusAgendamento;
+}
+
+export interface CriarAgendamentoPayload {
+  nomeCliente: string;
+  emailCliente: string;
+  telefoneCliente: string;
+  nomeServico: string;
+  descricao?: string;
+  cep: string;
+  logradouro: string;
+  bairro: string;
+  cidade: string;
+  estado: string;
+  complemento?: string;
+  numero?: string;
+  equipeID: number;
+  dataAgendamento: string;
+}
+
+export interface AtualizarAgendamentoPayload extends CriarAgendamentoPayload {
+  statusAgendamentoID: number;
 }
 
 // POST
 export async function cadastrarAgendamento(
-  dados: Omit<Agendamento, "agendamentoID">,
+  payload: CriarAgendamentoPayload,
 ): Promise<Agendamento> {
   try {
-    const response = await api.post<Agendamento>("Agendamento", dados);
+    const response = await api.post<Agendamento>("Agendamento", payload);
     return response.data;
   } catch (error: any) {
     throw new Error(DomainException(error, "Erro ao cadastrar Agendamento"));
@@ -67,10 +88,10 @@ export async function listarAgendamentoPorId(id: number): Promise<Agendamento> {
 // PUT
 export async function atualizarAgendamento(
   id: number,
-  dados: Partial<Agendamento>,
+  payload: AtualizarAgendamentoPayload,
 ): Promise<Agendamento> {
   try {
-    const response = await api.put<Agendamento>(`Agendamento/${id}`, dados);
+    const response = await api.put<Agendamento>(`Agendamento/${id}`, payload);
     return response.data;
   } catch (error: any) {
     throw new Error(DomainException(error, "Erro ao atualizar Agendamento"));

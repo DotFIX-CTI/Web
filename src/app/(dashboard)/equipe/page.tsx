@@ -1,12 +1,12 @@
 "use client";
 
-import { useRef, useState, useMemo } from "react";
 import Main from "@/utils/main";
 import style from "./equipe.module.css";
-import CardEquipe from "@/components/cards/cardEquipe";
 import Button from "@/components/button";
-import { useEquipes } from "@/hooks/useEquipes";
 import Pesquisa from "@/components/pesquisa";
+import CardEquipe from "@/components/cards/cardEquipe";
+import { useEquipes } from "@/hooks/useEquipes";
+import { useRef, useState, useMemo } from "react";
 
 function normalizarTexto(texto: string): string {
   return texto

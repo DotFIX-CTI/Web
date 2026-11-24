@@ -1,22 +1,26 @@
 "use client";
 
-import { useState, useEffect, useMemo } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import Image from "next/image";
 import Main from "@/utils/main";
-import { estado } from "@/utils/estados";
+import Input from "@/components/input";
+import Button from "@/components/button";
 import style from "./agendamento.module.css";
+import Calendario from "@/components/calendario";
 import Select, { Option } from "@/components/select";
 import CardSugestao from "@/components/cards/cardSugestao";
-import Calendario from "@/components/calendario";
-import Button from "@/components/button";
-import Input from "@/components/input";
-import Image from "next/image";
-import { useBuscarCep } from "@/hooks/useBuscarCep";
-import { useAgendamento } from "@/hooks/useAgendamento";
-import { useAgendamentos } from "@/hooks/useAgendamentos";
+import { estado } from "@/utils/estados";
 import { useEquipes } from "@/hooks/useEquipes";
-import { obterDadosAgendamento } from "@/utils/agendamento";
+import { useBuscarCep } from "@/hooks/useBuscarCep";
+import { useState, useEffect, useMemo } from "react";
+import { useAgendamento } from "@/hooks/useAgendamento";
 import { toastErro, toastSucesso } from "@/utils/toast";
+import { useAgendamentos } from "@/hooks/useAgendamentos";
+import { obterDadosAgendamento } from "@/utils/agendamento";
+import { useSearchParams, useRouter } from "next/navigation";
+import {
+  AtualizarAgendamentoPayload,
+  CriarAgendamentoPayload,
+} from "@/api/agendamento";
 
 const opcoesEstados: Option[] = Object.entries(estado).map(([sigla, nome]) => ({
   label: nome,
@@ -29,7 +33,7 @@ export default function Agendamento() {
   const idParam = searchParams.get("id");
   const modo = searchParams.get("modo");
   const isReagendamento = modo === "reagendar";
-  const idEdicao = idParam ? Number(idParam) : undefined;
+  const idEdicao = idParam ? Number(idParam) : NaN;
 
   const { agendamento, carregando: carregandoAgendamento } =
     useAgendamento(idEdicao);
@@ -127,7 +131,12 @@ export default function Agendamento() {
     const dataFinal = dataSelecionada || new Date().toISOString();
     const equipeNum = Number(equipeIdSelecionada);
 
-    const payload: Parameters<typeof criar>[0] = {
+    if (!Number.isInteger(equipeNum) || equipeNum <= 0) {
+      toastErro("Selecione uma equipe válida.");
+      return;
+    }
+
+    const basePayload: CriarAgendamentoPayload = {
       nomeCliente,
       emailCliente,
       telefoneCliente,
@@ -140,22 +149,24 @@ export default function Agendamento() {
       estado: endereco.estado,
       complemento: endereco.complemento,
       numero: endereco.numero,
-      dataAgendamento: dataFinal,
-      data: dataFinal,
-      latitude: agendamento?.latitude || "0",
-      longitude: agendamento?.longitude || "0",
       equipeID: equipeNum,
-      statusAgendamentoID: agendamento?.statusAgendamentoID || 1,
+      dataAgendamento: dataFinal,
     };
 
     try {
       if (idEdicao) {
-        await atualizar(idEdicao, payload);
+        const updatePayload: AtualizarAgendamentoPayload = {
+          ...basePayload,
+          statusAgendamentoID:
+            agendamento?.statusAgendamento?.statusAgendamentoID ?? 1,
+        };
+        await atualizar(idEdicao, updatePayload);
         router.push(`/detalheAgendamento/${idEdicao}`);
       } else {
-        const novo = await criar(payload);
+        const novo = await criar(basePayload);
         router.push(`/detalheAgendamento/${novo.agendamentoID}`);
       }
+
       toastSucesso(
         isReagendamento
           ? "Agendamento reagendado com sucesso"

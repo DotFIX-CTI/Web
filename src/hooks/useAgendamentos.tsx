@@ -2,6 +2,8 @@ import { toastErro } from "@/utils/toast";
 import { useState, useEffect, useCallback } from "react";
 import {
   Agendamento,
+  AtualizarAgendamentoPayload,
+  CriarAgendamentoPayload,
   listarAgendamento,
   cadastrarAgendamento,
   atualizarAgendamento,
@@ -32,8 +34,8 @@ export function useAgendamentos() {
     try {
       setCarregando(true);
       setErro(null);
-      const dados = await listarAgendamento();
-      setAgendamentos(Array.isArray(dados) ? dados : []);
+      const payload = await listarAgendamento();
+      setAgendamentos(Array.isArray(payload) ? payload : []);
     } catch (error: any) {
       const mensagem =
         error?.message && !error.message.trim().startsWith("<!DOCTYPE")
@@ -51,7 +53,7 @@ export function useAgendamentos() {
     carregar();
   }, [carregar]);
 
-  const criar = async (novoAgendamento: Omit<Agendamento, "agendamentoID">) => {
+  const criar = async (novoAgendamento: CriarAgendamentoPayload) => {
     try {
       setErro(null);
       const criado = await cadastrarAgendamento(novoAgendamento);
@@ -68,10 +70,10 @@ export function useAgendamentos() {
     }
   };
 
-  const atualizar = async (id: number, dados: Partial<Agendamento>) => {
+  const atualizar = async (id: number, payload: AtualizarAgendamentoPayload) => {
     try {
       setErro(null);
-      const atualizado = await atualizarAgendamento(id, dados);
+      const atualizado = await atualizarAgendamento(id, payload);
       setAgendamentos((prev) =>
         prev.map((item) =>
           item.agendamentoID === id ? { ...item, ...atualizado } : item,

@@ -1,10 +1,16 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
 import Main from "@/utils/main";
 import Button from "@/components/button";
-import { Equipe } from "@/api/equipe";
+import { useEffect, useState, FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import {
+  atualizarEquipe,
+  cadastrarEquipe,
+  Equipe,
+  listarEquipePorId,
+} from "@/api/equipe";
+import { Funcionario, listarFuncionarios } from "@/api/funcionario";
 
 interface FuncionarioOpcao {
   funcionarioID: number;
@@ -36,8 +42,8 @@ export default function FormularioEquipePage() {
   useEffect(() => {
     async function carregarFuncionarios() {
       try {
-        // Exemplo: const lista = await listarFuncionarios();
-        // setFuncionariosDisponiveis(lista);
+        const lista = await listarFuncionarios();
+        setFuncionariosDisponiveis(lista);
       } catch (e) {
         console.error(e);
       }
@@ -49,17 +55,19 @@ export default function FormularioEquipePage() {
   useEffect(() => {
     if (!isEdicao || !equipeId) return;
 
+    const id = equipeId;
+
     async function carregarEquipe() {
       setCarregandoDados(true);
       setErro(null);
       try {
-        // Exemplo: const equipe: Equipe = await buscarEquipePorId(equipeId);
-        // setNomeEquipe(equipe.nomeEquipe ?? "");
-        // setLatitude(String(equipe.latitude ?? ""));
-        // setLongitude(String(equipe.longitude ?? ""));
-        // setFuncionariosSelecionados(
-        //   equipe.funcionarios?.map((f) => f.funcionarioID) ?? []
-        // );
+        const equipe: Equipe = await listarEquipePorId(id);
+        setNomeEquipe(equipe.nomeEquipe ?? "");
+        setLatitude(equipe.latitude != null ? String(equipe.latitude) : "");
+        setLongitude(equipe.longitude != null ? String(equipe.longitude) : "");
+        setFuncionariosSelecionados(
+          equipe.funcionarios?.map((f) => f.funcionarioID) ?? [],
+        );
       } catch (e: any) {
         setErro(e?.message || "Erro ao carregar dados da equipe.");
       } finally {
@@ -89,18 +97,51 @@ export default function FormularioEquipePage() {
 
     setSalvando(true);
     try {
-      const payload = {
-        nomeEquipe: nomeEquipe.trim(),
-        latitude: latitude.trim(),
-        longitude: longitude.trim(),
-        // Normalmente o back-end espera IDs ou objetos conforme o DTO de criar/editar
-        funcionariosIds: funcionariosSelecionados,
-      };
+      const latNum = Number(latitude.trim().replace(",", "."));
+      const lngNum = Number(longitude.trim().replace(",", "."));
+      const latFinal = Number.isFinite(latNum) ? latNum : 0;
+      const lngFinal = Number.isFinite(lngNum) ? lngNum : 0;
+
+      const selecionadosCompletos = funcionariosSelecionados
+        .map((id) =>
+          funcionariosDisponiveis.find((f) => f.funcionarioID === id),
+        )
+        .filter((f): f is FuncionarioOpcao => Boolean(f))
+        .map<Funcionario>((f) => ({
+          funcionarioID: f.funcionarioID,
+          nome: f.nome,
+          email: f.email ?? "",
+        }));
 
       if (isEdicao && equipeId) {
-        // await atualizarEquipe(equipeId, payload);
+        const payloadAtualizacao: Partial<Equipe> & {
+          funcionariosIds?: number[];
+        } = {
+          nomeEquipe: nomeEquipe.trim(),
+          latitude: latFinal,
+          longitude: lngFinal,
+          funcionariosIds: funcionariosSelecionados,
+        };
+
+        await atualizarEquipe(equipeId, payloadAtualizacao);
       } else {
-        // await cadastrarEquipe(payload);
+        if (selecionadosCompletos.length !== 2) {
+          setErro("Selecione exatamente 2 funcionários para a equipe.");
+          setSalvando(false);
+          return;
+        }
+
+        const payloadCriacao: Omit<Equipe, "equipeID"> = {
+          nomeEquipe: nomeEquipe.trim(),
+          latitude: latFinal,
+          longitude: lngFinal,
+          statusEquipeID: 1,
+          nomeStatus: "Disponível",
+          enderecoAtual: "",
+          funcionarios: [selecionadosCompletos[0], selecionadosCompletos[1]],
+        };
+
+        await cadastrarEquipe(payloadCriacao);
       }
 
       router.push("/equipes");

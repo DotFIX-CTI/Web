@@ -7,7 +7,6 @@ import Pesquisa from "@/components/pesquisa";
 import CardReagendamento from "@/components/cards/cardReagendamento";
 import { useRouter } from "next/navigation";
 import { useEquipes } from "@/hooks/useEquipes";
-import { Status, mapaStatus } from "@/utils/status";
 import { useState, useMemo, useEffect } from "react";
 import { toastSucesso, toastErro } from "@/utils/toast";
 import { formatarDataEHora } from "@/utils/formatarData";
@@ -89,12 +88,37 @@ export default function ReagendamentoContent({
   }, [dadosAtivos, equipes]);
 
   const handleValidar = async () => {
-    if (!agendamentoAtivo) return;
+    if (!agendamentoAtivo || !dadosAtivos) return;
+
+    const equipeId =
+      dadosAtivos.equipeId ?? agendamentoAtivo.equipe?.equipeID ?? 0;
+
+    if (!equipeId) {
+      toastErro("O agendamento não possui uma equipe válida vinculada.");
+      return;
+    }
+
     try {
       setSalvando(true);
       await atualizar(agendamentoAtivo.agendamentoID, {
-        statusAgendamentoID: 1, // Status default/confirmado
+        nomeCliente: agendamentoAtivo.nomeCliente,
+        emailCliente: agendamentoAtivo.emailCliente ?? "",
+        telefoneCliente: agendamentoAtivo.telefoneCliente ?? "",
+        nomeServico: agendamentoAtivo.nomeServico,
+        descricao: agendamentoAtivo.descricao,
+        cep: agendamentoAtivo.cep ?? "",
+        logradouro: agendamentoAtivo.logradouro,
+        bairro: agendamentoAtivo.bairro,
+        cidade: agendamentoAtivo.cidade,
+        estado: agendamentoAtivo.estado,
+        complemento: agendamentoAtivo.complemento,
+        numero: agendamentoAtivo.numero,
+        dataAgendamento:
+          dadosAtivos.dataAgendamento || agendamentoAtivo.dataAgendamento,
+        equipeID: equipeId,
+        statusAgendamentoID: 1,
       });
+
       toastSucesso("Reagendamento validado com sucesso!");
       router.push("/dashboard");
     } catch {
@@ -112,9 +136,15 @@ export default function ReagendamentoContent({
     );
   }
 
+  const mapaStatus: Record<number, string> = {
+    1: "confirmado",
+    2: "pendente",
+    3: "cancelado",
+  };
+
   const classeStatus = agendamentoAtivo
-    ? mapaStatus[agendamentoAtivo.statusAgendamentoID] || Status.cancelado
-    : Status.cancelado;
+    ? mapaStatus[Number(agendamentoAtivo.statusAgendamento)] || "cancelado"
+    : "cancelado";
 
   return (
     <Main>

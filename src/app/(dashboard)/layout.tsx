@@ -1,7 +1,7 @@
 import Header from "@/components/header";
 import Menubar from "@/components/menubar";
-import { VisualizacaoProvider } from "@/context/visualizacaoContext";
 import { Suspense, ReactNode } from "react";
+import { VisualizacaoProvider } from "@/context/visualizacaoContext";
 
 export default function DashboardLayout({ children }: { children: ReactNode }) {
   return (

@@ -21,17 +21,17 @@ export async function cadastrarFuncionario(
 }
 
 // GET (todos)
-export async function listarEquipe(): Promise<Funcionario[]> {
+export async function listarFuncionarios(): Promise<Funcionario[]> {
   try {
     const response = await api.get<Funcionario[]>("Funcionario");
     return response.data;
   } catch (error: any) {
-    throw new Error(DomainException(error, "Erro ao listar Equipes"));
+    throw new Error(DomainException(error, "Erro ao listar Funcionarios"));
   }
 }
 
 // GET (por ID)
-export async function listarEquipePorId(
+export async function listarFuncionarioPorId(
   id: string | number,
 ): Promise<Funcionario> {
   try {
@@ -43,7 +43,7 @@ export async function listarEquipePorId(
 }
 
 // PUT
-export async function atualizarEquipe(
+export async function atualizarFuncionario(
   id: number,
   dados: Partial<Funcionario>,
 ): Promise<Funcionario> {
@@ -56,7 +56,7 @@ export async function atualizarEquipe(
 }
 
 // DELETE
-export async function deletarEquipe(
+export async function deletarFuncionario(
   funcionarioID: string | number,
 ): Promise<void> {
   try {
