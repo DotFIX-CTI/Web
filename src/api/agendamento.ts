@@ -6,6 +6,11 @@ export interface EquipeResumo {
   nomeEquipe: string;
 }
 
+export interface StatusAgendamento {
+  statusAgendamentoID: number;
+  nomeStatus: string;
+}
+
 export interface Agendamento {
   agendamentoID: number;
   nomeCliente: string;
@@ -21,12 +26,10 @@ export interface Agendamento {
   complemento?: string;
   numero: string;
   dataAgendamento: string;
-  data?: string;
   latitude: string;
   longitude: string;
-  statusAgendamentoID: number;
-  equipeID?: number;
   equipe?: EquipeResumo[];
+  statusAgendamento?: StatusAgendamento | null;
 }
 
 // POST

@@ -1,8 +1,8 @@
 "use client";
 
 import Icon from "@/utils/icon";
-import { mapaStatus, Status } from "@/utils/status";
 import { Agendamento } from "@/api/agendamento";
+import { resolverStatusAgendamento } from "@/hooks/useDadosAgendamentos";
 import dynamic from "next/dynamic";
 
 const MapaDinamico = dynamic(() => import("@/utils/mapa"), {
@@ -28,8 +28,8 @@ interface CardMapaProps {
 
 export default function CardMapa({ agendamento }: CardMapaProps) {
   const classeStatus = agendamento
-    ? mapaStatus[agendamento.statusAgendamentoID] || Status.cancelado
-    : Status.cancelado;
+    ? resolverStatusAgendamento(agendamento)
+    : "cancelado";
 
   const tituloLocal = agendamento?.nomeServico;
   const cliente = agendamento?.nomeCliente;

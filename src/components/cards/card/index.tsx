@@ -2,8 +2,8 @@ import Link from "next/link";
 import Icon from "@/utils/icon";
 import style from "./card.module.css";
 import { Agendamento } from "@/api/agendamento";
-import { obterDadosAgendamento } from "@/utils/agendamento";
 import { formatarData, formatarHora } from "@/utils/formatarData";
+import { useDadosAgendamento } from "@/hooks/useDadosAgendamentos";
 
 interface CardAgendamentoProps {
   agendamento: Agendamento;
@@ -14,8 +14,13 @@ export default function Card({
   agendamento,
   nomeEquipe,
 }: CardAgendamentoProps) {
-  const { classeStatus, enderecoCompleto, equipeExibida, dataAgendamento } =
-    obterDadosAgendamento(agendamento, nomeEquipe);
+  const {
+    classeStatus,
+    nomeStatus,
+    enderecoCompleto,
+    equipeExibida,
+    dataAgendamento,
+  } = useDadosAgendamento(agendamento, nomeEquipe);
 
   return (
     <Link href={`/detalheAgendamento/${agendamento.agendamentoID}`}>
@@ -23,7 +28,10 @@ export default function Card({
         className={`card_small flex_c gap-2 between ${classeStatus} ${style.informacoes}`}
         style={{ width: 320 }}
       >
-        <h2 className="upper">{agendamento.nomeServico}</h2>
+        <div className="flex between gap-2">
+          <h2 className="upper">{agendamento.nomeServico}</h2>
+          {nomeStatus && <span className="bold">{nomeStatus}</span>}
+        </div>
 
         <div className="flex_c gap-2">
           <h5>{equipeExibida}</h5>

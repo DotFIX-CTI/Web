@@ -1,34 +1,89 @@
 import style from "./card.module.css";
-import { mapaStatus, Status } from "@/utils/status";
 import Icon from "@/utils/icon";
 import { Equipe } from "@/api/equipe";
 import Image from "next/image";
 import Link from "next/link";
+
+const STATUS = {
+  default: "default",
+  pendente: "pendente",
+  atrasado: "atrasado",
+  cancelado: "cancelado",
+} as const;
+
+type ClasseStatusEquipe = (typeof STATUS)[keyof typeof STATUS];
+
+const MAPA_STATUS_EQUIPE_POR_ID: Record<number, ClasseStatusEquipe> = {
+  1: STATUS.default,
+  2: STATUS.pendente,
+  3: STATUS.atrasado,
+  4: STATUS.cancelado,
+};
+
+const MAPA_STATUS_EQUIPE_POR_NOME: Record<string, ClasseStatusEquipe> = {
+  ativo: STATUS.default,
+  ativa: STATUS.default,
+  disponivel: STATUS.default,
+  disponível: STATUS.default,
+  pendente: STATUS.pendente,
+  atrasado: STATUS.atrasado,
+  inativo: STATUS.cancelado,
+  inativa: STATUS.cancelado,
+  cancelado: STATUS.cancelado,
+};
+
+function resolverClasseStatusEquipe(equipe: Equipe): ClasseStatusEquipe {
+  const eqAny = equipe as Equipe & {
+    statusEquipeID?: number;
+    nomeStatus?: string;
+    statusEquipe?: {
+      statusEquipeID?: number;
+      nomeStatus?: string;
+    } | null;
+  };
+
+  const statusId = eqAny.statusEquipe?.statusEquipeID ?? eqAny.statusEquipeID;
+  const nomeNormalizado = (
+    eqAny.statusEquipe?.nomeStatus ??
+    eqAny.nomeStatus ??
+    ""
+  )
+    .trim()
+    .toLowerCase();
+
+  return (
+    (statusId !== undefined
+      ? MAPA_STATUS_EQUIPE_POR_ID[statusId]
+      : undefined) ??
+    MAPA_STATUS_EQUIPE_POR_NOME[nomeNormalizado] ??
+    STATUS.default
+  );
+}
 
 interface CardEquipeProps {
   equipe: Equipe;
 }
 
 export default function CardEquipe({ equipe }: CardEquipeProps) {
-  const classeStatus = mapaStatus[equipe.statusEquipeID] || Status.cancelado;
+  const classeStatus = resolverClasseStatusEquipe(equipe);
 
   return (
     <article className={`card between gap-4 ${classeStatus}`}>
       <h2>{equipe.nomeEquipe}</h2>
 
       <div className="flex_c gap-4">
-        {equipe.funcionarios?.map((funcionarios) => (
-          <div key={funcionarios.funcionarioID} className="flex gap-2">
+        {equipe.funcionarios?.map((funcionario) => (
+          <div key={funcionario.funcionarioID} className="flex gap-2">
             <Image
-              src={funcionarios.foto || "/img/user.png"}
+              src={funcionario.foto || "/img/user.png"}
               width={32}
               height={32}
-              alt={`Foto de ${funcionarios.nome}`}
+              alt={`Foto de ${funcionario.nome}`}
               className="user"
             />
             <div>
-              <h5>{funcionarios.nome}</h5>
-              <p>{funcionarios.email}</p>
+              <h5>{funcionario.nome}</h5>
+              <p>{funcionario.email}</p>
             </div>
           </div>
         ))}

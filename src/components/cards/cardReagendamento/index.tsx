@@ -1,7 +1,7 @@
-import { Status, mapaStatus } from "@/utils/status";
 import Icon from "@/utils/icon";
 import { Agendamento } from "@/api/agendamento";
 import { obterDadosAgendamento } from "@/utils/agendamento";
+import { resolverStatusAgendamento } from "@/hooks/useDadosAgendamentos";
 
 interface CardReagendamentoProps {
   agendamento: Agendamento;
@@ -16,19 +16,20 @@ export default function CardReagendamento({
   ativo,
   onClick,
 }: CardReagendamentoProps) {
-  obterDadosAgendamento(agendamento, nomeEquipe);
+  const dadosFormatados = agendamento
+    ? obterDadosAgendamento(agendamento, nomeEquipe)
+    : undefined;
 
   const classeStatus = agendamento
-    ? mapaStatus[agendamento.statusAgendamentoID] || Status.cancelado
-    : Status.cancelado;
+    ? resolverStatusAgendamento(agendamento)
+    : "cancelado";
 
   const titulo = agendamento?.nomeServico || "Link dedicado 10gbps";
   const equipe =
-    nomeEquipe ||
-    (agendamento ? `Equipe #${agendamento.equipeID}` : "Equipe de Redes");
-  const endereco = agendamento
-    ? `${agendamento.logradouro}, ${agendamento.numero} - ${agendamento.bairro}, ${agendamento.cidade} - ${agendamento.estado}`
-    : "R. Salgado de Castro, 46 - Centro, Diadema - SP, 09920-690";
+    nomeEquipe || dadosFormatados?.equipeExibida || "Equipe de Redes";
+  const endereco =
+    dadosFormatados?.enderecoCompleto ||
+    "R. Salgado de Castro, 46 - Centro, Diadema - SP, 09920-690";
 
   return (
     <article

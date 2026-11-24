@@ -3,7 +3,6 @@
 import Icon from "@/utils/icon";
 import style from "./calendario.module.css";
 import { useState, useMemo } from "react";
-import { mapaStatus } from "@/utils/status";
 import { Agendamento } from "@/api/agendamento";
 import { obterDadosAgendamento } from "@/utils/agendamento";
 import {
@@ -11,6 +10,7 @@ import {
   Semana,
   StatusType,
 } from "@/utils/calendario";
+import { resolverStatusAgendamento } from "@/hooks/useDadosAgendamentos";
 
 const corPorStatus: Record<string, string> = {
   default: "var(--success)",
@@ -69,7 +69,9 @@ export default function Calendario({
     const mapa = new Map<number, string>();
 
     agendamentos.forEach((ag) => {
-      if (ag.statusAgendamentoID === 4) return;
+      const chaveStatus = resolverStatusAgendamento(ag);
+
+      if (chaveStatus === "cancelado") return;
 
       const { dataAgendamento } = obterDadosAgendamento(ag);
       const dataAg = parseDataCalendario(dataAgendamento);
@@ -79,8 +81,7 @@ export default function Calendario({
         dataAg.getFullYear() === ano &&
         dataAg.getMonth() === mes
       ) {
-        const chaveStatus = mapaStatus[ag.statusAgendamentoID] || "default";
-        const variavelCor = corPorStatus[chaveStatus] || "var(--primary)";
+        const variavelCor = corPorStatus[chaveStatus] ?? "var(--success)";
         mapa.set(dataAg.getDate(), variavelCor);
       }
     });

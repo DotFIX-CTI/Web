@@ -1,108 +1,207 @@
 "use client";
 
-import Link from "next/link";
-import Image from "next/image";
-import Icon from "@/utils/icon";
+import { useEffect, useState, FormEvent } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 import Main from "@/utils/main";
-import CardLog from "@/components/cards/cardLog";
-import CardMapa from "@/components/cards/cardMapa";
-import { Status } from "@/utils/status";
-import { useParams } from "next/navigation";
-import { useEquipe } from "@/hooks/useEquipe";
-import { useLog } from "@/hooks/useLog";
+import Button from "@/components/button";
+import { Equipe } from "@/api/equipe";
 
-export default function DetalheEquipe() {
-  const params = useParams<{ id: string }>();
-  const idNumerico = params?.id ? Number(params.id) : NaN;
+interface FuncionarioOpcao {
+  funcionarioID: number;
+  nome: string;
+  email?: string;
+}
 
-  const { equipe, carregando, erro } = useEquipe(idNumerico);
-  const {
-    agendamentos: concluidos,
-    carregando: carregandoConcluidos,
-    erro: erroConcluidos,
-  } = useLog(equipe?.equipeID ?? idNumerico);
+export default function FormularioEquipePage() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const idParam = searchParams.get("id");
+  const equipeId = idParam ? Number(idParam) : null;
+  const isEdicao = Boolean(equipeId && !Number.isNaN(equipeId));
 
-  if (carregando) {
-    return (
-      <Main>
-        <h1>Carregando detalhes da equipe...</h1>
-      </Main>
+  const [nomeEquipe, setNomeEquipe] = useState("");
+  const [latitude, setLatitude] = useState("");
+  const [longitude, setLongitude] = useState("");
+  const [funcionariosSelecionados, setFuncionariosSelecionados] = useState<
+    number[]
+  >([]);
+  const [funcionariosDisponiveis, setFuncionariosDisponiveis] = useState<
+    FuncionarioOpcao[]
+  >([]);
+  const [carregandoDados, setCarregandoDados] = useState(false);
+  const [salvando, setSalvando] = useState(false);
+  const [erro, setErro] = useState<string | null>(null);
+
+  // Carrega lista de funcionários (ajuste para sua função real de API)
+  useEffect(() => {
+    async function carregarFuncionarios() {
+      try {
+        // Exemplo: const lista = await listarFuncionarios();
+        // setFuncionariosDisponiveis(lista);
+      } catch (e) {
+        console.error(e);
+      }
+    }
+    carregarFuncionarios();
+  }, []);
+
+  // Se tiver ?id= na URL, carrega os dados da equipe para edição
+  useEffect(() => {
+    if (!isEdicao || !equipeId) return;
+
+    async function carregarEquipe() {
+      setCarregandoDados(true);
+      setErro(null);
+      try {
+        // Exemplo: const equipe: Equipe = await buscarEquipePorId(equipeId);
+        // setNomeEquipe(equipe.nomeEquipe ?? "");
+        // setLatitude(String(equipe.latitude ?? ""));
+        // setLongitude(String(equipe.longitude ?? ""));
+        // setFuncionariosSelecionados(
+        //   equipe.funcionarios?.map((f) => f.funcionarioID) ?? []
+        // );
+      } catch (e: any) {
+        setErro(e?.message || "Erro ao carregar dados da equipe.");
+      } finally {
+        setCarregandoDados(false);
+      }
+    }
+
+    carregarEquipe();
+  }, [isEdicao, equipeId]);
+
+  const toggleFuncionario = (funcionarioID: number) => {
+    setFuncionariosSelecionados((prev) =>
+      prev.includes(funcionarioID)
+        ? prev.filter((id) => id !== funcionarioID)
+        : [...prev, funcionarioID],
     );
-  }
+  };
 
-  if (erro || !equipe) {
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setErro(null);
+
+    if (!nomeEquipe.trim()) {
+      setErro("Informe o nome da equipe.");
+      return;
+    }
+
+    setSalvando(true);
+    try {
+      const payload = {
+        nomeEquipe: nomeEquipe.trim(),
+        latitude: latitude.trim(),
+        longitude: longitude.trim(),
+        // Normalmente o back-end espera IDs ou objetos conforme o DTO de criar/editar
+        funcionariosIds: funcionariosSelecionados,
+      };
+
+      if (isEdicao && equipeId) {
+        // await atualizarEquipe(equipeId, payload);
+      } else {
+        // await cadastrarEquipe(payload);
+      }
+
+      router.push("/equipes");
+      router.refresh();
+    } catch (e: any) {
+      setErro(e?.message || "Erro ao salvar equipe.");
+    } finally {
+      setSalvando(false);
+    }
+  };
+
+  if (carregandoDados) {
     return (
-      <Main>
-        <h1>{erro ?? "Equipe não encontrada."}</h1>
+      <Main className="flex_c gap-6" justify="flex-start">
+        <h1>Carregando equipe...</h1>
       </Main>
     );
   }
 
   return (
-    <Main>
-      <section className="grid gap-12 max_width">
-        <div className="flex_c gap-8 max_height">
-          <article className="card gap-4">
-            <div className="center gap-4">
-              <Image
-                src={equipe.foto || "/img/user.png"}
-                width={80}
-                height={80}
-                alt={`Foto da ${equipe.nomeEquipe}`}
-                className="user"
-              />
-              <h2>{equipe.nomeEquipe}</h2>
-            </div>
+    <Main className="flex_c gap-6" justify="flex-start">
+      <div className="flex between gap-4">
+        <h1>{isEdicao ? `Editar Equipe #${equipeId}` : "Nova Equipe"}</h1>
+        <Button icon="left" onClick={() => router.back()}>
+          Voltar
+        </Button>
+      </div>
 
-            <div className="flex_c gap-4">
-              {equipe.funcionarios?.map((funcionario) => (
-                <div key={funcionario.funcionarioID} className="flex gap-2">
-                  <Image
-                    src={funcionario.foto || "/img/user.png"}
-                    width={40}
-                    height={40}
-                    alt={funcionario.nome}
-                    className="user"
-                  />
-                  <div>
-                    <h5>{funcionario.nome}</h5>
-                    <p>{funcionario.email}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+      {erro && <p style={{ color: "var(--error)" }}>{erro}</p>}
 
-            <Link
-              href={`/adicionarEquipe?id=${equipe.equipeID}`}
-              className={`edit ${Status.cancelado}_bg`}
-            >
-              <Icon name="edit" size={36} />
-            </Link>
-          </article>
-
-          <CardMapa />
+      <form
+        onSubmit={handleSubmit}
+        className="flex_c gap-4"
+        style={{ maxWidth: 600 }}
+      >
+        <div className="flex_c gap-1">
+          <label htmlFor="nomeEquipe">Nome da equipe</label>
+          <input
+            id="nomeEquipe"
+            type="text"
+            value={nomeEquipe}
+            onChange={(e) => setNomeEquipe(e.target.value)}
+            placeholder="Ex.: Equipe de Redes"
+            required
+          />
         </div>
 
-        <article className="card_scroll max_height">
-          <h2>Histórico de Agendamentos</h2>
-          <div className="scroll gap-4">
-            {carregandoConcluidos ? (
-              <p>Carregando agendamentos concluídos...</p>
-            ) : erroConcluidos ? (
-              <p>{erroConcluidos}</p>
-            ) : concluidos.length > 0 ? (
-              concluidos.map((agendamento) => (
-                <CardLog
-                  key={agendamento.agendamentoID}
-                  agendamento={agendamento}
-                />
-              ))
-            ) : (
-              <p>Nenhum agendamento concluído para esta equipe.</p>
-            )}
+        <div className="flex gap-4">
+          <div className="flex_c gap-1" style={{ flex: 1 }}>
+            <label htmlFor="latitude">Latitude</label>
+            <input
+              id="latitude"
+              type="text"
+              value={latitude}
+              onChange={(e) => setLatitude(e.target.value)}
+              placeholder="-23.68395"
+            />
           </div>
-        </article>
-      </section>
+
+          <div className="flex_c gap-1" style={{ flex: 1 }}>
+            <label htmlFor="longitude">Longitude</label>
+            <input
+              id="longitude"
+              type="text"
+              value={longitude}
+              onChange={(e) => setLongitude(e.target.value)}
+              placeholder="-46.61802"
+            />
+          </div>
+        </div>
+
+        <div className="flex_c gap-2">
+          <label>Funcionários da equipe</label>
+          {funcionariosDisponiveis.length === 0 ? (
+            <p className="small_txt">Nenhum funcionário carregado.</p>
+          ) : (
+            funcionariosDisponiveis.map((func) => (
+              <label key={func.funcionarioID} className="flex gap-2">
+                <input
+                  type="checkbox"
+                  checked={funcionariosSelecionados.includes(
+                    func.funcionarioID,
+                  )}
+                  onChange={() => toggleFuncionario(func.funcionarioID)}
+                />
+                <span>{func.nome}</span>
+              </label>
+            ))
+          )}
+        </div>
+
+        <div className="flex gap-4">
+          <button type="submit" disabled={salvando}>
+            {salvando
+              ? "Salvando..."
+              : isEdicao
+                ? "Salvar alterações"
+                : "Cadastrar equipe"}
+          </button>
+        </div>
+      </form>
     </Main>
   );
 }

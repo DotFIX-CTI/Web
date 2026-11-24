@@ -1,7 +1,7 @@
 import Icon from "@/utils/icon";
-import { Status } from "@/utils/status";
 import { Agendamento } from "@/api/agendamento";
 import { formatarDataEHora } from "@/utils/formatarData";
+import { resolverStatusAgendamento } from "@/hooks/useDadosAgendamentos";
 
 export interface CardLogProps {
   agendamento?: Agendamento;
@@ -32,7 +32,7 @@ export default function CardLog({
   titulo,
   tempoRelativo,
   endereco,
-  statusClass = Status.default ?? Status.cancelado,
+  statusClass,
 }: CardLogProps) {
   const tituloFinal = titulo ?? agendamento?.nomeServico;
 
@@ -44,8 +44,12 @@ export default function CardLog({
   const enderecoFinal =
     endereco ?? (agendamento && montarEndereco(agendamento));
 
+  const classeStatusFinal =
+    statusClass ??
+    (agendamento ? resolverStatusAgendamento(agendamento) : "default");
+
   return (
-    <article className={`card gap-2 ${statusClass}`}>
+    <article className={`card gap-2 ${classeStatusFinal}`}>
       <h2>{tituloFinal}</h2>
       <div className="flex_c gap-1">
         <h5>{tempoFinal}</h5>

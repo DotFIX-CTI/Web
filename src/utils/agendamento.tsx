@@ -1,8 +1,12 @@
 import { Agendamento } from "@/api/agendamento";
-import { mapaStatus } from "@/utils/status";
+import {
+  resolverStatusAgendamento,
+  StatusClasse,
+} from "@/hooks/useDadosAgendamentos";
 
 export interface DadosFormatadosAgendamento {
-  classeStatus: string;
+  classeStatus: StatusClasse;
+  nomeStatus: string;
   enderecoCompleto: string;
   equipeId?: number;
   equipeExibida: string;
@@ -58,14 +62,15 @@ export function obterDadosAgendamento(
   nomeEquipe?: string,
   mapaEquipes?: Record<number, string>,
 ): DadosFormatadosAgendamento {
-  const classeStatus = mapaStatus[agendamento.statusAgendamentoID] || "";
+  const classeStatus = resolverStatusAgendamento(agendamento);
+  const nomeStatus = agendamento.statusAgendamento?.nomeStatus ?? "";
 
   const enderecoCompleto = `${agendamento.logradouro}, ${agendamento.numero} - ${agendamento.bairro}, ${agendamento.cidade} - ${agendamento.estado}${
     agendamento.cep ? `, ${agendamento.cep}` : ""
   }`;
 
   const equipeDoArray = agendamento.equipe?.[0];
-  const equipeId = equipeDoArray?.equipeID ?? agendamento.equipeID;
+  const equipeId = equipeDoArray?.equipeID;
 
   const equipeExibida =
     nomeEquipe ||
@@ -73,12 +78,13 @@ export function obterDadosAgendamento(
     (equipeId && mapaEquipes?.[equipeId]) ||
     (equipeId ? `Equipe #${equipeId}` : "Sem equipe");
 
-  const dataAgendamento = agendamento.dataAgendamento || agendamento.data || "";
+  const dataAgendamento = agendamento.dataAgendamento || "";
   const dataFormatada = formatarDataAgendamento(dataAgendamento);
   const horaFormatada = formatarHoraAgendamento(dataAgendamento);
 
   return {
     classeStatus,
+    nomeStatus,
     enderecoCompleto,
     equipeId,
     equipeExibida,

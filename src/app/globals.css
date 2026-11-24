@@ -20,16 +20,17 @@
   --error: hsl(350, 75%, 50%);
   --cancel: hsl(220, 15%, 50%);
 
-  --main-bg: var(--primary);
   --logo: var(--primary);
-  --toast: hsl(210, 65%, 15%);
+  --main-bg: var(--primary);
+  --toast: var(--foreground);
 
   --smooth-txt: 0.9;
 
-  --btn-bg: hsl(0, 0%, 100%);
-  --input-bg: hsl(0, 0%, 100%);
-  --btn-border: hsl(215, 100%, 30%);
-  --input-icon: hsl(215, 100%, 30%);
+  --label: var(--primary);
+  --btn-border: var(--primary);
+  --input-icon: var(--primary);
+  --btn-bg: var(--background-card);
+  --input-bg: var(--background-card);
 
   --shadow:
     0 0 4px color-mix(in srgb, var(--primary) 5%, transparent),
@@ -78,9 +79,10 @@
   --border-input: 2px solid hsl(215, 25%, 25%);
 
   --btn-bg: var(--background);
-  --input-bg: hsl(210, 65%, 5%);
-  --btn-border: hsl(216, 20%, 95%);
+  --input-bg: var(--background);
+  --btn-border: hsl(215, 20%, 95%);
   --input-icon: hsl(215, 75%, 65%);
+  --label: var(--white);
 
   --border-card: 1px solid color-mix(in srgb, var(--surface) 25%, transparent);
 
@@ -251,9 +253,13 @@
 /*? └──────────────────────────────────┘ */
 @layer components {
   .label {
-    color: var(--primary);
+    color: var(--label);
     font-weight: 600;
     display: block;
+  }
+
+  .bold {
+    font-weight: 700;
   }
 
   .input_mensagem {
