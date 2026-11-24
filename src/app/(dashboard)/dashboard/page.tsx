@@ -6,7 +6,6 @@ import Pesquisa from "@/components/pesquisa";
 import Calendario from "@/components/calendario";
 import CardProximoAgendamento from "@/components/cards/cardProximoAgendamento";
 import { useState, useMemo } from "react";
-import { useEquipes } from "@/hooks/useEquipes";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { obterDadosAgendamento } from "@/utils/agendamento";
 
@@ -33,21 +32,8 @@ function parseDataLocal(dataStr: string): Date {
 
 export default function Dashboard() {
   const { agendamentos = [], carregando, erro, recarregar } = useAgendamentos();
-  const { equipes = [] } = useEquipes();
   const [dataSelecionada, setDataSelecionada] = useState<Date | null>(null);
   const [termoPesquisa, setTermoPesquisa] = useState("");
-
-  const mapaEquipes = useMemo(() => {
-    const mapa: Record<number, string> = {};
-    if (!Array.isArray(equipes)) return mapa;
-
-    equipes.forEach((eq) => {
-      if (eq?.equipeID != null) {
-        mapa[eq.equipeID] = eq.nomeEquipe;
-      }
-    });
-    return mapa;
-  }, [equipes]);
 
   const proximosAgendamentos = useMemo(() => {
     if (!Array.isArray(agendamentos) || agendamentos.length === 0) return [];
@@ -97,7 +83,7 @@ export default function Dashboard() {
         ).getTime();
         return dataA - dataB;
       });
-  }, [agendamentos, dataSelecionada, termoPesquisa, mapaEquipes]);
+  }, [agendamentos, dataSelecionada, termoPesquisa]);
 
   const temFiltroAtivo = Boolean(dataSelecionada || termoPesquisa.trim());
 

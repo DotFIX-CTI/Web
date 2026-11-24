@@ -7,7 +7,7 @@ import Pesquisa from "@/components/pesquisa";
 import CardReagendamento from "@/components/cards/cardReagendamento";
 import { useRouter } from "next/navigation";
 import { useEquipes } from "@/hooks/useEquipes";
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo } from "react";
 import { toastSucesso, toastErro } from "@/utils/toast";
 import { formatarDataEHora } from "@/utils/formatarData";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
@@ -30,31 +30,13 @@ export default function ReagendamentoContent({
   const [termoPesquisa, setTermoPesquisa] = useState("");
   const [salvando, setSalvando] = useState(false);
 
-  useEffect(() => {
-    if (idInicial) {
-      setSelecionadoId(idInicial);
-    }
-  }, [idInicial]);
-
-  const mapaEquipes = useMemo(() => {
-    const mapa: Record<number, string> = {};
-    equipes.forEach((eq) => {
-      mapa[eq.equipeID] = eq.nomeEquipe;
-    });
-    return mapa;
-  }, [equipes]);
-
   // Lista de agendamentos filtrados
   const agendamentosFiltrados = useMemo(() => {
     const termo = termoPesquisa.trim().toLowerCase();
     if (!termo) return agendamentos;
 
     return agendamentos.filter((a) => {
-      const { equipeExibida } = obterDadosAgendamento(
-        a,
-        undefined,
-        mapaEquipes,
-      );
+      const { equipeExibida } = obterDadosAgendamento(a);
       const nomeCliente = a.nomeCliente?.toLowerCase() || "";
       const nomeServico = a.nomeServico?.toLowerCase() || "";
       const nomeEq = equipeExibida.toLowerCase();
@@ -65,7 +47,7 @@ export default function ReagendamentoContent({
         nomeEq.includes(termo)
       );
     });
-  }, [agendamentos, termoPesquisa, mapaEquipes]);
+  }, [agendamentos, termoPesquisa]);
 
   const agendamentoAtivo = useMemo(() => {
     if (selecionadoId) {
@@ -79,8 +61,8 @@ export default function ReagendamentoContent({
 
   const dadosAtivos = useMemo(() => {
     if (!agendamentoAtivo) return null;
-    return obterDadosAgendamento(agendamentoAtivo, undefined, mapaEquipes);
-  }, [agendamentoAtivo, mapaEquipes]);
+    return obterDadosAgendamento(agendamentoAtivo);
+  }, [agendamentoAtivo]);
 
   const equipeAtiva = useMemo(() => {
     if (!dadosAtivos?.equipeId) return null;
@@ -238,11 +220,7 @@ export default function ReagendamentoContent({
               <p className="p-4 text-center">Nenhum agendamento encontrado.</p>
             ) : (
               agendamentosFiltrados.map((item) => {
-                const { equipeExibida } = obterDadosAgendamento(
-                  item,
-                  undefined,
-                  mapaEquipes,
-                );
+                const { equipeExibida } = obterDadosAgendamento(item);
 
                 return (
                   <CardReagendamento

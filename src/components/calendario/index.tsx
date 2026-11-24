@@ -2,7 +2,7 @@
 
 import Icon from "@/utils/icon";
 import style from "./calendario.module.css";
-import { useState, useMemo } from "react";
+import { useState } from "react";
 import { Agendamento } from "@/api/agendamento";
 import { obterDadosAgendamento } from "@/utils/agendamento";
 import {
@@ -65,29 +65,25 @@ export default function Calendario({
 
   const diasDoMes = obterDiasDoMesPorSemana(ano, mes);
 
-  const corPorDia = useMemo(() => {
-    const mapa = new Map<number, string>();
+  const corPorDia = new Map<number, string>();
 
-    agendamentos.forEach((ag) => {
-      const chaveStatus = resolverStatusAgendamento(ag);
+  agendamentos.forEach((ag) => {
+    const chaveStatus = resolverStatusAgendamento(ag);
 
-      if (chaveStatus === "cancelado") return;
+    if (chaveStatus === "cancelado") return;
 
-      const { dataAgendamento } = obterDadosAgendamento(ag);
-      const dataAg = parseDataCalendario(dataAgendamento);
+    const { dataAgendamento } = obterDadosAgendamento(ag);
+    const dataAg = parseDataCalendario(dataAgendamento);
 
-      if (
-        !Number.isNaN(dataAg.getTime()) &&
-        dataAg.getFullYear() === ano &&
-        dataAg.getMonth() === mes
-      ) {
-        const variavelCor = corPorStatus[chaveStatus] ?? "var(--success)";
-        mapa.set(dataAg.getDate(), variavelCor);
-      }
-    });
-
-    return mapa;
-  }, [agendamentos, ano, mes]);
+    if (
+      !Number.isNaN(dataAg.getTime()) &&
+      dataAg.getFullYear() === ano &&
+      dataAg.getMonth() === mes
+    ) {
+      const variavelCor = corPorStatus[chaveStatus] ?? "var(--success)";
+      corPorDia.set(dataAg.getDate(), variavelCor);
+    }
+  });
 
   const nomeMesBruto = dataAtual.toLocaleDateString("pt-BR", { month: "long" });
   const nomeMes = nomeMesBruto.charAt(0).toUpperCase() + nomeMesBruto.slice(1);

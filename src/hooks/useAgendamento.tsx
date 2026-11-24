@@ -1,50 +1,45 @@
 import { useState, useEffect } from "react";
 import { Agendamento, listarAgendamentoPorId } from "@/api/agendamento";
+import { Erro } from "@/api/domainException";
 
 export function useAgendamento(id: number) {
+  const idValido = Boolean(id && !Number.isNaN(id));
+
   const [agendamento, setAgendamento] = useState<Agendamento | null>(null);
-  const [carregando, setCarregando] = useState(true);
+  const [carregando, setCarregando] = useState(idValido);
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id || Number.isNaN(id)) {
-      setAgendamento(null);
-      setErro("ID de agendamento inválido.");
-      setCarregando(false);
+    if (!idValido) {
       return;
     }
 
     let cancelado = false;
 
-    async function buscar() {
-      try {
-        setCarregando(true);
+    listarAgendamentoPorId(id)
+      .then((dados) => {
+        if (cancelado) return;
+        setAgendamento(dados);
         setErro(null);
-        const dados = await listarAgendamentoPorId(id);
-        if (!cancelado) {
-          setAgendamento(dados);
-        }
-      } catch (error: unknown) {
-        if (!cancelado) {
-          const mensagem =
-            error instanceof Error
-              ? error.message
-              : "Agendamento não encontrado.";
-          setErro(mensagem);
-        }
-      } finally {
-        if (!cancelado) {
-          setCarregando(false);
-        }
-      }
-    }
-
-    buscar();
+      })
+      .catch((error: unknown) => {
+        if (cancelado) return;
+        Erro("Agendamento não encontrado.", error);
+        setErro("Agendamento não encontrado.");
+      })
+      .finally(() => {
+        if (cancelado) return;
+        setCarregando(false);
+      });
 
     return () => {
       cancelado = true;
     };
-  }, [id]);
+  }, [id, idValido]);
 
-  return { agendamento, carregando, erro };
+  return {
+    agendamento: idValido ? agendamento : null,
+    carregando: idValido ? carregando : false,
+    erro: idValido ? erro : "ID de agendamento inválido.",
+  };
 }

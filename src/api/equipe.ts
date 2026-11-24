@@ -21,7 +21,7 @@ export async function cadastrarEquipe(
   try {
     const response = await api.post<Equipe>("Equipe", dados);
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao cadastrar Equipe"));
   }
 }
@@ -31,7 +31,7 @@ export async function listarEquipe(): Promise<Equipe[]> {
   try {
     const response = await api.get<Equipe[]>("Equipe");
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao listar Equipes"));
   }
 }
@@ -41,7 +41,7 @@ export async function listarEquipePorId(id: string | number): Promise<Equipe> {
   try {
     const response = await api.get<Equipe>(`Equipe/${id}`);
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao buscar Equipe"));
   }
 }
@@ -54,7 +54,7 @@ export async function atualizarEquipe(
   try {
     const response = await api.put<Equipe>(`Equipe/${id}`, dados);
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao atualizar Equipe"));
   }
 }
@@ -63,7 +63,7 @@ export async function atualizarEquipe(
 export async function deletarEquipe(equipeId: string | number): Promise<void> {
   try {
     await api.delete(`Equipe/${equipeId}`);
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao excluir Equipe"));
   }
 }

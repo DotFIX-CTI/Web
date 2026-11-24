@@ -1,4 +1,3 @@
-import { toastErro } from "@/utils/toast";
 import { useState, useEffect, useCallback } from "react";
 import {
   Agendamento,
@@ -9,49 +8,53 @@ import {
   atualizarAgendamento,
   deletarAgendamento,
 } from "@/api/agendamento";
-
-function formatarMensagemErro(error: any, fallback: string): string {
-  const msg = typeof error?.message === "string" ? error.message.trim() : "";
-
-  if (!msg) return fallback;
-  if (
-    msg.startsWith("<!DOCTYPE") ||
-    msg.startsWith("<html") ||
-    msg.includes("Site Fantasma")
-  ) {
-    return "Rota não encontrada ou resposta inesperada do servidor.";
-  }
-
-  return msg;
-}
+import { Erro } from "@/api/domainException";
 
 export function useAgendamentos() {
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
   const [carregando, setCarregando] = useState(true);
   const [erro, setErro] = useState<string | null>(null);
 
-  const carregar = useCallback(async () => {
-    try {
-      setCarregando(true);
-      setErro(null);
-      const payload = await listarAgendamento();
-      setAgendamentos(Array.isArray(payload) ? payload : []);
-    } catch (error: any) {
-      const mensagem =
-        error?.message && !error.message.trim().startsWith("<!DOCTYPE")
-          ? error.message
-          : "Erro ao carregar agendamentos.";
+  useEffect(() => {
+    let cancelado = false;
 
-      setErro(mensagem);
-      toastErro(mensagem);
+    listarAgendamento()
+      .then((payload) => {
+        if (cancelado) return;
+        setAgendamentos(Array.isArray(payload) ? payload : []);
+        setErro(null);
+      })
+      .catch((error: unknown) => {
+        if (cancelado) return;
+        Erro("Erro ao carregar agendamentos.", error);
+        setErro("Erro ao carregar agendamentos.");
+      })
+      .finally(() => {
+        if (cancelado) return;
+        setCarregando(false);
+      });
+
+    return () => {
+      cancelado = true;
+    };
+  }, []);
+
+  const recarregar = useCallback(async () => {
+    setCarregando(true);
+    setErro(null);
+
+    try {
+      const payload = await listarAgendamento();
+      const lista = Array.isArray(payload) ? payload : [];
+      setAgendamentos(lista);
+      return lista;
+    } catch (error: unknown) {
+      Erro("Erro ao carregar agendamentos.", error);
+      setErro("Erro ao carregar agendamentos.");
     } finally {
       setCarregando(false);
     }
   }, []);
-
-  useEffect(() => {
-    carregar();
-  }, [carregar]);
 
   const criar = async (novoAgendamento: CriarAgendamentoPayload) => {
     try {
@@ -59,18 +62,15 @@ export function useAgendamentos() {
       const criado = await cadastrarAgendamento(novoAgendamento);
       setAgendamentos((prev) => [criado, ...prev]);
       return criado;
-    } catch (error: any) {
-      const mensagem = formatarMensagemErro(
-        error,
-        "Erro ao cadastrar agendamento.",
-      );
-      setErro(mensagem);
-      toastErro(mensagem);
-      throw new Error(mensagem);
+    } catch (error: unknown) {
+      Erro("Erro ao cadastrar agendamento.", error);
     }
   };
 
-  const atualizar = async (id: number, payload: AtualizarAgendamentoPayload) => {
+  const atualizar = async (
+    id: number,
+    payload: AtualizarAgendamentoPayload,
+  ) => {
     try {
       setErro(null);
       const atualizado = await atualizarAgendamento(id, payload);
@@ -80,14 +80,8 @@ export function useAgendamentos() {
         ),
       );
       return atualizado;
-    } catch (error: any) {
-      const mensagem = formatarMensagemErro(
-        error,
-        "Erro ao atualizar agendamento.",
-      );
-      setErro(mensagem);
-      toastErro(mensagem);
-      throw new Error(mensagem);
+    } catch (error: unknown) {
+      Erro("Erro ao atualizar agendamento.", error);
     }
   };
 
@@ -98,14 +92,8 @@ export function useAgendamentos() {
       setAgendamentos((prev) =>
         prev.filter((item) => item.agendamentoID !== id),
       );
-    } catch (error: any) {
-      const mensagem = formatarMensagemErro(
-        error,
-        "Erro ao remover agendamento.",
-      );
-      setErro(mensagem);
-      toastErro(mensagem);
-      throw new Error(mensagem);
+    } catch (error: unknown) {
+      Erro("Erro ao remover agendamento.", error);
     }
   };
 
@@ -113,7 +101,7 @@ export function useAgendamentos() {
     agendamentos,
     carregando,
     erro,
-    recarregar: carregar,
+    recarregar,
     criar,
     atualizar,
     remover,

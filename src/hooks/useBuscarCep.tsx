@@ -1,6 +1,7 @@
 "use client";
 
 import axios from "axios";
+import { Erro } from "@/api/domainException";
 import { useState, ChangeEvent } from "react";
 
 export function useBuscarCep() {
@@ -14,14 +15,14 @@ export function useBuscarCep() {
     numero: "",
   });
   const [loadingCep, setLoadingCep] = useState(false);
-  const [erroCep, setErroCep] = useState("");
+  const [erro, setErro] = useState("");
 
   async function buscarCep(valorCep: string) {
     const cleanCep = valorCep.replace(/\D/g, "");
     if (cleanCep.length !== 8) return;
 
     setLoadingCep(true);
-    setErroCep("");
+    setErro(null);
 
     try {
       // Axios
@@ -31,7 +32,7 @@ export function useBuscarCep() {
       const data = response.data;
 
       if (data.erro) {
-        setErroCep("CEP não encontrado.");
+        Erro("CEP não encontrado.");
         return;
       }
 
@@ -43,8 +44,8 @@ export function useBuscarCep() {
         cidade: data.localidade || "",
         complemento: data.complemento || prev.complemento,
       }));
-    } catch (err) {
-      setErroCep("Erro ao consultar o CEP.");
+    } catch (error: unknown) {
+      Erro("Erro ao consultar o CEP.", error);
     } finally {
       setLoadingCep(false);
     }
@@ -58,7 +59,7 @@ export function useBuscarCep() {
       valor = valor.replace(/^(\d{5})(\d)/, "$1-$2");
     }
     setCep(valor);
-    if (erroCep) setErroCep("");
+    if (erro) setErro(null);
 
     if (valor.replace(/\D/g, "").length === 8) {
       buscarCep(valor);
@@ -73,7 +74,7 @@ export function useBuscarCep() {
     cep,
     endereco,
     loadingCep,
-    erroCep,
+    erro,
     buscarCep,
     handleCepChange,
     handleEnderecoChange,

@@ -17,10 +17,7 @@ export function correspondeAoTermoBusca(
     .join(" ")
     .toLowerCase();
 
-  const camposEquipe = [
-    ...(agendamento.equipe?.map((eq) => eq.nomeEquipe) ?? []),
-    ...nomesEquipesExtras,
-  ]
+  const camposEquipe = [agendamento.equipe?.nomeEquipe, ...nomesEquipesExtras]
     .filter(Boolean)
     .join(" ")
     .toLowerCase();

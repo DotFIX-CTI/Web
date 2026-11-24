@@ -60,7 +60,7 @@ export async function cadastrarAgendamento(
   try {
     const response = await api.post<Agendamento>("Agendamento", payload);
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao cadastrar Agendamento"));
   }
 }
@@ -70,7 +70,7 @@ export async function listarAgendamento(): Promise<Agendamento[]> {
   try {
     const response = await api.get<Agendamento[]>("Agendamento");
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao listar Agendamentos"));
   }
 }
@@ -80,7 +80,7 @@ export async function listarAgendamentoPorId(id: number): Promise<Agendamento> {
   try {
     const response = await api.get<Agendamento>(`Agendamento/${id}`);
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao buscar Agendamento"));
   }
 }
@@ -93,7 +93,7 @@ export async function atualizarAgendamento(
   try {
     const response = await api.put<Agendamento>(`Agendamento/${id}`, payload);
     return response.data;
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao atualizar Agendamento"));
   }
 }
@@ -104,7 +104,7 @@ export async function deletarAgendamento(
 ): Promise<void> {
   try {
     await api.delete(`Agendamento/${agendamentoId}`);
-  } catch (error: any) {
+  } catch (error: unknown) {
     throw new Error(DomainException(error, "Erro ao excluir Agendamento"));
   }
 }

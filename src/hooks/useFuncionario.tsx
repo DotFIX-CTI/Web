@@ -1,11 +1,12 @@
 "use client";
 
-import { useEffect, useState, FormEvent } from "react";
+import { useState, FormEvent } from "react";
 import {
   Funcionario,
   cadastrarFuncionario,
-  atualizarEquipe,
+  atualizarFuncionario,
 } from "@/api/funcionario";
+import { Erro } from "@/api/domainException";
 
 interface UseFuncionarioOptions {
   funcionario?: Funcionario | null;
@@ -18,37 +19,24 @@ export function useFuncionario({
 }: UseFuncionarioOptions = {}) {
   const isEdicao = Boolean(funcionario?.funcionarioID);
 
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
+  const [nome, setNome] = useState(() => funcionario?.nome ?? "");
+  const [email, setEmail] = useState(() => funcionario?.email ?? "");
   const [senha, setSenha] = useState("");
 
   const [erro, setErro] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    if (funcionario) {
-      setNome(funcionario.nome ?? "");
-      setEmail(funcionario.email ?? "");
-      setSenha("");
-    } else {
-      setNome("");
-      setEmail("");
-      setSenha("");
-    }
-    setErro(null);
-  }, [funcionario]);
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setErro(null);
 
     if (!nome.trim() || !email.trim()) {
-      setErro("Preencha pelo menos o nome e o e-mail.");
+      Erro("Preencha pelo menos o nome e o e-mail.");
       return;
     }
 
     if (!isEdicao && !senha.trim()) {
-      setErro("Informe uma senha para o novo funcionário.");
+      Erro("Informe uma senha para o novo funcionário.");
       return;
     }
 
@@ -66,7 +54,7 @@ export function useFuncionario({
 
       const resultado =
         isEdicao && funcionario?.funcionarioID
-          ? await atualizarEquipe(
+          ? await atualizarFuncionario(
               funcionario.funcionarioID,
               payload as Partial<Funcionario>,
             )
@@ -75,8 +63,8 @@ export function useFuncionario({
             );
 
       onSucesso?.(resultado);
-    } catch (error: any) {
-      setErro(error?.message || "Não foi possível salvar o funcionário.");
+    } catch (error: unknown) {
+      Erro("Não foi possível salvar o funcionário.", error);
     } finally {
       setLoading(false);
     }

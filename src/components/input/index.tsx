@@ -5,7 +5,6 @@ import {
   InputHTMLAttributes,
   TextareaHTMLAttributes,
   useState,
-  useEffect,
   ChangeEvent,
   KeyboardEvent,
   useRef,
@@ -56,18 +55,15 @@ export default function Input({
 }: BaseInputProps) {
   const [verSenha, setVerSenha] = useState(false);
 
-  const [currentLength, setCurrentLength] = useState(() => {
+  const [internalLength, setInternalLength] = useState(() => {
     const initialValue = value ?? defaultValue ?? "";
     return String(initialValue).length;
   });
 
   const codeInputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
-  useEffect(() => {
-    if (value !== undefined) {
-      setCurrentLength(String(value).length);
-    }
-  }, [value]);
+  const isControlled = value !== undefined;
+  const currentLength = isControlled ? String(value).length : internalLength;
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
@@ -75,7 +71,9 @@ export default function Input({
     const val = e.target.value;
     if (maxLength > 0 && val.length > maxLength) return;
 
-    setCurrentLength(val.length);
+    if (!isControlled) {
+      setInternalLength(val.length);
+    }
     onChange?.(e);
   };
 
@@ -87,7 +85,9 @@ export default function Input({
     const char = val.slice(-1);
     e.target.value = char;
 
-    setCurrentLength(e.target.value.length);
+    if (!isControlled) {
+      setInternalLength(e.target.value.length);
+    }
     onChange?.(e);
 
     if (char && index < 5) {

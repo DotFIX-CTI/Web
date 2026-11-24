@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useMemo } from "react";
 import Icon, { IconName } from "@/utils/icon";
 import style from "./select.module.css";
 
@@ -34,17 +34,19 @@ export default function Select({
 }: SelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDropUp, setIsDropUp] = useState(false);
-  const [selectedOption, setSelectedOption] = useState<Option | undefined>(
-    options.find((opt) => opt.value === value),
-  );
+  const [internalValue, setInternalValue] = useState<string | undefined>(value);
 
   const containerRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const found = options.find((opt) => opt.value === value);
-    setSelectedOption(found);
-  }, [value, options]);
+  const isControlled = value !== undefined;
+  const activeValue = isControlled ? value : internalValue;
 
+  const selectedOption = useMemo(
+    () => options.find((opt) => opt.value === activeValue),
+    [options, activeValue],
+  );
+
+  // Sincronização com sistema externo (DOM / evento global do documento)
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (
@@ -71,7 +73,9 @@ export default function Select({
   };
 
   const handleSelect = (option: Option) => {
-    setSelectedOption(option);
+    if (!isControlled) {
+      setInternalValue(option.value);
+    }
     setIsOpen(false);
     if (onChange) {
       onChange(option.value);

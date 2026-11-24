@@ -4,7 +4,6 @@ import Main from "@/utils/main";
 import Card from "@/components/cards/card";
 import style from "./visualizacao.module.css";
 import { useMemo } from "react";
-import { useEquipes } from "@/hooks/useEquipes";
 import { Agendamento } from "@/api/agendamento";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { obterDadosAgendamento } from "@/utils/agendamento";
@@ -20,16 +19,7 @@ function normalizarTexto(texto: string): string {
 
 export default function Visualizacao() {
   const { agendamentos, carregando, erro } = useAgendamentos();
-  const { equipes } = useEquipes();
   const { termoBusca, apenasHistorico } = useVisualizacao();
-
-  const mapaEquipes = useMemo(() => {
-    const mapa: Record<number, string> = {};
-    equipes.forEach((eq) => {
-      mapa[eq.equipeID] = eq.nomeEquipe;
-    });
-    return mapa;
-  }, [equipes]);
 
   const agendamentosPorData = useMemo(() => {
     const busca = normalizarTexto(termoBusca);
@@ -86,7 +76,7 @@ export default function Visualizacao() {
       acc[chaveData].push(item);
       return acc;
     }, {});
-  }, [agendamentos, mapaEquipes, termoBusca, apenasHistorico]);
+  }, [agendamentos, termoBusca, apenasHistorico]);
 
   const secoes = Object.entries(agendamentosPorData);
 

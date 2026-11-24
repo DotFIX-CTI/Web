@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Agendamento, listarAgendamento } from "@/api/agendamento";
+import { Erro } from "@/api/domainException";
 
 const STATUS_CONCLUIDO_ID = 1;
 
@@ -8,56 +9,51 @@ function pertenceAEquipe(agendamento: Agendamento, equipeId: number): boolean {
 }
 
 export function useLog(equipeId: number) {
+  const idValido = Boolean(equipeId && !Number.isNaN(equipeId));
+
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);
-  const [carregando, setCarregando] = useState(true);
+  const [carregando, setCarregando] = useState(idValido);
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!equipeId || Number.isNaN(equipeId)) {
-      setAgendamentos([]);
-      setCarregando(false);
+    if (!idValido) {
       return;
     }
 
-    const idEquipe = equipeId;
     let cancelado = false;
 
-    async function buscar() {
-      try {
-        setCarregando(true);
+    listarAgendamento()
+      .then((todos) => {
+        if (cancelado) return;
+
+        const concluidosDaEquipe = todos.filter(
+          (item) =>
+            pertenceAEquipe(item, equipeId) &&
+            item.statusAgendamento?.statusAgendamentoID === STATUS_CONCLUIDO_ID,
+        );
+
+        setAgendamentos(concluidosDaEquipe);
         setErro(null);
-        const todos = await listarAgendamento();
+      })
+      .catch((error: unknown) => {
+        if (cancelado) return;
 
-        if (!cancelado) {
-          const concluidosDaEquipe = todos.filter(
-            (item) =>
-              pertenceAEquipe(item, equipeId) &&
-              item.statusAgendamento?.statusAgendamentoID ===
-                STATUS_CONCLUIDO_ID,
-          );
-          setAgendamentos(concluidosDaEquipe);
-        }
-      } catch (error: unknown) {
-        if (!cancelado) {
-          setErro(
-            error instanceof Error
-              ? error.message
-              : "Erro ao carregar agendamentos concluídos.",
-          );
-        }
-      } finally {
-        if (!cancelado) {
-          setCarregando(false);
-        }
-      }
-    }
-
-    buscar();
+        Erro("Erro ao carregar agendamentos concluídos.", error);
+        setErro("Erro ao carregar agendamentos concluídos.");
+      })
+      .finally(() => {
+        if (cancelado) return;
+        setCarregando(false);
+      });
 
     return () => {
       cancelado = true;
     };
-  }, [equipeId]);
+  }, [equipeId, idValido]);
 
-  return { agendamentos, carregando, erro };
+  return {
+    agendamentos: idValido ? agendamentos : [],
+    carregando: idValido ? carregando : false,
+    erro: idValido ? erro : null,
+  };
 }

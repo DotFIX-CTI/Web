@@ -1,61 +1,51 @@
-import { toastErro } from "@/utils/toast";
 import { useEffect, useState } from "react";
 import { Equipe, listarEquipePorId } from "@/api/equipe";
+import { Erro } from "@/api/domainException";
 
 export function useEquipe(id?: number) {
+  const idValido = typeof id === "number" && Number.isFinite(id) && id > 0;
+
   const [equipe, setEquipe] = useState<Equipe | null>(null);
-  const [carregando, setCarregando] = useState(true);
+  const [carregando, setCarregando] = useState(idValido);
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
     if (id === undefined) {
-      setEquipe(null);
-      setErro(null);
-      setCarregando(false);
       return;
     }
 
-    if (typeof id !== "number" || !Number.isFinite(id) || id <= 0) {
-      setEquipe(null);
-      setErro("ID de equipe inválido.");
-      setCarregando(false);
+    if (!idValido) {
+      Erro("ID de equipe inválido.");
       return;
     }
 
     const equipeId = id;
     let cancelado = false;
 
-    async function carregar() {
-      try {
-        setCarregando(true);
+    listarEquipePorId(equipeId)
+      .then((dados) => {
+        if (cancelado) return;
+        setEquipe(dados);
         setErro(null);
-        const dados = await listarEquipePorId(equipeId);
-        if (!cancelado) {
-          setEquipe(dados);
-        }
-      } catch (error: unknown) {
-        if (!cancelado) {
-          const mensagem =
-            error instanceof Error
-              ? error.message
-              : "Erro ao carregar os detalhes da equipe.";
-          console.error(error);
-          setErro(mensagem);
-          toastErro(mensagem);
-        }
-      } finally {
-        if (!cancelado) {
-          setCarregando(false);
-        }
-      }
-    }
-
-    carregar();
+      })
+      .catch((error: unknown) => {
+        if (cancelado) return;
+        Erro("Erro ao carregar os detalhes da equipe.", error);
+        setErro("Erro ao carregar os detalhes da equipe.");
+      })
+      .finally(() => {
+        if (cancelado) return;
+        setCarregando(false);
+      });
 
     return () => {
       cancelado = true;
     };
-  }, [id]);
+  }, [id, idValido]);
 
-  return { equipe, carregando, erro };
+  return {
+    equipe: idValido ? equipe : null,
+    carregando: idValido ? carregando : false,
+    erro: idValido ? erro : null,
+  };
 }

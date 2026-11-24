@@ -1,27 +1,66 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useSyncExternalStore } from "react";
 import Icon from "./icon";
 
+type Theme = "light" | "dark";
+
+const emptySubscribe = () => () => {};
+
+function getThemeSnapshot(): Theme {
+  if (typeof window === "undefined") return "light";
+  const savedTheme = localStorage.getItem("theme") as Theme | null;
+  if (savedTheme === "light" || savedTheme === "dark") {
+    return savedTheme;
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+function getServerThemeSnapshot(): Theme {
+  return "light";
+}
+
+function subscribeTheme(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+
+  const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
+  const handleChange = () => {
+    const currentTheme = getThemeSnapshot();
+    document.documentElement.setAttribute("data-theme", currentTheme);
+    callback();
+  };
+
+  // Garante o atributo inicial no DOM assim que assina no cliente
+  document.documentElement.setAttribute("data-theme", getThemeSnapshot());
+
+  window.addEventListener("storage", handleChange);
+  window.addEventListener("theme-change", handleChange);
+  mediaQuery.addEventListener("change", handleChange);
+
+  return () => {
+    window.removeEventListener("storage", handleChange);
+    window.removeEventListener("theme-change", handleChange);
+    mediaQuery.removeEventListener("change", handleChange);
+  };
+}
+
 export default function DarkMode() {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-  const [mounted, setMounted] = useState(false);
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false,
+  );
 
-  useEffect(() => {
-    setMounted(true);
-    const savedTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
-    const initialTheme = savedTheme || (prefersDark ? "dark" : "light");
-
-    setTheme(initialTheme);
-    document.documentElement.setAttribute("data-theme", initialTheme);
-  }, []);
+  const theme = useSyncExternalStore(
+    subscribeTheme,
+    getThemeSnapshot,
+    getServerThemeSnapshot,
+  );
 
   const toggleTheme = () => {
-    const nextTheme = theme === "light" ? "dark" : "light";
-    setTheme(nextTheme);
+    const nextTheme: Theme = theme === "light" ? "dark" : "light";
     document.documentElement.setAttribute("data-theme", nextTheme);
     localStorage.setItem("theme", nextTheme);
     window.dispatchEvent(new Event("theme-change"));

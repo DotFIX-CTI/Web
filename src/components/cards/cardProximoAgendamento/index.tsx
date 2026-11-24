@@ -1,9 +1,9 @@
-import CardData from "../cardData";
-import style from "./card.module.css";
 import Link from "next/link";
-import Button from "../../button";
+import style from "./card.module.css";
+import Button from "@/components/button";
+import CardData from "@/components/cards/cardData";
 import { Agendamento } from "@/api/agendamento";
-import { obterDadosAgendamento } from "@/utils/agendamento";
+import { useDadosAgendamento } from "@/hooks/useDadosAgendamentos";
 
 interface CardProximoAgendamentoProps {
   agendamento: Agendamento;
@@ -14,7 +14,7 @@ export default function CardProximoAgendamento({
   agendamento,
   nomeEquipe,
 }: CardProximoAgendamentoProps) {
-  obterDadosAgendamento(agendamento, nomeEquipe);
+  useDadosAgendamento(agendamento, nomeEquipe);
   const temEmail = Boolean(agendamento.emailCliente);
   const temTelefone = Boolean(agendamento.telefoneCliente);
 
