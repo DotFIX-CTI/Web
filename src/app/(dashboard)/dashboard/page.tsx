@@ -59,11 +59,7 @@ export default function Dashboard() {
       .filter((item) => {
         if (!item) return false;
 
-        const { dataAgendamento, equipeExibida } = obterDadosAgendamento(
-          item,
-          undefined,
-          mapaEquipes,
-        );
+        const { dataAgendamento, equipeExibida } = obterDadosAgendamento(item);
         const dataItem = parseDataLocal(dataAgendamento);
 
         if (Number.isNaN(dataItem.getTime())) {
@@ -94,10 +90,10 @@ export default function Dashboard() {
       })
       .sort((a, b) => {
         const dataA = parseDataLocal(
-          obterDadosAgendamento(a, undefined, mapaEquipes).dataAgendamento,
+          obterDadosAgendamento(a).dataAgendamento,
         ).getTime();
         const dataB = parseDataLocal(
-          obterDadosAgendamento(b, undefined, mapaEquipes).dataAgendamento,
+          obterDadosAgendamento(b).dataAgendamento,
         ).getTime();
         return dataA - dataB;
       });
@@ -155,11 +151,7 @@ export default function Dashboard() {
     }
 
     return proximosAgendamentos.map((item) => {
-      const { equipeExibida } = obterDadosAgendamento(
-        item,
-        undefined,
-        mapaEquipes,
-      );
+      const { equipeExibida } = obterDadosAgendamento(item);
 
       return (
         <CardProximoAgendamento

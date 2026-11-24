@@ -13,11 +13,6 @@ export default function CardData({ agendamento, nomeEquipe }: CardDataProps) {
     nomeEquipe,
   );
 
-  const equipeFallback =
-    agendamento.equipe && agendamento.equipe.length > 0
-      ? `Equipe #${agendamento.equipe[0].equipeID}`
-      : "Sem equipe";
-
   const hora = formatarHora(agendamento.dataAgendamento);
   const data = formatarData(agendamento.dataAgendamento);
 
@@ -27,7 +22,7 @@ export default function CardData({ agendamento, nomeEquipe }: CardDataProps) {
         <h4>{data}</h4>
         <p>{hora}</p>
       </div>
-      <h5>{nomeEquipe || equipeExibida || equipeFallback}</h5>
+      <h5>{nomeEquipe || equipeExibida }</h5>
     </article>
   );
 }

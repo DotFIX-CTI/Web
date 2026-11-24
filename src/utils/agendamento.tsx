@@ -59,8 +59,6 @@ export function formatarHoraAgendamento(dataObj: string): string {
 
 export function obterDadosAgendamento(
   agendamento: Agendamento,
-  nomeEquipe?: string,
-  mapaEquipes?: Record<number, string>,
 ): DadosFormatadosAgendamento {
   const classeStatus = resolverStatusAgendamento(agendamento);
   const nomeStatus = agendamento.statusAgendamento?.nomeStatus ?? "";
@@ -69,14 +67,9 @@ export function obterDadosAgendamento(
     agendamento.cep ? `, ${agendamento.cep}` : ""
   }`;
 
-  const equipeDoArray = agendamento.equipe?.[0];
-  const equipeId = equipeDoArray?.equipeID;
+  const equipeId = agendamento.equipe?.equipeID ?? 0;
 
-  const equipeExibida =
-    nomeEquipe ||
-    equipeDoArray?.nomeEquipe ||
-    (equipeId && mapaEquipes?.[equipeId]) ||
-    `Equipe #${equipeId}`;
+  const equipeExibida = agendamento.equipe?.nomeEquipe || `Equipe #${equipeId}`;
 
   const dataAgendamento = agendamento.dataAgendamento || "";
   const dataFormatada = formatarDataAgendamento(dataAgendamento);

@@ -38,11 +38,7 @@ export default function Visualizacao() {
     inicioHoje.setHours(0, 0, 0, 0);
 
     const filtrados = agendamentos.filter((item) => {
-      const { dataAgendamento, equipeExibida } = obterDadosAgendamento(
-        item,
-        undefined,
-        mapaEquipes,
-      );
+      const { dataAgendamento, equipeExibida } = obterDadosAgendamento(item);
 
       const dataItem = dataAgendamento ? new Date(dataAgendamento) : null;
       const ehPassado =
@@ -120,11 +116,7 @@ export default function Visualizacao() {
             <h2 className={style.data}>{data}</h2>
             <div className={style.scroll_secao}>
               {listaDoDia.map((agendamento) => {
-                const { equipeExibida } = obterDadosAgendamento(
-                  agendamento,
-                  undefined,
-                  mapaEquipes,
-                );
+                const { equipeExibida } = obterDadosAgendamento(agendamento);
 
                 return (
                   <Card

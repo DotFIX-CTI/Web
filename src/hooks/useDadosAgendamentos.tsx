@@ -49,11 +49,19 @@ export function useDadosAgendamento(
 
     const enderecoCompleto = `${agendamento.logradouro}, ${agendamento.numero} - ${agendamento.bairro}, ${agendamento.cidade}/${agendamento.estado}`;
 
+    const equipesLista = Array.isArray(agendamento.equipe)
+      ? agendamento.equipe
+      : agendamento.equipe
+        ? [agendamento.equipe]
+        : [];
+
+    const nomesEquipes = equipesLista
+      .map((e) => e?.nomeEquipe)
+      .filter((nome): nome is string => Boolean(nome?.trim()));
+
     const equipeExibida =
-      nomeEquipe ||
-      (agendamento.equipe && agendamento.equipe.length > 0
-        ? agendamento.equipe.map((e) => e.nomeEquipe).join(", ")
-        : "Sem equipe");
+      nomeEquipe?.trim() ||
+      (nomesEquipes.length > 0 ? nomesEquipes.join(", ") : "Sem equipe");
 
     return {
       classeStatus,
