@@ -1,29 +1,29 @@
 import Image from "next/image";
-import { Membro } from "@/api/equipe";
+import { Funcionario } from "@/api/funcionario";
 
 interface IntegranteProps {
-  membro: Membro;
-  onSelect?: (membro: Membro) => void;
+  funcionario: Funcionario;
+  onSelect?: (funcionario: Funcionario) => void;
 }
 
-export default function Integrante({ membro, onSelect }: IntegranteProps) {
+export default function Integrante({ funcionario, onSelect }: IntegranteProps) {
   return (
     <div
       className="flex between center"
-      onClick={() => onSelect?.(membro)}
+      onClick={() => onSelect?.(funcionario)}
       style={onSelect ? { cursor: "pointer" } : undefined}
     >
       <div className="flex center gap-2">
         <Image
-          src={membro.foto || "/img/user.png"}
+          src={funcionario.foto || "/img/user.png"}
           width={40}
           height={40}
-          alt={`Foto de ${membro.nome}`}
+          alt={`Foto de ${funcionario.nome}`}
           className="user"
         />
         <div>
-          <h5>{membro.nome}</h5>
-          <p>{membro.email}</p>
+          <h5>{funcionario.nome}</h5>
+          <p>{funcionario.email}</p>
         </div>
       </div>
     </div>

@@ -19,6 +19,7 @@ export function useLog(equipeId: number) {
       return;
     }
 
+    const idEquipe = equipeId;
     let cancelado = false;
 
     async function buscar() {

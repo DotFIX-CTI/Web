@@ -26,7 +26,7 @@ export default function DetalheAgendamento() {
 
   // 2. Busca os dados da equipe vinculada assim que o agendamento carregar
   const { equipe, carregando: carregandoEq } = useEquipe(
-    dadosAgendamento?.equipeId,
+    dadosAgendamento?.equipeId ?? 0,
   );
 
   if (carregandoAg) {
