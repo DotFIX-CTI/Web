@@ -57,7 +57,7 @@ export default function Dashboard() {
 
     return agendamentos
       .filter((item) => {
-        if (!item || item.statusAgendamentoID === 4) return false;
+        if (!item) return false;
 
         const { dataAgendamento, equipeExibida } = obterDadosAgendamento(
           item,

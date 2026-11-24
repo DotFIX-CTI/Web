@@ -28,7 +28,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        {/* <script
+        <script
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -41,7 +41,7 @@ export default function RootLayout({
               })();
             `,
           }}
-        /> */}
+        />
       </head>
       <body className="min-h-full flex flex-col">
         {children}

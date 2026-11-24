@@ -58,9 +58,14 @@ export default function Equipes() {
             onChange={(e) => setTermoPesquisa(e.target.value)}
             placeholder="Pesquisar equipes ou funcionários..."
           />
-          <Button icon="add" link="/adicionarEquipe">
-            Equipe
-          </Button>
+          <div className="flex gap-2">
+            <Button icon="add" link="/adicionarEquipe">
+              Equipe
+            </Button>
+            <Button icon="add" link="/adicionarFuncionario">
+              Funcionário
+            </Button>
+          </div>
         </div>
       </div>
       {carregando ? (
