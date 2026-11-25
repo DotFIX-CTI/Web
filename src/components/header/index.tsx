@@ -6,16 +6,49 @@ import Icon from "@/utils/icon";
 import Logo from "@/utils/logo";
 import Button from "@/components/button";
 import { useAuth } from "@/hooks/useAuth";
+import { api } from "@/api/api";
 import { useEffect, useState } from "react";
 import style from "./header.module.css";
 
 export default function Header() {
   const { funcionario, logout, loading } = useAuth();
   const [mounted, setMounted] = useState(false);
+  const [imgSrc, setImgSrc] = useState<string>("");
 
   useEffect(() => {
     setMounted(true);
   }, []);
+
+  useEffect(() => {
+    const id = funcionario?.funcionarioID;
+
+    if (!mounted || !id) {
+      setImgSrc("");
+      return;
+    }
+
+    let ativa = true;
+    let objectUrl: string | null = null;
+
+    api
+      .get<Blob>(`Funcionario/imagem/${id}`, { responseType: "blob" })
+      .then((res) => {
+        if (!ativa) return;
+        objectUrl = URL.createObjectURL(res.data);
+        setImgSrc(objectUrl);
+      })
+      .catch(() => {
+        if (!ativa) return;
+        setImgSrc("");
+      });
+
+    return () => {
+      ativa = false;
+      if (objectUrl) {
+        URL.revokeObjectURL(objectUrl);
+      }
+    };
+  }, [mounted, funcionario?.funcionarioID]);
 
   const nomeExibido =
     mounted && funcionario?.nome ? funcionario.nome : "Carregando...";
@@ -27,10 +60,18 @@ export default function Header() {
       <Link href="/dashboard" className={`${style.logo}`}>
         <Logo height={"60%"} color="var(--white)" />
       </Link>
-      <div className="flex gap-12">
+      <div className="center gap-12">
         <div className="center gap-2">
-          {funcionario?.imgUrl ? (
-            <Image src="/img/user.png" alt={funcionario.nome}></Image>
+          {imgSrc ? (
+            <Image
+              src={imgSrc}
+              alt={funcionario?.nome || "Avatar do funcionário"}
+              width={48}
+              height={48}
+              unoptimized
+              onError={() => setImgSrc("")}
+              className="user"
+            />
           ) : (
             <Icon name="user" size={32} />
           )}

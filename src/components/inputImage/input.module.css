@@ -1,3 +1,16 @@
+.container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--margin-sm, 4px);
+}
+
+.wrapper {
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+
 .input {
   border: dashed 3px color-mix(in srgb, var(--surface), var(--primary-surface));
   width: 120px;
@@ -7,4 +20,120 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  background-color: var(--input-bg);
+  transition:
+    border-color 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease,
+    transform 0.1s ease;
+  user-select: none;
+}
+
+.input:hover:not(.disabled) {
+  border-color: var(--primary);
+  color: var(--primary);
+  background-color: color-mix(in srgb, var(--surface) 40%, transparent);
+}
+
+.input:focus-visible {
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
+}
+
+.dragging {
+  border-color: var(--primary) !important;
+  color: var(--primary) !important;
+  background-color: color-mix(in srgb, var(--primary) 15%, transparent) !important;
+  transform: scale(1.02);
+}
+
+.disabled {
+  cursor: not-allowed !important;
+  opacity: 0.6;
+}
+
+.error {
+  border-color: var(--error) !important;
+  color: var(--error) !important;
+}
+
+.preview {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-radius: calc(var(--border-sm) - 2px);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  opacity: 0;
+  gap: 4px;
+  transition: opacity 0.2s ease;
+  backdrop-filter: blur(2px);
+}
+
+.input:hover:not(.disabled) .overlay {
+  opacity: 1;
+}
+
+.overlayText {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+}
+
+.removeBtn {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background-color: var(--error);
+  color: #ffffff;
+  border: 2px solid var(--background-card);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
+  padding: 0;
+}
+
+.removeBtn:hover {
+  transform: scale(1.15);
+  background-color: color-mix(in srgb, var(--error) 80%, black);
+}
+
+.fileInput {
+  display: none;
+}
+
+.helperText {
+  font-size: 0.75rem;
+  color: var(--off);
+  margin-top: 2px;
+}
+
+.errorMessage {
+  color: var(--error);
+  font-size: 0.75rem;
+  margin-top: 2px;
 }
