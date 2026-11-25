@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import { Agendamento, listarAgendamentoPorId } from "@/api/agendamento";
 import { Erro } from "@/api/domainException";
+import { Agendamento, listarAgendamentoPorId } from "@/api/agendamento";
 
 export function useAgendamento(id: number) {
   const idValido = Boolean(id && !Number.isNaN(id));

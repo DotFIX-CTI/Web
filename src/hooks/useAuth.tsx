@@ -68,7 +68,6 @@ export function useAuth() {
       const mensagem =
         error instanceof Error ? error.message : "Erro ao realizar login.";
       Erro("Erro ao realizar login.", error);
-      setErro(mensagem);
     } finally {
       setLoading(false);
     }

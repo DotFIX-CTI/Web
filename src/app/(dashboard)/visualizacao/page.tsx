@@ -2,12 +2,12 @@
 
 import Main from "@/utils/main";
 import Card from "@/components/cards/card";
-import style from "./visualizacao.module.css";
 import { useMemo } from "react";
 import { Agendamento } from "@/api/agendamento";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { obterDadosAgendamento } from "@/utils/agendamento";
 import { useVisualizacao } from "@/context/visualizacaoContext";
+import style from "./visualizacao.module.css";
 
 function normalizarTexto(texto: string): string {
   return texto

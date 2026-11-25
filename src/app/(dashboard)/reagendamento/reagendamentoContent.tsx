@@ -155,7 +155,7 @@ export default function ReagendamentoContent({
                   equipeAtiva.funcionarios.map((funcionario) => (
                     <div key={funcionario.funcionarioID} className="flex gap-2">
                       <Image
-                        src={funcionario.foto || "/img/user.png"}
+                        src={funcionario.imgUrl || "/img/user.png"}
                         width={40}
                         height={40}
                         alt={`Foto de ${funcionario.nome}`}

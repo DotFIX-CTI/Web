@@ -8,11 +8,11 @@ import Select from "@/components/select";
 import Integrante from "@/utils/integrante";
 import Pesquisa from "@/components/pesquisa";
 import InputImage from "@/components/inputImage";
+import { Equipe } from "@/api/equipe";
+import { useState, useMemo } from "react";
 import { useEquipe } from "@/hooks/useEquipe";
 import { useEquipes } from "@/hooks/useEquipes";
-import { Equipe } from "@/api/equipe"; // ajuste o caminho se necessário
 import { Funcionario } from "@/api/funcionario";
-import { useState, useMemo } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toastErro, toastInfo, toastSucesso } from "@/utils/toast";
 
@@ -212,7 +212,7 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
                   <div className="flex between center gap-2">
                     <div className="flex center gap-2">
                       <Image
-                        src={funcionario1.foto || "/img/user.png"}
+                        src={funcionario1.imgUrl || "/img/user.png"}
                         width={40}
                         height={40}
                         alt={funcionario1.nome}
@@ -248,7 +248,7 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
                   <div className="flex between center gap-2">
                     <div className="flex center gap-2">
                       <Image
-                        src={funcionario2.foto || "/img/user.png"}
+                        src={funcionario2.imgUrl || "/img/user.png"}
                         width={40}
                         height={40}
                         alt={funcionario2.nome}

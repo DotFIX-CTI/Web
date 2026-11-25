@@ -1,5 +1,5 @@
-import { Slide, toast, ToastOptions } from "react-toastify";
 import Icon from "./icon";
+import { Slide, toast, ToastOptions } from "react-toastify";
 
 const defaultOptions: ToastOptions = {
   position: "bottom-right",

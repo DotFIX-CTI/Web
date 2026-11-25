@@ -1,8 +1,8 @@
-import style from "./card.module.css";
+import Link from "next/link";
+import Image from "next/image";
 import Icon from "@/utils/icon";
 import { Equipe } from "@/api/equipe";
-import Image from "next/image";
-import Link from "next/link";
+import style from "./card.module.css";
 
 const STATUS = {
   default: "default",
@@ -75,7 +75,7 @@ export default function CardEquipe({ equipe }: CardEquipeProps) {
         {equipe.funcionarios?.map((funcionario) => (
           <div key={funcionario.funcionarioID} className="flex gap-2">
             <Image
-              src={funcionario.foto || "/img/user.png"}
+              src={funcionario.imgUrl || "/img/user.png"}
               width={32}
               height={32}
               alt={`Foto de ${funcionario.nome}`}

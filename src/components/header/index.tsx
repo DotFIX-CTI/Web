@@ -1,14 +1,26 @@
 "use client";
 
 import Link from "next/link";
-import Button from "../button";
+import Image from "next/image";
 import Icon from "@/utils/icon";
 import Logo from "@/utils/logo";
-import style from "./header.module.css";
+import Button from "@/components/button";
 import { useAuth } from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import style from "./header.module.css";
 
 export default function Header() {
   const { funcionario, logout, loading } = useAuth();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const nomeExibido =
+    mounted && funcionario?.nome ? funcionario.nome : "Carregando...";
+  const emailExibido =
+    mounted && funcionario?.email ? funcionario.email : "carregando@email.com";
 
   return (
     <header className={`${style.header}`}>
@@ -17,14 +29,14 @@ export default function Header() {
       </Link>
       <div className="flex gap-12">
         <div className="center gap-2">
-          <Icon name="user" size={32} />
+          {funcionario?.imgUrl ? (
+            <Image src="/img/user.png" alt={funcionario.nome}></Image>
+          ) : (
+            <Icon name="user" size={32} />
+          )}
           <div className="flex_c">
-            <h4 className={`${style.user}`}>
-              {funcionario ? funcionario.nome : "Carregando..."}
-            </h4>
-            <p className={`${style.email}`}>
-              {funcionario ? funcionario.email : "carregando@email.com"}
-            </p>
+            <h4 className={`${style.user}`}>{nomeExibido}</h4>
+            <p className={`${style.email}`}>{emailExibido}</p>
           </div>
         </div>
 

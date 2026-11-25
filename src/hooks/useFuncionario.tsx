@@ -1,12 +1,14 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+import { Erro } from "@/api/domainException";
+import { toastSucesso } from "@/utils/toast";
 import { useState, FormEvent } from "react";
 import {
   Funcionario,
   cadastrarFuncionario,
   atualizarFuncionario,
 } from "@/api/funcionario";
-import { Erro } from "@/api/domainException";
 
 interface UseFuncionarioOptions {
   funcionario?: Funcionario | null;
@@ -17,6 +19,8 @@ export function useFuncionario({
   funcionario = null,
   onSucesso,
 }: UseFuncionarioOptions = {}) {
+  const router = useRouter();
+
   const isEdicao = Boolean(funcionario?.funcionarioID);
 
   const [nome, setNome] = useState(() => funcionario?.nome ?? "");
@@ -31,12 +35,12 @@ export function useFuncionario({
     setErro(null);
 
     if (!nome.trim() || !email.trim()) {
-      Erro("Preencha pelo menos o nome e o e-mail.");
+      Erro("Preencha pelo menos o nome e o e-mail.", undefined);
       return;
     }
 
     if (!isEdicao && !senha.trim()) {
-      Erro("Informe uma senha para o novo funcionário.");
+      Erro("Informe uma senha para o novo funcionário.", undefined);
       return;
     }
 
@@ -58,11 +62,15 @@ export function useFuncionario({
               funcionario.funcionarioID,
               payload as Partial<Funcionario>,
             )
-          : await cadastrarFuncionario(
-              payload as Omit<Funcionario, "funcionarioID">,
-            );
+          : await cadastrarFuncionario({
+              nome: nome.trim(),
+              email: email.trim(),
+              senha,
+            });
 
       onSucesso?.(resultado);
+      toastSucesso("Funcionário cadastrado com sucesso!");
+      router.push("/dashboard");
     } catch (error: unknown) {
       Erro("Não foi possível salvar o funcionário.", error);
     } finally {

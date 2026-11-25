@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef, useEffect, useMemo } from "react";
 import Icon, { IconName } from "@/utils/icon";
+import { useState, useRef, useEffect, useMemo } from "react";
 import style from "./select.module.css";
 
 export interface Option {

@@ -4,7 +4,6 @@ import Image from "next/image";
 import Main from "@/utils/main";
 import Input from "@/components/input";
 import Button from "@/components/button";
-import style from "./agendamento.module.css";
 import Calendario from "@/components/calendario";
 import Select, { Option } from "@/components/select";
 import CardSugestao from "@/components/cards/cardSugestao";
@@ -18,10 +17,11 @@ import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { obterDadosAgendamento } from "@/utils/agendamento";
 import { useSearchParams, useRouter } from "next/navigation";
 import {
-  Agendamento as AgendamentoType, // ajuste o nome/caminho se necessário
+  Agendamento as AgendamentoType,
   AtualizarAgendamentoPayload,
   CriarAgendamentoPayload,
 } from "@/api/agendamento";
+import style from "./agendamento.module.css";
 
 const opcoesEstados: Option[] = Object.entries(estado).map(([sigla, nome]) => ({
   label: nome,
@@ -376,7 +376,7 @@ function FormularioAgendamento({
                 {equipeAtual?.funcionarios?.map((funcionario) => (
                   <div key={funcionario.funcionarioID} className="flex gap-2">
                     <Image
-                      src={funcionario.foto || "/img/user.png"}
+                      src={funcionario.imgUrl || "/img/user.png"}
                       width={32}
                       height={32}
                       alt={funcionario.nome}

@@ -1,9 +1,9 @@
 import Link from "next/link";
 import Icon from "@/utils/icon";
-import style from "./card.module.css";
 import { Agendamento } from "@/api/agendamento";
 import { formatarData, formatarHora } from "@/utils/formatarData";
 import { useDadosAgendamento } from "@/hooks/useDadosAgendamentos";
+import style from "./card.module.css";
 
 interface CardAgendamentoProps {
   agendamento: Agendamento;

@@ -15,7 +15,7 @@ export default function Integrante({ funcionario, onSelect }: IntegranteProps) {
     >
       <div className="flex center gap-2">
         <Image
-          src={funcionario.foto || "/img/user.png"}
+          src={funcionario.imgUrl || "/img/user.png"}
           width={40}
           height={40}
           alt={`Foto de ${funcionario.nome}`}

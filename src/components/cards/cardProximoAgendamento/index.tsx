@@ -1,8 +1,8 @@
 import Link from "next/link";
-import style from "./card.module.css";
 import Button from "@/components/button";
 import CardData from "@/components/cards/cardData";
 import { Agendamento } from "@/api/agendamento";
+import style from "./card.module.css";
 
 interface CardProximoAgendamentoProps {
   agendamento: Agendamento;

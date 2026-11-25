@@ -118,7 +118,6 @@ export default function DetalheEquipePage() {
               </Button>
               <Button
                 icon="edit"
-                variant="attention"
                 link={`/adicionarEquipe?id=${equipe.equipeID}`}
               >
                 Editar

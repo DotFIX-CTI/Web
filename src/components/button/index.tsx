@@ -1,3 +1,4 @@
+import Link from "next/link";
 import Icon, { IconName } from "@/utils/icon";
 import {
   ReactNode,
@@ -6,7 +7,6 @@ import {
   CSSProperties,
 } from "react";
 import style from "./button.module.css";
-import Link from "next/link";
 
 export type ButtonVariant = "default" | "secondary" | "attention" | "logout";
 

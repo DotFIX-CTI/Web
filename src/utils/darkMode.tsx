@@ -1,7 +1,7 @@
 "use client";
 
-import { useSyncExternalStore } from "react";
 import Icon from "./icon";
+import { useSyncExternalStore } from "react";
 
 type Theme = "light" | "dark";
 

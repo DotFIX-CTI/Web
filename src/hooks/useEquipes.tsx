@@ -1,3 +1,4 @@
+import { Erro } from "@/api/domainException";
 import { useEffect, useState, useCallback } from "react";
 import {
   Equipe,
@@ -6,7 +7,6 @@ import {
   atualizarEquipe,
   deletarEquipe,
 } from "@/api/equipe";
-import { Erro } from "@/api/domainException";
 
 export function useEquipes() {
   const [equipes, setEquipes] = useState<Equipe[]>([]);

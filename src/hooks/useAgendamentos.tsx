@@ -1,3 +1,4 @@
+import { Erro } from "@/api/domainException";
 import { useState, useEffect, useCallback } from "react";
 import {
   Agendamento,
@@ -8,7 +9,6 @@ import {
   atualizarAgendamento,
   deletarAgendamento,
 } from "@/api/agendamento";
-import { Erro } from "@/api/domainException";
 
 export function useAgendamentos() {
   const [agendamentos, setAgendamentos] = useState<Agendamento[]>([]);

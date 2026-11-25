@@ -1,10 +1,10 @@
 "use client";
 
 import Icon from "@/utils/icon";
-import { Agendamento } from "@/api/agendamento";
-import { Equipe } from "@/api/equipe";
-import { resolverStatusAgendamento } from "@/hooks/useDadosAgendamentos";
 import dynamic from "next/dynamic";
+import { Equipe } from "@/api/equipe";
+import { Agendamento } from "@/api/agendamento";
+import { resolverStatusAgendamento } from "@/hooks/useDadosAgendamentos";
 
 const MapaDinamico = dynamic(() => import("@/utils/mapa"), {
   ssr: false,

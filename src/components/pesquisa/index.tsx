@@ -1,5 +1,5 @@
+import Input from "@/components/input";
 import style from "./pesquisa.module.css";
-import Input from "../input";
 
 type PesquisaProps = React.InputHTMLAttributes<HTMLInputElement>;
 

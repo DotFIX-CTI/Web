@@ -5,11 +5,11 @@ import Button from "@/components/button";
 import Pesquisa from "@/components/pesquisa";
 import Calendario from "@/components/calendario";
 import CardProximoAgendamento from "@/components/cards/cardProximoAgendamento";
+import { toastErro } from "@/utils/toast";
 import { useState, useMemo } from "react";
 import { parseDataLocal } from "@/utils/formatarData";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { obterDadosAgendamento } from "@/utils/agendamento";
-import { toastErro } from "@/utils/toast";
 
 export default function Dashboard() {
   const { agendamentos = [], carregando, erro, recarregar } = useAgendamentos();

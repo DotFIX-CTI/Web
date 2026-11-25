@@ -1,9 +1,9 @@
 import { Agendamento } from "@/api/agendamento";
+import { formatarData, formatarHora } from "@/utils/formatarData";
 import {
   resolverStatusAgendamento,
   StatusClasse,
 } from "@/hooks/useDadosAgendamentos";
-import { formatarData, formatarHora } from "@/utils/formatarData";
 
 export interface DadosFormatadosAgendamento {
   classeStatus: StatusClasse;

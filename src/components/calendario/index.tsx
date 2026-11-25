@@ -1,16 +1,16 @@
 "use client";
 
 import Icon from "@/utils/icon";
-import style from "./calendario.module.css";
 import { useState } from "react";
 import { Agendamento } from "@/api/agendamento";
 import { obterDadosAgendamento } from "@/utils/agendamento";
+import { resolverStatusAgendamento } from "@/hooks/useDadosAgendamentos";
 import {
   obterDiasDoMesPorSemana,
   Semana,
   StatusType,
 } from "@/utils/calendario";
-import { resolverStatusAgendamento } from "@/hooks/useDadosAgendamentos";
+import style from "./calendario.module.css";
 
 const corPorStatus: Record<string, string> = {
   default: "var(--success)",
