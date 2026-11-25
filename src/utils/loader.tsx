@@ -13,7 +13,7 @@ const CONFIG = {
   opacidadeMax: 0.075, // Opacidade máxima no pico do brilho
 };
 
-export default function Loader(className?: string) {
+export default function Loader({ className }: { className?: string }) {
   return (
     <div className={className} style={{ width: "100%", height: "100%" }}>
       {Array.from({ length: CONFIG.totalParticulas }).map((_, index) => {

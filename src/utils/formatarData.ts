@@ -1,4 +1,4 @@
-function parseDataLocal(dataObj: string): Date {
+export function parseDataLocal(dataObj: string): Date {
   if (!dataObj) return new Date(NaN);
 
   if (/[zZ]|[+-]\d{2}:?\d{2}$/.test(dataObj)) {

@@ -22,7 +22,7 @@ export function useBuscarCep() {
     if (cleanCep.length !== 8) return;
 
     setLoadingCep(true);
-    setErro(null);
+    setErro("");
 
     try {
       // Axios
@@ -32,7 +32,7 @@ export function useBuscarCep() {
       const data = response.data;
 
       if (data.erro) {
-        Erro("CEP não encontrado.");
+        Erro("CEP não encontrado.", undefined, setErro);
         return;
       }
 
@@ -45,7 +45,7 @@ export function useBuscarCep() {
         complemento: data.complemento || prev.complemento,
       }));
     } catch (error: unknown) {
-      Erro("Erro ao consultar o CEP.", error);
+      Erro("Erro ao consultar o CEP.", error, setErro);
     } finally {
       setLoadingCep(false);
     }
@@ -59,7 +59,7 @@ export function useBuscarCep() {
       valor = valor.replace(/^(\d{5})(\d)/, "$1-$2");
     }
     setCep(valor);
-    if (erro) setErro(null);
+    if (erro) setErro("");
 
     if (valor.replace(/\D/g, "").length === 8) {
       buscarCep(valor);

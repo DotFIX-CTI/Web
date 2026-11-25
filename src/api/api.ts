@@ -33,7 +33,7 @@ api.interceptors.response.use(
   (error) => {
     if (error.response?.status === 401 && typeof window !== "undefined") {
       secureLocalStorage.removeItem("Token");
-      secureLocalStorage.removeItem("Usuario");
+      secureLocalStorage.removeItem("Funcionario");
     }
     return Promise.reject(error);
   },

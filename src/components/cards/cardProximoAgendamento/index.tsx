@@ -3,7 +3,6 @@ import style from "./card.module.css";
 import Button from "@/components/button";
 import CardData from "@/components/cards/cardData";
 import { Agendamento } from "@/api/agendamento";
-import { useDadosAgendamento } from "@/hooks/useDadosAgendamentos";
 
 interface CardProximoAgendamentoProps {
   agendamento: Agendamento;
@@ -14,7 +13,6 @@ export default function CardProximoAgendamento({
   agendamento,
   nomeEquipe,
 }: CardProximoAgendamentoProps) {
-  useDadosAgendamento(agendamento, nomeEquipe);
   const temEmail = Boolean(agendamento.emailCliente);
   const temTelefone = Boolean(agendamento.telefoneCliente);
 

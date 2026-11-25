@@ -34,23 +34,8 @@ export const Erro = (
   error?: unknown,
   setErro?: (mensagem: string) => void,
 ): string => {
-  let mensagem = fallback;
-
-  if (axios.isAxiosError(error)) {
-    const data = error.response?.data;
-
-    if (typeof data === "string" && data.trim()) {
-      mensagem = data;
-    } else if (data?.message) {
-      mensagem = String(data.message);
-    } else if (data?.title) {
-      mensagem = String(data.title);
-    }
-  } else if (error instanceof Error && error.message.trim()) {
-    mensagem = error.message;
-  } else if (typeof error === "string" && error.trim()) {
-    mensagem = error;
-  }
+  const mensagem =
+    error !== undefined ? DomainException(error, fallback) : fallback;
 
   toastErro(mensagem);
   setErro?.(mensagem);

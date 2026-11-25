@@ -169,7 +169,7 @@ export default function Login() {
         )}
       </section>
 
-      {Loader("login_anim")}
+      <Loader className="login_anim" />
     </Main>
   );
 }

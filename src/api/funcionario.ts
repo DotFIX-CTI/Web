@@ -9,13 +9,6 @@ export interface Funcionario {
   foto?: string; // Não presente na API ainda
 }
 
-export const funcionarioTeste: Funcionario = {
-  funcionarioID: 1,
-  nome: "Gustavo",
-  email: "gustavoanderson@gmail.com",
-  senha: "123456",
-};
-
 // POST
 export async function cadastrarFuncionario(
   dados: Omit<Funcionario, "funcionarioID">,

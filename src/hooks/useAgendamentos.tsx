@@ -64,6 +64,7 @@ export function useAgendamentos() {
       return criado;
     } catch (error: unknown) {
       Erro("Erro ao cadastrar agendamento.", error);
+      throw error;
     }
   };
 
@@ -82,6 +83,7 @@ export function useAgendamentos() {
       return atualizado;
     } catch (error: unknown) {
       Erro("Erro ao atualizar agendamento.", error);
+      throw error;
     }
   };
 
@@ -94,6 +96,7 @@ export function useAgendamentos() {
       );
     } catch (error: unknown) {
       Erro("Erro ao remover agendamento.", error);
+      throw error;
     }
   };
 

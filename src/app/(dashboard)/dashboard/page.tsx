@@ -6,29 +6,10 @@ import Pesquisa from "@/components/pesquisa";
 import Calendario from "@/components/calendario";
 import CardProximoAgendamento from "@/components/cards/cardProximoAgendamento";
 import { useState, useMemo } from "react";
+import { parseDataLocal } from "@/utils/formatarData";
 import { useAgendamentos } from "@/hooks/useAgendamentos";
 import { obterDadosAgendamento } from "@/utils/agendamento";
-
-function parseDataLocal(dataStr: string): Date {
-  if (!dataStr) return new Date(NaN);
-
-  if (/[zZ]|[+-]\d{2}:?\d{2}$/.test(dataStr)) {
-    return new Date(dataStr);
-  }
-
-  const [dataParte, horaParte = "00:00:00"] = dataStr.split("T");
-  const [ano, mes, dia] = dataParte.split("-").map(Number);
-  const [hora, minuto, segundo = 0] = horaParte.split(":").map(Number);
-
-  return new Date(
-    ano,
-    (mes || 1) - 1,
-    dia || 1,
-    hora || 0,
-    minuto || 0,
-    segundo || 0,
-  );
-}
+import { toastErro } from "@/utils/toast";
 
 export default function Dashboard() {
   const { agendamentos = [], carregando, erro, recarregar } = useAgendamentos();
@@ -49,7 +30,7 @@ export default function Dashboard() {
         const dataItem = parseDataLocal(dataAgendamento);
 
         if (Number.isNaN(dataItem.getTime())) {
-          console.warn("Agendamento com data inválida ignorado:", item);
+          toastErro(`Agendamento com data inválida ignorado: ${item}`);
           return false;
         }
 

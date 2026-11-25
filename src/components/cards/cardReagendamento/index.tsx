@@ -1,9 +1,6 @@
 import Icon from "@/utils/icon";
 import { Agendamento } from "@/api/agendamento";
-import {
-  resolverStatusAgendamento,
-  useDadosAgendamento,
-} from "@/hooks/useDadosAgendamentos";
+import { useDadosAgendamento } from "@/hooks/useDadosAgendamentos";
 
 interface CardReagendamentoProps {
   agendamento: Agendamento;
@@ -19,7 +16,7 @@ export default function CardReagendamento({
   onClick,
 }: CardReagendamentoProps) {
   const dadosFormatados = useDadosAgendamento(agendamento, nomeEquipe);
-  const classeStatus = resolverStatusAgendamento(agendamento);
+  const classeStatus = dadosFormatados.classeStatus;
 
   const titulo = agendamento?.nomeServico || "Link dedicado 10gbps";
   const equipe =

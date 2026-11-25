@@ -118,15 +118,7 @@ export default function ReagendamentoContent({
     );
   }
 
-  const mapaStatus: Record<number, string> = {
-    1: "confirmado",
-    2: "pendente",
-    3: "cancelado",
-  };
-
-  const classeStatus = agendamentoAtivo
-    ? mapaStatus[Number(agendamentoAtivo.statusAgendamento)] || "cancelado"
-    : "cancelado";
+  const classeStatus = dadosAtivos?.classeStatus ?? "cancelado";
 
   return (
     <Main>
