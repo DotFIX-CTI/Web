@@ -8,7 +8,7 @@ import style from "./header.module.css";
 import { useAuth } from "@/hooks/useAuth";
 
 export default function Header() {
-  const { usuario, logout, loading } = useAuth();
+  const { funcionario, logout, loading } = useAuth();
 
   return (
     <header className={`${style.header}`}>
@@ -20,10 +20,10 @@ export default function Header() {
           <Icon name="user" size={32} />
           <div className="flex_c">
             <h4 className={`${style.user}`}>
-              {usuario ? usuario.nome : "Carregando..."}
+              {funcionario ? funcionario.nome : "Carregando..."}
             </h4>
             <p className={`${style.email}`}>
-              {usuario ? usuario.email : "carregando@email.com"}
+              {funcionario ? funcionario.email : "carregando@email.com"}
             </p>
           </div>
         </div>
