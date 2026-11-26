@@ -1,64 +1,9 @@
 import Link from "next/link";
-import Image from "next/image";
 import Icon from "@/utils/icon";
+import AvatarFuncionario from "@/utils/avatarFuncionario";
 import { Equipe } from "@/api/equipe";
+import { resolverClasseStatusEquipe } from "@/utils/statusEquipe";
 import style from "./card.module.css";
-
-const STATUS = {
-  default: "default",
-  pendente: "pendente",
-  atrasado: "atrasado",
-  cancelado: "cancelado",
-} as const;
-
-type ClasseStatusEquipe = (typeof STATUS)[keyof typeof STATUS];
-
-const MAPA_STATUS_EQUIPE_POR_ID: Record<number, ClasseStatusEquipe> = {
-  1: STATUS.default,
-  2: STATUS.pendente,
-  3: STATUS.atrasado,
-  4: STATUS.cancelado,
-};
-
-const MAPA_STATUS_EQUIPE_POR_NOME: Record<string, ClasseStatusEquipe> = {
-  ativo: STATUS.default,
-  ativa: STATUS.default,
-  disponivel: STATUS.default,
-  disponível: STATUS.default,
-  pendente: STATUS.pendente,
-  atrasado: STATUS.atrasado,
-  inativo: STATUS.cancelado,
-  inativa: STATUS.cancelado,
-  cancelado: STATUS.cancelado,
-};
-
-function resolverClasseStatusEquipe(equipe: Equipe): ClasseStatusEquipe {
-  const eqAny = equipe as Equipe & {
-    statusEquipeID?: number;
-    nomeStatus?: string;
-    statusEquipe?: {
-      statusEquipeID?: number;
-      nomeStatus?: string;
-    } | null;
-  };
-
-  const statusId = eqAny.statusEquipe?.statusEquipeID ?? eqAny.statusEquipeID;
-  const nomeNormalizado = (
-    eqAny.statusEquipe?.nomeStatus ??
-    eqAny.nomeStatus ??
-    ""
-  )
-    .trim()
-    .toLowerCase();
-
-  return (
-    (statusId !== undefined
-      ? MAPA_STATUS_EQUIPE_POR_ID[statusId]
-      : undefined) ??
-    MAPA_STATUS_EQUIPE_POR_NOME[nomeNormalizado] ??
-    STATUS.default
-  );
-}
 
 interface CardEquipeProps {
   equipe: Equipe;
@@ -66,23 +11,31 @@ interface CardEquipeProps {
 
 export default function CardEquipe({ equipe }: CardEquipeProps) {
   const classeStatus = resolverClasseStatusEquipe(equipe);
+  const funcionarios = equipe.funcionarios ?? [];
 
   return (
     <article className={`card between gap-4 ${classeStatus}`}>
       <h2>{equipe.nomeEquipe}</h2>
 
       <div className="flex_c gap-4">
-        {equipe.funcionarios?.map((funcionario) => (
+        {funcionarios.map((funcionario) => (
           <div key={funcionario.funcionarioID} className="flex gap-2">
-            <Image
-              src={funcionario.imgUrl || "/img/user.png"}
-              width={32}
-              height={32}
-              alt={`Foto de ${funcionario.nome}`}
+            <AvatarFuncionario
+              funcionarioID={funcionario.funcionarioID}
+              nome={funcionario.nome}
+              size={32}
               className="user"
             />
-            <div>
-              <h5>{funcionario.nome}</h5>
+            <div className="flex_c">
+              <div className="center gap-1">
+                <h5>{funcionario.nome}</h5>
+                <Link
+                  href={`/adicionarFuncionario?id=${funcionario.funcionarioID}`}
+                  className={`center ${classeStatus}_icon`}
+                >
+                  <Icon name="edit" size={16} />
+                </Link>
+              </div>
               <p>{funcionario.email}</p>
             </div>
           </div>

@@ -220,22 +220,28 @@
   flex-direction: column;
 }
 
-.grid {
+.grid,
+.grid2,
+.grid3,
+.grid4 {
   width: 100%;
   display: grid;
+}
+
+.grid {
   grid-template-columns: 1fr 1fr;
 }
 
 .grid2 {
-  width: 100%;
-  display: grid;
   grid-template-columns: 1.5fr 1fr;
 }
 
 .grid3 {
-  width: 100%;
-  display: grid;
   grid-template-columns: 1fr 1.5fr;
+}
+
+.grid4 {
+  grid-template-columns: 1fr 2fr;
 }
 
 .max_width {
@@ -654,7 +660,7 @@
   border-color: var(--status-color);
 
   & :is(h1, h2, h3, h4, h5) {
-    color: color-mix(in srgb, var(--status-color) 67%, var(--foreground));
+    color: color-mix(in srgb, var(--status-color) 65%, var(--foreground));
   }
 }
 
@@ -669,4 +675,11 @@
 }
 .cancelado_bg {
   background-color: var(--cancel);
+}
+
+.default_icon,
+.pendente_icon,
+.atrasado_icon,
+.cancelado_icon {
+  color: color-mix(in srgb, var(--status-color) 65%, var(--foreground));
 }

@@ -5,7 +5,6 @@ import Main from "@/utils/main";
 import Input from "@/components/input";
 import Button from "@/components/button";
 import Select from "@/components/select";
-import Integrante from "@/utils/integrante";
 import Pesquisa from "@/components/pesquisa";
 import InputImage from "@/components/inputImage";
 import { Equipe } from "@/api/equipe";
@@ -15,6 +14,7 @@ import { useEquipes } from "@/hooks/useEquipes";
 import { Funcionario } from "@/api/funcionario";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toastErro, toastInfo, toastSucesso } from "@/utils/toast";
+import AvatarFuncionario from "@/utils/avatarFuncionario";
 
 interface FormularioEquipeProps {
   idEdicao: number;
@@ -140,135 +140,101 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
   };
 
   return (
-    <section className="grid2 gap-8 max_width">
+    <section className="grid4 gap-8 max_width">
       <article className="card between max_height">
         <div className="flex_c gap-8">
           <h2>{idEdicao ? "Editar Equipe" : "Adicionar Equipe"}</h2>
-          <div className="grid gap-4">
-            <div className="flex_c gap-4">
-              <div className="center gap-4">
-                <div>
-                  <InputImage />
-                </div>
-                <div className="small_txt">
-                  <p>Observação:</p>
-                  <span>
-                    Caso não tenha imagem, apenas as iniciais do nome da sua
-                    equipe irão aparecer
-                  </span>
-                </div>
+          <div className="flex_c gap-4">
+            <div className="center gap-4">
+              <div>
+                <InputImage />
               </div>
-
-              <Input
-                label="Nome da Equipe"
-                placeholder="Gustavo"
-                icon="user"
-                value={nomeEquipe}
-                onChange={(e) => setNomeEquipe(e.target.value)}
-                required
-                errorMessage="Nome obrigatório"
-              />
-              <Input
-                label="Email"
-                placeholder="gustavo@gmail.com"
-                icon="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                errorMessage="Email obrigatório"
-              />
-              <Input
-                label="Senha de acesso"
-                placeholder="********"
-                icon="password"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-                required={!idEdicao}
-                errorMessage="Senha obrigatória"
-              />
-              <Input
-                label="Confirmar Senha"
-                placeholder="********"
-                icon="password"
-                value={confirmarSenha}
-                onChange={(e) => setConfirmarSenha(e.target.value)}
-                required={!idEdicao}
-                errorMessage="Senha incorreta"
-              />
+              <div className="small_txt">
+                <p>Observação:</p>
+                <span>
+                  Caso não tenha imagem, apenas as iniciais do nome da sua
+                  equipe irão aparecer
+                </span>
+              </div>
             </div>
 
-            <div className="flex_c gap-12">
-              <div className="flex_c gap-4">
-                <Select
-                  label="1º Funcionário"
-                  placeholder="Selecione o primeiro funcionário"
-                  options={opcoesFuncionarios}
-                  value={funcionario1Id}
-                  onChange={(valor: string) => setFuncionario1Id(valor)}
-                  required
-                  errorMessage="1º Funcionário obrigatório"
-                />
-                {funcionario1 && (
-                  <div className="flex between center gap-2">
-                    <div className="flex center gap-2">
-                      <Image
-                        src={funcionario1.imgUrl || "/img/user.png"}
-                        width={40}
-                        height={40}
-                        alt={funcionario1.nome}
-                        className="user"
-                      />
-                      <div>
-                        <h5>{funcionario1.nome}</h5>
-                        <p>{funcionario1.email}</p>
-                      </div>
-                    </div>
-
-                    <Button
-                      icon="cancel"
-                      variant="secondary"
-                      onClick={() => setFuncionario1Id("")}
-                      noText
+            <Input
+              label="Nome da Equipe"
+              placeholder="Gustavo"
+              icon="user"
+              value={nomeEquipe}
+              onChange={(e) => setNomeEquipe(e.target.value)}
+              required
+              errorMessage="Nome obrigatório"
+            />
+            <div className="flex_c gap-4">
+              <Select
+                label="1º Funcionário"
+                placeholder="Selecione o primeiro funcionário"
+                options={opcoesFuncionarios}
+                value={funcionario1Id}
+                onChange={(valor: string) => setFuncionario1Id(valor)}
+                required
+                errorMessage="1º Funcionário obrigatório"
+              />
+              {funcionario1 && (
+                <div className="flex between center gap-2">
+                  <div className="flex center gap-2">
+                    <AvatarFuncionario
+                      funcionarioID={funcionario1.funcionarioID}
+                      nome={funcionario1.nome}
+                      size={40}
+                      className="user"
                     />
-                  </div>
-                )}
-              </div>
-
-              <div className="flex_c gap-4">
-                <Select
-                  label="2º Funcionário"
-                  placeholder="Selecione o segundo funcionário"
-                  options={opcoesFuncionarios}
-                  value={funcionario2Id}
-                  onChange={(valor: string) => setFuncionario2Id(valor)}
-                  required
-                  errorMessage="2º Funcionário obrigatório"
-                />
-                {funcionario2 && (
-                  <div className="flex between center gap-2">
-                    <div className="flex center gap-2">
-                      <Image
-                        src={funcionario2.imgUrl || "/img/user.png"}
-                        width={40}
-                        height={40}
-                        alt={funcionario2.nome}
-                        className="user"
-                      />
-                      <div>
-                        <h5>{funcionario2.nome}</h5>
-                        <p>{funcionario2.email}</p>
-                      </div>
+                    <div>
+                      <h5>{funcionario1.nome}</h5>
+                      <p>{funcionario1.email}</p>
                     </div>
-
-                    <Button
-                      icon="cancel"
-                      variant="secondary"
-                      onClick={() => setFuncionario2Id("")}
-                      noText
-                    />
                   </div>
-                )}
-              </div>
+
+                  <Button
+                    icon="cancel"
+                    variant="secondary"
+                    onClick={() => setFuncionario1Id("")}
+                    noText
+                  />
+                </div>
+              )}
+            </div>
+
+            <div className="flex_c gap-4">
+              <Select
+                label="2º Funcionário"
+                placeholder="Selecione o segundo funcionário"
+                options={opcoesFuncionarios}
+                value={funcionario2Id}
+                onChange={(valor: string) => setFuncionario2Id(valor)}
+                required
+                errorMessage="2º Funcionário obrigatório"
+              />
+              {funcionario2 && (
+                <div className="flex between center gap-2">
+                  <div className="flex center gap-2">
+                    <AvatarFuncionario
+                      funcionarioID={funcionario2.funcionarioID}
+                      nome={funcionario2.nome}
+                      size={40}
+                      className="user"
+                    />
+                    <div>
+                      <h5>{funcionario2.nome}</h5>
+                      <p>{funcionario2.email}</p>
+                    </div>
+                  </div>
+
+                  <Button
+                    icon="cancel"
+                    variant="secondary"
+                    onClick={() => setFuncionario2Id("")}
+                    noText
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -301,20 +267,53 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
           {funcionariosFiltrados.length === 0 ? (
             <p>Nenhum funcionário encontrado.</p>
           ) : (
-            funcionariosFiltrados.map((funcionario) => (
-              <Integrante
-                key={funcionario.funcionarioID}
-                funcionario={funcionario}
-                onSelect={(selecionado) => {
-                  const idStr = String(selecionado.funcionarioID);
+            <div className="grid gap-8">
+              {funcionariosFiltrados.map((funcionario) => {
+                const idStr = String(funcionario.funcionarioID);
+                const jaSelecionado =
+                  funcionario1Id === idStr || funcionario2Id === idStr;
+
+                const handleSelecionar = () => {
                   if (!funcionario1Id) {
                     setFuncionario1Id(idStr);
-                  } else if (!funcionario2Id && funcionario1Id !== idStr) {
-                    setFuncionario2Id(idStr);
+                    return;
                   }
-                }}
-              />
-            ))
+
+                  if (!funcionario2Id && funcionario1Id !== idStr) {
+                    setFuncionario2Id(idStr);
+                    return;
+                  }
+
+                  if (!jaSelecionado) {
+                    toastInfo(
+                      "Os 2 funcionários da equipe já foram selecionados.",
+                    );
+                  }
+                };
+
+                return (
+                  <div
+                    key={funcionario.funcionarioID}
+                    className="flex between center gap-2"
+                    onClick={handleSelecionar}
+                    style={{ cursor: "pointer" }}
+                  >
+                    <div className="flex center gap-2">
+                      <AvatarFuncionario
+                        funcionarioID={funcionario.funcionarioID}
+                        nome={funcionario.nome}
+                        size={40}
+                        className="user"
+                      />
+                      <div>
+                        <h5>{funcionario.nome}</h5>
+                        <p>{funcionario.email}</p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           )}
         </div>
       </article>
