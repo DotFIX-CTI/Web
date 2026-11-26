@@ -101,14 +101,12 @@ export function useFuncionario({
 
     if (!nomeFormatado || !emailFormatado) {
       const msg = "Preencha pelo menos o nome e o e-mail.";
-      setErro(msg);
       Erro(msg, undefined);
       return;
     }
 
     if (!isEdicao && !senha.trim()) {
       const msg = "Informe uma senha para o novo funcionário.";
-      setErro(msg);
       Erro(msg, undefined);
       return;
     }
@@ -148,11 +146,6 @@ export function useFuncionario({
       onSucesso?.(resultado);
       router.push("/equipe");
     } catch (error: unknown) {
-      const msg =
-        error instanceof Error
-          ? error.message
-          : "Não foi possível salvar o funcionário.";
-      setErro(msg);
       Erro("Não foi possível salvar o funcionário.", error);
     } finally {
       setLoading(false);

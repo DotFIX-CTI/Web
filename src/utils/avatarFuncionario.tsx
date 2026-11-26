@@ -1,7 +1,7 @@
 "use client";
 
-import { api } from "@/api/api";
 import Image from "next/image";
+import { api } from "@/api/api";
 import { useEffect, useState } from "react";
 
 const FALLBACK_AVATAR = "/img/user.png";
@@ -17,18 +17,21 @@ interface AvatarFuncionarioProps {
 
 export default function AvatarFuncionario({
   funcionarioID,
+  imgUrl,
   nome,
   size = 32,
   className = "user",
 }: AvatarFuncionarioProps) {
   const [imgSrc, setImgSrc] = useState<string>(() => {
-    if (!funcionarioID) return FALLBACK_AVATAR;
-    return blobUrlCache.get(funcionarioID) ?? FALLBACK_AVATAR;
+    if (funcionarioID && blobUrlCache.has(funcionarioID)) {
+      return blobUrlCache.get(funcionarioID)!;
+    }
+    return imgUrl || FALLBACK_AVATAR;
   });
 
   useEffect(() => {
     if (!funcionarioID) {
-      setImgSrc(FALLBACK_AVATAR);
+      setImgSrc(imgUrl || FALLBACK_AVATAR);
       return;
     }
 
@@ -54,7 +57,7 @@ export default function AvatarFuncionario({
       })
       .catch(() => {
         if (!ativa) return;
-        setImgSrc(FALLBACK_AVATAR);
+        setImgSrc(imgUrl || FALLBACK_AVATAR);
       });
 
     return () => {
@@ -63,15 +66,16 @@ export default function AvatarFuncionario({
         URL.revokeObjectURL(localObjectUrl);
       }
     };
-  }, [funcionarioID]);
+  }, [funcionarioID, imgUrl]);
 
   return (
     <Image
       src={imgSrc || FALLBACK_AVATAR}
-      width={40}
-      height={40}
+      width={size}
+      height={size}
       alt={`Foto de ${nome}`}
       className={className}
+      onError={() => setImgSrc(FALLBACK_AVATAR)}
       unoptimized
     />
   );

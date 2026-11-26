@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Main from "@/utils/main";
 import Input from "@/components/input";
 import Button from "@/components/button";
@@ -15,6 +14,7 @@ import { Funcionario } from "@/api/funcionario";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toastErro, toastInfo, toastSucesso } from "@/utils/toast";
 import AvatarFuncionario from "@/utils/avatarFuncionario";
+import { useFuncionarios } from "@/hooks/useFuncionarios";
 
 interface FormularioEquipeProps {
   idEdicao: number;
@@ -25,9 +25,6 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
   const router = useRouter();
 
   const [nomeEquipe, setNomeEquipe] = useState(() => equipe?.nomeEquipe ?? "");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-  const [confirmarSenha, setConfirmarSenha] = useState("");
   const [funcionario1Id, setFuncionario1Id] = useState(() =>
     equipe?.funcionarios?.[0]
       ? String(equipe.funcionarios[0].funcionarioID)
@@ -41,50 +38,64 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
   const [termoPesquisa, setTermoPesquisa] = useState("");
 
   const { equipes, criar, atualizar, remover } = useEquipes();
+  const { funcionarios } = useFuncionarios();
 
-  const todosFuncionarios = useMemo(() => {
-    const mapa = new Map<number, Funcionario>();
+  const funcionariosDisponiveis = useMemo(() => {
+    const idsDaEquipeAtual = new Set<number>(
+      equipe?.funcionarios?.map((f) => f.funcionarioID) ?? [],
+    );
 
-    equipes.forEach((eq) => {
-      eq.funcionarios?.forEach((f) => mapa.set(f.funcionarioID, f));
+    return funcionarios.filter((f) => {
+      const tipoId =
+        f.tipoFuncionarioID ?? f.tipoFuncionario?.tipoFuncionarioID;
+      if (tipoId !== 1) return false;
+
+      const equipeDoFuncionario = f.equipeID ?? f.equipe?.equipeID ?? null;
+
+      // Em edição, mantém os membros que já fazem parte da equipe atual
+      if (idEdicao && equipeDoFuncionario === idEdicao) return true;
+      if (idsDaEquipeAtual.has(f.funcionarioID)) return true;
+
+      // Caso contrário, só quem não possui equipe
+      return equipeDoFuncionario == null;
     });
-
-    equipe?.funcionarios?.forEach((f) => mapa.set(f.funcionarioID, f));
-
-    return Array.from(mapa.values());
-  }, [equipes, equipe]);
+  }, [funcionarios, equipe, idEdicao]);
 
   const opcoesFuncionarios = useMemo(
     () =>
-      todosFuncionarios.map((f) => ({
+      funcionariosDisponiveis.map((f) => ({
         label: f.nome,
         value: String(f.funcionarioID),
       })),
-    [todosFuncionarios],
+    [funcionariosDisponiveis],
   );
 
   const funcionario1 = useMemo(
     () =>
-      todosFuncionarios.find((f) => String(f.funcionarioID) === funcionario1Id),
-    [todosFuncionarios, funcionario1Id],
+      funcionariosDisponiveis.find(
+        (f) => String(f.funcionarioID) === funcionario1Id,
+      ),
+    [funcionariosDisponiveis, funcionario1Id],
   );
 
   const funcionario2 = useMemo(
     () =>
-      todosFuncionarios.find((f) => String(f.funcionarioID) === funcionario2Id),
-    [todosFuncionarios, funcionario2Id],
+      funcionariosDisponiveis.find(
+        (f) => String(f.funcionarioID) === funcionario2Id,
+      ),
+    [funcionariosDisponiveis, funcionario2Id],
   );
 
   const funcionariosFiltrados = useMemo(() => {
     const termo = termoPesquisa.trim().toLowerCase();
-    if (!termo) return todosFuncionarios;
+    if (!termo) return funcionariosDisponiveis;
 
-    return todosFuncionarios.filter(
+    return funcionariosDisponiveis.filter(
       (f) =>
         f.nome.toLowerCase().includes(termo) ||
         f.email.toLowerCase().includes(termo),
     );
-  }, [todosFuncionarios, termoPesquisa]);
+  }, [funcionariosDisponiveis, termoPesquisa]);
 
   const handleSalvar = async () => {
     if (!nomeEquipe.trim()) {

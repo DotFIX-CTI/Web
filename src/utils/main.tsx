@@ -8,12 +8,7 @@ interface MainProps {
   justify?: string;
 }
 
-export default function Main({
-  children,
-  className,
-  error,
-  justify = "center",
-}: MainProps) {
+export default function Main({ children, className, error }: MainProps) {
   return (
     <main
       style={{
@@ -24,7 +19,6 @@ export default function Main({
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: justify,
       }}
       className={className}
     >

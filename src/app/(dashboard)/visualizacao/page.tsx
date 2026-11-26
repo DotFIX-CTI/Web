@@ -100,7 +100,7 @@ export default function Visualizacao() {
 
   return (
     <Main className={`${style.container}`}>
-      <section className={style.visualizacao}>
+      <aside className={style.visualizacao}>
         {secoes.map(([data, listaDoDia]) => (
           <div className={style.secao} key={data}>
             <h2 className={style.data}>{data}</h2>
@@ -119,7 +119,7 @@ export default function Visualizacao() {
             </div>
           </div>
         ))}
-      </section>
+      </aside>
     </Main>
   );
 }

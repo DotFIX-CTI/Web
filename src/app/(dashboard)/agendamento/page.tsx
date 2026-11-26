@@ -46,14 +46,32 @@ function FormularioAgendamento({
     [agendamento],
   );
 
-  // false = 1ª e 2ª etapa (avançar para "Próximo")
-  // true  = 3ª etapa aberta (permite "Voltar")
   const [fase, setFase] = useState(isReagendamento);
+  const [animandoSaida, setAnimandoSaida] = useState<"para3" | "para1" | null>(
+    null,
+  );
+
+  const irParaProximaEtapa = () => {
+    if (fase || animandoSaida) return;
+    setAnimandoSaida("para3");
+    window.setTimeout(() => {
+      setFase(true);
+      setAnimandoSaida(null);
+    }, 250);
+  };
+
+  const voltarEtapaAnterior = () => {
+    if (!fase || animandoSaida) return;
+    setAnimandoSaida("para1");
+    window.setTimeout(() => {
+      setFase(false);
+      setAnimandoSaida(null);
+    }, 250);
+  };
 
   const { criar, atualizar } = useAgendamentos();
   const { equipes } = useEquipes();
 
-  // Estados controlados inicializados diretamente a partir de `agendamento`
   const [nomeCliente, setNomeCliente] = useState(
     () => agendamento?.nomeCliente || "",
   );
@@ -99,26 +117,22 @@ function FormularioAgendamento({
     [equipes, equipeIdSelecionada],
   );
 
-  // Esse useEffect sincroniza com um sistema externo (DOM / scroll), então é válido
   useEffect(() => {
     if (typeof window === "undefined") return;
 
-    const targetId = fase ? "etapa3" : "etapa1";
     const timer = window.setTimeout(() => {
+      if (window.innerWidth <= 1400) {
+        window.scrollTo({ top: 0, behavior: "smooth" });
+        return;
+      }
+
+      const targetId = fase ? "etapa3" : "etapa1";
       const el = document.getElementById(targetId);
-      el?.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 80);
+      el?.scrollIntoView({ behavior: "smooth", block: "nearest" });
+    }, 60);
 
     return () => window.clearTimeout(timer);
   }, [fase]);
-
-  const irParaProximaEtapa = () => {
-    setFase(true);
-  };
-
-  const voltarEtapaAnterior = () => {
-    setFase(false);
-  };
 
   const handleSalvar = async () => {
     const dataFinal = dataSelecionada || new Date().toISOString();
@@ -180,7 +194,9 @@ function FormularioAgendamento({
         id="etapa1"
         className={`card gap-8 between ${style.parte1} ${
           fase ? style.after : style.before
-        } ${fase ? style.parte1MobileHidden : ""}`}
+        } ${fase ? style.parte1Hidden : ""} ${
+          animandoSaida === "para3" ? style.fadeOut : ""
+        }`}
       >
         <div className="flex_c gap-4">
           <div>
@@ -352,8 +368,8 @@ function FormularioAgendamento({
       <article
         id="etapa3"
         className={`card gap-4 between ${style.parte2} ${
-          !fase ? style.display : ""
-        }`}
+          !fase ? `${style.display} ${style.parte2Hidden}` : ""
+        } ${animandoSaida === "para1" ? style.fadeOut : ""}`}
       >
         <div>
           <h2>3ª Etapa - Equipe & Local</h2>
@@ -449,7 +465,7 @@ export default function Agendamento() {
     : `create-${isReagendamento ? "reag" : "norm"}`;
 
   return (
-    <Main>
+    <Main className="justify-center">
       <FormularioAgendamento
         key={formKey}
         idEdicao={idEdicao}

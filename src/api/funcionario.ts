@@ -1,19 +1,26 @@
 import { api } from "./api";
 import { DomainException } from "./domainException";
 
-export interface TipoFuncionario {
-  tipoFuncionarioID: number;
-  nomeTipo: string;
-}
-
 export interface Funcionario {
   funcionarioID: number;
   nome: string;
   email: string;
   senha?: string;
   imgUrl?: string | null;
-  tipoFuncionario?: TipoFuncionario | null;
+  tipoFuncionario?: TipoFuncionarioSummary | null;
+  tipoFuncionarioID?: number | null;
+  equipe?: EquipeSummary | null;
   equipeID?: number | null;
+}
+
+export interface EquipeSummary {
+  equipeID: number;
+  nomeEquipe: string;
+}
+
+export interface TipoFuncionarioSummary {
+  tipoFuncionarioID: number;
+  nomeTipo: string;
 }
 
 export interface CadastrarFuncionarioInput {

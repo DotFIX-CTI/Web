@@ -131,7 +131,7 @@ export default function Dashboard() {
   };
 
   return (
-    <Main>
+    <Main className="responsive_center">
       <section className="grid gap-12 max_width">
         <div className="flex_c between gap-4 self-center">
           <Calendario

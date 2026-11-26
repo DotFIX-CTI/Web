@@ -2,7 +2,6 @@
   padding: var(--padding-md) 0 0;
   margin-top: 7.5vh;
   max-height: 92.5vh;
-  height: 100%;
   gap: var(--padding-sm);
 }
 

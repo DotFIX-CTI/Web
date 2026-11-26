@@ -49,7 +49,7 @@ export default function Equipes() {
   }, [equipes, termoPesquisa]);
 
   return (
-    <Main className={`flex_c ${style.container}`} justify="flex-start">
+    <Main className={`${style.container}`} justify="flex-start">
       <div className={`center between gap-12 ${style.info}`}>
         <h1>Equipes do Sistema</h1>
         <div className={`flex gap-4 ${style.filtro}`}>

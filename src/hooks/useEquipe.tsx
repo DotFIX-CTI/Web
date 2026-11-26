@@ -10,12 +10,7 @@ export function useEquipe(id?: number) {
   const [erro, setErro] = useState<string | null>(null);
 
   useEffect(() => {
-    if (id === undefined) {
-      return;
-    }
-
     if (!idValido) {
-      Erro("ID de equipe inválido.");
       return;
     }
 

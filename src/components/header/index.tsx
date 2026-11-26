@@ -5,8 +5,8 @@ import Image from "next/image";
 import Icon from "@/utils/icon";
 import Logo from "@/utils/logo";
 import Button from "@/components/button";
-import { useAuth } from "@/hooks/useAuth";
 import { api } from "@/api/api";
+import { useAuth } from "@/hooks/useAuth";
 import { useEffect, useState } from "react";
 import style from "./header.module.css";
 
