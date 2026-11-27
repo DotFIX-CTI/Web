@@ -136,7 +136,7 @@ function ConteudoAdicionarFuncionario({
 
   if (carregandoDados) {
     return (
-      <Main>
+      <Main row>
         <h1>Carregando dados do funcionário...</h1>
       </Main>
     );
@@ -148,7 +148,7 @@ function ConteudoAdicionarFuncionario({
     : "create";
 
   return (
-    <Main>
+    <Main row>
       <FormularioFuncionario
         key={formKey}
         funcionario={funcionarioFinal}
@@ -162,7 +162,7 @@ export default function AdicionarFuncionario(props: AdicionarFuncionarioProps) {
   return (
     <Suspense
       fallback={
-        <Main>
+        <Main row>
           <h1>Carregando formulário...</h1>
         </Main>
       }

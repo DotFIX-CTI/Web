@@ -31,7 +31,7 @@ export default function DetalheAgendamento() {
 
   if (carregandoAg) {
     return (
-      <Main>
+      <Main responsive>
         <h1>Carregando detalhes do agendamento...</h1>
       </Main>
     );
@@ -39,7 +39,7 @@ export default function DetalheAgendamento() {
 
   if (erro || !agendamento || !dadosAgendamento) {
     return (
-      <Main>
+      <Main responsive>
         <h1>{erro ?? "Agendamento não encontrado."}</h1>
       </Main>
     );
@@ -50,7 +50,7 @@ export default function DetalheAgendamento() {
     : "";
 
   return (
-    <Main>
+    <Main responsive>
       <section className="grid3 gap-12 max_width max_height">
         <div className="flex_c gap-8">
           <article
@@ -67,7 +67,7 @@ export default function DetalheAgendamento() {
               </p>
             </div>
 
-            <div className="flex between">
+            <div className="flex flex-wrap between gap-3">
               <Button
                 icon="reschudule"
                 link={`/agendamento?id=${agendamento.agendamentoID}&modo=reagendar`}

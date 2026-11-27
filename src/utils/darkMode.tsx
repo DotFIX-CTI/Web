@@ -32,7 +32,6 @@ function subscribeTheme(callback: () => void) {
     callback();
   };
 
-  // Garante o atributo inicial no DOM assim que assina no cliente
   document.documentElement.setAttribute("data-theme", getThemeSnapshot());
 
   window.addEventListener("storage", handleChange);
@@ -67,20 +66,24 @@ export default function DarkMode() {
   };
 
   if (!mounted) {
-    return <div style={{ width: 40, height: 40 }} />;
+    return (
+      <span
+        aria-hidden="true"
+        className="center_c darkmode darkmode--placeholder"
+      >
+        <span className="themetoggle" />
+      </span>
+    );
   }
 
   return (
     <button
+      type="button"
       onClick={toggleTheme}
       aria-label="Alternar modo escuro"
       className="center_c darkmode"
     >
-      <Icon
-        name={theme === "light" ? "moon" : "sun"}
-        size={48}
-        className="themetoggle"
-      />
+      <Icon name={theme === "light" ? "moon" : "sun"} className="themetoggle" />
     </button>
   );
 }

@@ -89,7 +89,7 @@ export default function CardMapa({ agendamento, equipe }: CardMapaProps) {
         style={{ padding: "20px" }}
       >
         {tituloLocal ? (
-          <div className="flex between">
+          <div className="flex flex-wrap between gap-2">
             <h2>{tituloLocal}</h2>
             {cliente && (
               <div className="center gap-4">

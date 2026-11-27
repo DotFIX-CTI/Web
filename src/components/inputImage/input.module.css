@@ -2,7 +2,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--margin-sm, 4px);
+  gap: var(--size1);
 }
 
 .wrapper {
@@ -15,7 +15,7 @@
   border: dashed 3px color-mix(in srgb, var(--surface), var(--primary-surface));
   width: 120px;
   height: 120px;
-  border-radius: var(--border-sm);
+  border-radius: var(--size1);
   color: var(--off);
   display: flex;
   align-items: center;
@@ -46,7 +46,11 @@
 .dragging {
   border-color: var(--primary) !important;
   color: var(--primary) !important;
-  background-color: color-mix(in srgb, var(--primary) 15%, transparent) !important;
+  background-color: color-mix(
+    in srgb,
+    var(--primary) 15%,
+    transparent
+  ) !important;
   transform: scale(1.02);
 }
 
@@ -65,7 +69,7 @@
   height: 100%;
   object-fit: cover;
   display: block;
-  border-radius: calc(var(--border-sm) - 2px);
+  border-radius: calc(var(--size1) - 2px);
 }
 
 .overlay {

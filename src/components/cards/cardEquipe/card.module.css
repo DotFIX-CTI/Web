@@ -3,10 +3,10 @@
   position: absolute;
   top: 0;
   right: 0;
-  border-radius: 0 0 0 var(--border-lg);
+  border-radius: 0 0 0 var(--size3);
   overflow: hidden;
   cursor: pointer;
-  padding: var(--padding-sm);
+  padding: var(--size6);
 }
 
 .link_icon {

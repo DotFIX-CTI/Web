@@ -82,7 +82,7 @@ export default function Visualizacao() {
 
   if (carregando || erro || secoes.length === 0) {
     return (
-      <Main className={`${style.container}`}>
+      <Main row className={`${style.container}`}>
         {carregando ? (
           <h1>Carregando agendamentos...</h1>
         ) : erro ? (

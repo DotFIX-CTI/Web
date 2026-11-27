@@ -152,7 +152,7 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
 
   return (
     <section className="grid4 gap-8 max_width">
-      <article className="card between max_height">
+      <article className="card between gap-8 max_height">
         <div className="flex_c gap-8">
           <h2>{idEdicao ? "Editar Equipe" : "Adicionar Equipe"}</h2>
           <div className="flex_c gap-4">
@@ -341,7 +341,7 @@ export default function AdicionarEquipe() {
 
   if (idEdicao && carregando) {
     return (
-      <Main>
+      <Main responsive>
         <h1>Carregando dados da equipe...</h1>
       </Main>
     );
@@ -350,7 +350,7 @@ export default function AdicionarEquipe() {
   const formKey = equipe ? `edit-${equipe.equipeID ?? idEdicao}` : "create";
 
   return (
-    <Main>
+    <Main responsive>
       <FormularioEquipe key={formKey} idEdicao={idEdicao} equipe={equipe} />
     </Main>
   );

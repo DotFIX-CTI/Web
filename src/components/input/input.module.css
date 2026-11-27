@@ -3,7 +3,7 @@
   position: relative;
   display: flex;
   align-items: center;
-  border-radius: var(--border-md);
+  border-radius: var(--size2);
   font-size: 0.85rem;
   border: var(--border-input);
   background-color: var(--input-bg);
@@ -23,7 +23,7 @@
 .code input {
   width: 15%;
   aspect-ratio: 1/1;
-  border-radius: var(--border-sm);
+  border-radius: var(--size1);
   border: var(--border-off);
   background-color: var(--input-bg);
 }

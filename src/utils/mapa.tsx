@@ -55,7 +55,7 @@ export default function Mapa({
           right: 0,
           bottom: 0,
           backgroundImage: `linear-gradient(to bottom, color-mix(in srgb, ${corDestaque} 50%, transparent 100%) 0%, transparent 15%)`,
-          zIndex: 1000,
+          zIndex: 100,
           pointerEvents: "none",
         }}
       />
@@ -67,6 +67,7 @@ export default function Mapa({
         scrollWheelZoom={false}
         style={{
           height: "100%",
+          minHeight: 320,
           width: "100%",
         }}
       >

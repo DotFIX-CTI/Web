@@ -24,30 +24,25 @@
   --main-bg: var(--primary);
   --toast: var(--foreground);
 
-  --smooth-txt: 0.9;
-
   --label: var(--primary);
   --btn-border: var(--primary);
   --input-icon: var(--primary);
   --btn-bg: var(--background-card);
   --input-bg: var(--background-card);
 
+  --size1: 4px;
+  --size2: 8px;
+  --size3: 12px;
+  --size4: 16px;
+  --size5: 20px;
+  --size6: 24px;
+  --size7: 28px;
+  --size8: 32px;
+  --size9: 36px;
+
   --shadow:
-    0 0 4px color-mix(in srgb, var(--primary) 5%, transparent),
-    0 0 20px color-mix(in srgb, var(--primary) 10%, transparent);
-
-  --border-sm: 4px;
-  --border-md: 8px;
-  --border-lg: 12px;
-
-  --padding-sm: 12px;
-  --padding-md: 24px;
-  --padding-lg: 36px;
-
-  --margin-sm: 4px;
-  --margin-md: 8px;
-  --margin-lg: 12px;
-  --margin-xg: 24px;
+    0 0 var(--size1) color-mix(in srgb, var(--primary) 5%, transparent),
+    0 0 var(--size5) color-mix(in srgb, var(--primary) 10%, transparent);
 
   --border-input: 2px solid var(--off);
   --border-off: 2px solid var(--off);
@@ -57,6 +52,8 @@
   --scrollbar-bg: var(--surface);
 
   --img-404: invert(0);
+
+  --smooth-txt: 0.9;
 }
 
 [data-theme="dark"] {
@@ -71,8 +68,8 @@
   --logo: var(--white);
 
   --shadow:
-    0 0 4px color-mix(in srgb, var(--foreground) 5%, transparent),
-    0 0 20px color-mix(in srgb, var(--foreground) 10%, transparent);
+    0 0 var(--size1) color-mix(in srgb, var(--foreground) 5%, transparent),
+    0 0 var(--size5) color-mix(in srgb, var(--foreground) 10%, transparent);
 
   --smooth-txt: 1;
 
@@ -163,7 +160,7 @@
     background-color: color-mix(in srgb, var(--foreground) 15%, transparent);
     width: 100%;
     display: block;
-    margin: var(--margin-sm) 0 0;
+    margin: var(--size1) 0 0;
   }
 
   img {
@@ -206,12 +203,8 @@
   align-items: center;
 }
 
-.responsive_center {
-  display: flex;
-  justify-content: center;
-}
-
 .container {
+  max-width: 100%;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -282,9 +275,9 @@
   }
 
   .error_mensagem {
-    border-radius: var(--border-lg);
+    border-radius: var(--size3);
     background-color: color-mix(in srgb, var(--error) 10%, transparent);
-    padding: var(--padding-sm);
+    padding: var(--size6);
     font-weight: 600;
     font-size: 0.875rem;
     line-height: 1.25rem;
@@ -302,7 +295,7 @@
   }
 
   .user {
-    border-radius: var(--border-md);
+    border-radius: var(--size2);
     overflow: hidden;
     object-fit: cover;
   }
@@ -311,10 +304,10 @@
     position: absolute;
     top: 0;
     right: 0;
-    border-radius: 0 2px 0 var(--border-md);
+    border-radius: 0 2px 0 var(--size2);
     overflow: hidden;
     cursor: pointer;
-    padding: var(--padding-sm);
+    padding: var(--size6);
     color: var(--white);
   }
 }
@@ -336,22 +329,22 @@
     background-color: var(--background-card);
     width: 100%;
     display: flex;
-    border-radius: var(--border-sm);
+    border-radius: var(--size1);
     border: var(--border-card);
   }
 
   :is(.card, .card_login) {
-    padding: var(--padding-md);
+    padding: var(--size4);
     flex-direction: column;
   }
 
   .card_login {
-    min-width: 480px;
+    width: 100%;
     max-width: 480px;
   }
 
   .card_small {
-    padding: var(--padding-sm);
+    padding: var(--size6);
     flex-direction: column;
   }
 
@@ -370,12 +363,12 @@
   }
 
   .card_scroll {
-    padding: var(--padding-md) var(--padding-md) 0;
+    padding: var(--size4) var(--size2) 0;
     flex-direction: column;
   }
 
   .card_scroll_h {
-    padding: var(--padding-md) 0;
+    padding: var(--size4) 0;
     flex-direction: row;
   }
 
@@ -387,7 +380,7 @@
   .scroll {
     flex-direction: column;
     overflow-y: auto;
-    padding: var(--padding-md) var(--padding-sm) var(--padding-lg);
+    padding: var(--size4) var(--size1) var(--size3);
     mask-image: linear-gradient(
       to bottom,
       transparent 0%,
@@ -400,7 +393,7 @@
   .scroll_h {
     width: 100%;
     overflow-x: auto;
-    padding: var(--padding-sm) var(--padding-md);
+    padding: var(--size2) var(--size2);
     mask-image: linear-gradient(
       to right,
       transparent 0%,
@@ -434,42 +427,6 @@
   }
 }
 
-/*? ┌───────────────────────┐ */
-/*? │ 7. LOADING (SKELETON) │ */
-/*? └───────────────────────┘ */
-@layer components {
-  :is(.skeleton, .skeleton_text, .skeleton_button, .skeleton_circle) {
-    background: linear-gradient(
-      90deg,
-      var(--surface) 25%,
-      color-mix(in srgb, var(--primary) 8%, var(--surface)) 50%,
-      var(--surface) 75%
-    );
-    background-size: 200% 100%;
-    animation: shimmer 1.6s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-    will-change: background-position;
-    border-radius: var(--border-md);
-    pointer-events: none;
-    user-select: none;
-  }
-
-  .skeleton_text {
-    height: 1em;
-    border-radius: var(--border-sm);
-    display: inline-block;
-  }
-
-  .skeleton_button {
-    height: 40px;
-    width: 160px;
-    display: inline-block;
-  }
-
-  .skeleton_circle {
-    border-radius: 50%;
-  }
-}
-
 @keyframes shimmer {
   0% {
     background-position: 200% 0;
@@ -479,18 +436,26 @@
   }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  :is(.skeleton, .skeleton_text, .skeleton_button, .skeleton_circle) {
-    animation: none;
-    background: var(--surface);
-    opacity: 0.7;
+@keyframes rotate360 {
+  to {
+    transform: rotate(360deg);
   }
 }
 
 /*? ┌────────────────────────────┐ */
-/*? │ 8. ANIMAÇÕES E TEMA TOGGLE │ */
+/*? │ 7. ANIMAÇÕES E TEMA TOGGLE │ */
 /*? └────────────────────────────┘ */
 @layer components {
+  .logo {
+    position: absolute;
+    top: 10vh;
+    & .logo_spin {
+      transform-box: fill-box;
+      transform-origin: center;
+      animation: 45s rotate360 infinite linear;
+    }
+  }
+
   .login_anim {
     position: absolute;
     inset: 0;
@@ -502,27 +467,61 @@
   }
 
   .darkmode {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     right: 0;
-    z-index: 100;
+    z-index: 1000;
     color: var(--white);
     background: var(--primary);
+    border: none;
+    cursor: pointer;
     border-radius: 100% 0 0 0;
-    padding: 36px 12px 12px 36px;
+    padding: var(--size3) var(--size6) var(--size6) var(--size3);
+    transition:
+      padding 0.2s ease,
+      bottom 0.2s ease;
+  }
 
-    & .themetoggle {
-      transition: rotate 0.5s cubic-bezier(0.1, 0.825, 0.15, 1);
+  .darkmode .themetoggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--dm-icon-size, 40px);
+    height: var(--dm-icon-size, 40px);
+    transform-origin: center;
+    transition:
+      width 0.2s ease,
+      height 0.2s ease,
+      transform 0.5s cubic-bezier(0.1, 0.825, 0.15, 1);
+  }
 
-      &:hover {
-        rotate: -90deg;
-      }
-    }
+  .darkmode:hover .themetoggle {
+    transform: rotate(-90deg);
+  }
+
+  .darkmode .themetoggle svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .darkmode svg.themetoggle {
+    display: block;
+    width: var(--dm-icon-size, 40px);
+    height: var(--dm-icon-size, 40px);
+    min-width: 40px;
+    min-height: 40px;
+  }
+
+  .darkmode--placeholder {
+    pointer-events: none;
   }
 }
 
 /*? ┌───────────┐ */
-/*? │ 9. TOAST  │ */
+/*? │ 8. TOAST  │ */
 /*? └───────────┘ */
 .Toastify__toast--success {
   background-color: color-mix(
@@ -564,12 +563,17 @@
   font-size: 1rem;
   font-weight: 600;
   box-shadow: var(--shadow);
-  border-radius: var(--border-lg);
+  border-radius: var(--size2);
 }
 
-/*? ┌───────────────────────────┐ */
-/*? │ 10. RESPONSIVIDADE GLOBAL │ */
-/*? └───────────────────────────┘ */
+/*? ┌──────────────────────────┐ */
+/*? │ 9. RESPONSIVIDADE GLOBAL │ */
+/*? └──────────────────────────┘ */
+.responsive {
+  display: flex;
+  justify-content: center;
+}
+
 @media (max-width: 1680px) {
   .max_width {
     max-width: 1280px;
@@ -577,8 +581,8 @@
 }
 
 @media (max-width: 1366px) {
-  .responsive_center {
-    justify-content: none;
+  .responsive {
+    justify-content: flex-start;
   }
   section {
     margin: 10vh 0 2.5vh;
@@ -595,15 +599,69 @@
   :root {
     --spacing: 0.2rem;
   }
-  :is(main > .grid, main > .grid2, main > .grid3, .flex_c > .grid) {
+  :is(
+    main > .grid,
+    main > .grid2,
+    main > .grid3,
+    main > .grid4,
+    .flex_c > .grid,
+    .scroll > .grid
+  ) {
     grid-template-columns: 1fr;
   }
   .max_width {
-    max-width: min(640px, 80%);
+    max-width: min(720px, calc(100% - 96px));
+  }
+  .max_height {
+    min-height: auto;
+    max-height: none;
+    height: auto;
+  }
+  .card_scroll.max_height {
+    max-height: 600px;
   }
 }
 
-@media (max-height: 840px) {
+@media (max-width: 768px) {
+  main {
+    padding: 0 16px 24px;
+  }
+  body:has(nav) main {
+    padding-bottom: 80px;
+  }
+  section {
+    margin: 84px 0 16px;
+  }
+  .max_width {
+    max-width: 100%;
+  }
+  .card_scroll.max_height {
+    max-height: 70dvh;
+  }
+  .input_mensagem {
+    white-space: normal;
+  }
+}
+
+@media (max-width: 480px) {
+  main {
+    padding: 0 12px 20px;
+  }
+  body:has(nav) main {
+    padding-bottom: 76px;
+  }
+  :is(.card, .card_login, .card_scroll) {
+    padding: 16px;
+  }
+  .card_scroll {
+    padding-bottom: 0;
+  }
+  .big_txt {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-height: 840px) and (min-width: 1201px) {
   :root {
     --spacing: 0.1rem;
   }
@@ -617,7 +675,7 @@
 }
 
 /*? ┌───────────────────────────────────────────┐ */
-/*? │ 11. CLASSES DE STATUS (Cards e Elementos) │ */
+/*? │ 10. CLASSES DE STATUS (Cards e Elementos) │ */
 /*? └───────────────────────────────────────────┘ */
 .default {
   --status-color: var(--success);

@@ -27,10 +27,9 @@ export default function Login() {
   }
 
   return (
-    <Main>
-      <section className="center_c gap-8 relative z-1">
-        <Logo height={100} color="var(--logo)" />
-
+    <Main row>
+      <Logo height={100} color="var(--logo)" className="logo" />
+      <section className="center_c gap-8 relative z-1" style={{ width: 480 }}>
         {step === 0 && (
           <div className="center_c">
             <h2>Acesse sua conta</h2>

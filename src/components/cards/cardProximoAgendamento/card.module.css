@@ -1,7 +1,7 @@
 .info {
   width: 100%;
   border: var(--border-card);
-  border-radius: var(--border-sm);
+  border-radius: var(--size1);
   background-image: linear-gradient(
     to right,
     color-mix(in srgb, var(--primary-surface) 10%, transparent 100%),
@@ -11,5 +11,5 @@
 
 .contatos {
   color: var(--primary);
-  padding: 0 var(--padding-sm) 0 0;
+  padding: 0 var(--size3) 0 0;
 }

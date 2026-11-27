@@ -1,8 +1,10 @@
 .container {
   box-sizing: border-box;
   width: 100%;
-  margin-top: 7.5vh;
-  max-height: 92.5dvh;
+  padding-top: max(7.5vh, 60px);
+  height: 100dvh;
+  max-height: 100dvh;
+  overflow: hidden;
   border-left: 48px solid var(--primary);
   background-color: var(--background);
   display: flex;
@@ -26,6 +28,7 @@
 }
 
 .secao {
+  flex: 0 0 320px;
   display: flex;
   flex-direction: column;
   background-color: var(--background);
@@ -36,12 +39,17 @@
 .data {
   flex: 0 0 48px;
   width: 100%;
-  height: 48px;
+  min-height: 48px;
+  padding: 0 12px;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
   border-bottom: 2px solid var(--primary);
   margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .scroll_secao {
@@ -54,4 +62,54 @@
   padding: 12px;
   overflow-y: auto;
   box-sizing: border-box;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 60px 0 56px;
+    border-left: none;
+  }
+
+  .visualizacao {
+    flex-direction: column;
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
+
+  .secao {
+    flex: 0 0 auto;
+    min-width: 100%;
+    width: 100%;
+    border-right: none;
+  }
+
+  .data {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    justify-content: flex-start;
+    color: var(--foreground);
+    border: 0;
+    background-color: var(--primary-surface);
+  }
+
+  .scroll_secao {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    align-items: start;
+    overflow: visible;
+  }
+
+  .scroll_secao > * {
+    width: 100%;
+    min-width: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .scroll_secao {
+    grid-template-columns: minmax(0, 1fr);
+  }
 }

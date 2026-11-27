@@ -465,7 +465,7 @@ export default function Agendamento() {
     : `create-${isReagendamento ? "reag" : "norm"}`;
 
   return (
-    <Main className="justify-center">
+    <Main>
       <FormularioAgendamento
         key={formKey}
         idEdicao={idEdicao}

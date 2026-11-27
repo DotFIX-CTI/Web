@@ -12,7 +12,7 @@
   width: 100%;
   height: 40px;
   border: var(--border-off);
-  border-radius: var(--border-lg);
+  border-radius: var(--size3);
   background-color: var(--input-bg);
   color: var(--foreground);
   font-size: 0.85rem;

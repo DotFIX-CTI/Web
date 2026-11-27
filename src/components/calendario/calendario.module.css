@@ -6,7 +6,7 @@
   background-color: var(--background);
   width: 100%;
   height: fit-content;
-  border-radius: var(--border-sm);
+  border-radius: var(--size1);
   overflow: hidden;
 }
 
@@ -14,10 +14,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: var(--padding-sm);
+  padding: var(--size6);
   background-color: var(--primary);
   color: var(--white);
-  border-radius: var(--border-md);
+  border-radius: var(--size2);
   cursor: pointer;
   border: none;
   transition:
@@ -79,7 +79,7 @@
     width: 100%;
     text-align: center;
     color: var(--white);
-    padding: var(--padding-md) 0;
+    padding: var(--size6) 0;
     background-color: var(--primary);
     font-size: 1.5rem;
   }
@@ -161,6 +161,21 @@
 @media (max-width: 1366px) {
   .botao {
     scale: 0.75;
+  }
+}
+
+@media (max-width: 480px) {
+  .semana h2 {
+    padding: 12px 0;
+    font-size: 1rem;
+  }
+
+  .dia {
+    min-height: 44px;
+  }
+
+  .dia h4 {
+    font-size: 0.9rem;
   }
 }
 

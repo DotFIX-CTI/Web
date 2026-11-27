@@ -49,7 +49,7 @@ export default function Equipes() {
   }, [equipes, termoPesquisa]);
 
   return (
-    <Main className={`${style.container}`} justify="flex-start">
+    <Main className={`${style.container}`}>
       <div className={`center between gap-12 ${style.info}`}>
         <h1>Equipes do Sistema</h1>
         <div className={`flex gap-4 ${style.filtro}`}>
@@ -71,8 +71,8 @@ export default function Equipes() {
       {carregando ? (
         <h1>Carregando equipes...</h1>
       ) : (
-        <section
-          className={`${style.grid_equipe} gap-8`}
+        <aside
+          className={`${style.grid_equipe} gap-6`}
           ref={scrollRef}
           onWheel={handleWheel}
         >
@@ -83,7 +83,7 @@ export default function Equipes() {
               <CardEquipe key={item.equipeID} equipe={item} />
             ))
           )}
-        </section>
+        </aside>
       )}
     </Main>
   );

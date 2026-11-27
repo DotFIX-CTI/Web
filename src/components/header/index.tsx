@@ -60,24 +60,24 @@ export default function Header() {
       <Link href="/dashboard" className={`${style.logo}`}>
         <Logo height={"60%"} color="var(--white)" />
       </Link>
-      <div className="center gap-12">
-        <div className="center gap-2">
+      <div className={style.rightGroup}>
+        <div className={style.userInfo}>
           {imgSrc ? (
             <Image
               src={imgSrc}
               alt={funcionario?.nome || "Avatar do funcionário"}
-              width={48}
-              height={48}
+              width={44}
+              height={44}
               unoptimized
               onError={() => setImgSrc("")}
-              className="user"
+              className="user shrink-0"
             />
           ) : (
             <Icon name="user" size={32} />
           )}
-          <div className="flex_c">
-            <h4 className={`${style.user}`}>{nomeExibido}</h4>
-            <p className={`${style.email}`}>{emailExibido}</p>
+          <div className={style.userText}>
+            <h4 className={style.user}>{nomeExibido}</h4>
+            <p className={style.email}>{emailExibido}</p>
           </div>
         </div>
 

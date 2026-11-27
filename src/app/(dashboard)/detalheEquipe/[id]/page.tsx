@@ -51,7 +51,7 @@ export default function DetalheEquipePage() {
 
   if (!idValido) {
     return (
-      <Main>
+      <Main responsive>
         <h1>ID da equipe inválido.</h1>
       </Main>
     );
@@ -59,7 +59,7 @@ export default function DetalheEquipePage() {
 
   if (carregando) {
     return (
-      <Main>
+      <Main responsive>
         <h1>Carregando detalhes da equipe...</h1>
       </Main>
     );
@@ -67,7 +67,7 @@ export default function DetalheEquipePage() {
 
   if (erro || !equipe) {
     return (
-      <Main>
+      <Main responsive>
         <h1>{erro ?? "Equipe não encontrada."}</h1>
       </Main>
     );
@@ -84,7 +84,7 @@ export default function DetalheEquipePage() {
     `Equipe #${equipe.equipeID}`;
 
   return (
-    <Main>
+    <Main responsive>
       <section className="grid3 gap-12 max_width max_height">
         <div className="flex_c gap-8">
           <article className="card between gap-4 h-[100%]">
@@ -108,7 +108,7 @@ export default function DetalheEquipePage() {
               )}
             </div>
 
-            <div className="flex between gap-4">
+            <div className="flex flex-wrap between gap-4">
               <Button
                 icon="left"
                 variant="secondary"

@@ -112,7 +112,7 @@ export default function ReagendamentoContent({
 
   if (carregando) {
     return (
-      <Main>
+      <Main responsive>
         <h1>Carregando reagendamentos...</h1>
       </Main>
     );
@@ -121,7 +121,7 @@ export default function ReagendamentoContent({
   const classeStatus = dadosAtivos?.classeStatus ?? "cancelado";
 
   return (
-    <Main>
+    <Main responsive>
       <section className="grid gap-12 max_width max_height">
         {agendamentoAtivo && dadosAtivos ? (
           <article className={`card between gap-6 ${classeStatus}`}>

@@ -17,8 +17,8 @@
   justify-content: space-between;
   width: 100%;
   height: 40px;
-  padding: 0 var(--padding-sm);
-  border-radius: var(--border-md);
+  padding: 0 var(--size3);
+  border-radius: var(--size2);
   border: var(--border-input);
   background-color: var(--input-bg);
   cursor: pointer;

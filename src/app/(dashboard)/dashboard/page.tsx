@@ -131,15 +131,15 @@ export default function Dashboard() {
   };
 
   return (
-    <Main className="responsive_center">
-      <section className="grid gap-12 max_width">
+    <Main responsive>
+      <section className="grid gap-8 max_width">
         <div className="flex_c between gap-4 self-center">
           <Calendario
             agendamentos={Array.isArray(agendamentos) ? agendamentos : []}
             onSelectDate={setDataSelecionada}
           />
 
-          <div className="flex between">
+          <div className="flex between gap-3 flex-wrap">
             <Button icon="reschudule" variant="secondary" link="/reagendamento">
               Validar Reagendamentos
             </Button>
