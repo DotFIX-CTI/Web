@@ -1,5 +1,3 @@
-import { Equipe } from "@/api/equipe";
-
 export const STATUS = {
   default: "default",
   pendente: "pendente",
@@ -29,8 +27,6 @@ export const MAPA_STATUS_EQUIPE_POR_NOME: Record<string, ClasseStatusEquipe> = {
 };
 
 export interface DadosStatusEquipe {
-  statusEquipeID?: number;
-  nomeStatus?: string;
   statusEquipe?: {
     statusEquipeID?: number;
     nomeStatus?: string;
@@ -38,14 +34,10 @@ export interface DadosStatusEquipe {
 }
 
 export function resolverClasseStatusEquipe(
-  equipe: Equipe & DadosStatusEquipe,
+  equipe: DadosStatusEquipe,
 ): ClasseStatusEquipe {
-  const statusId = equipe.statusEquipe?.statusEquipeID ?? equipe.statusEquipeID;
-  const nomeNormalizado = (
-    equipe.statusEquipe?.nomeStatus ??
-    equipe.nomeStatus ??
-    ""
-  )
+  const statusId = equipe.statusEquipe?.statusEquipeID;
+  const nomeNormalizado = (equipe.statusEquipe?.nomeStatus ?? "")
     .trim()
     .toLowerCase();
 

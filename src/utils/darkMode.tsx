@@ -83,7 +83,7 @@ export default function DarkMode() {
       aria-label="Alternar modo escuro"
       className="center_c darkmode"
     >
-      <Icon name={theme === "light" ? "moon" : "sun"} className="themetoggle" />
+      <Icon name={theme === "light" ? "moon" : "sun"} size={40} className="themetoggle" />
     </button>
   );
 }

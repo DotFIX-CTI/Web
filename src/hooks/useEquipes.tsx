@@ -6,6 +6,8 @@ import {
   cadastrarEquipe,
   atualizarEquipe,
   deletarEquipe,
+  CriarEquipeDTO,
+  AtualizarEquipeDTO,
 } from "@/api/equipe";
 
 export function useEquipes() {
@@ -55,7 +57,7 @@ export function useEquipes() {
     }
   }, []);
 
-  const criar = async (dados: Omit<Equipe, "equipeID"> | Equipe) => {
+  const criar = async (dados: CriarEquipeDTO) => {
     try {
       setErro(null);
       const criada = await cadastrarEquipe(dados);
@@ -67,7 +69,7 @@ export function useEquipes() {
     }
   };
 
-  const atualizar = async (id: number, dados: Partial<Equipe>) => {
+  const atualizar = async (id: number, dados: AtualizarEquipeDTO) => {
     try {
       setErro(null);
       const atualizada = await atualizarEquipe(id, dados);

@@ -1,16 +1,6 @@
 import { api } from "./api";
 import { DomainException } from "./domainException";
 
-export interface EquipeResumo {
-  equipeID: number;
-  nomeEquipe: string;
-}
-
-export interface StatusAgendamento {
-  statusAgendamentoID: number;
-  nomeStatus: string;
-}
-
 export interface Agendamento {
   agendamentoID: number;
   nomeCliente: string;
@@ -32,7 +22,19 @@ export interface Agendamento {
   statusAgendamento?: StatusAgendamento;
 }
 
-export interface CriarAgendamentoPayload {
+export interface EquipeResumo {
+  equipeID: number;
+  nomeEquipe: string;
+}
+
+// 
+export interface StatusAgendamento {
+  statusAgendamentoID: number;
+  nomeStatus: string;
+}
+
+// DTO - POST
+export interface CadastrarAgendamentoDto {
   nomeCliente: string;
   emailCliente: string;
   telefoneCliente: string;
@@ -49,13 +51,14 @@ export interface CriarAgendamentoPayload {
   dataAgendamento: string;
 }
 
-export interface AtualizarAgendamentoPayload extends CriarAgendamentoPayload {
+// DTO - PUT
+export interface AtualizarAgendamentoDto extends CadastrarAgendamentoDto {
   statusAgendamentoID: number;
 }
 
 // POST
 export async function cadastrarAgendamento(
-  payload: CriarAgendamentoPayload,
+  payload: CadastrarAgendamentoDto,
 ): Promise<Agendamento> {
   try {
     const response = await api.post<Agendamento>("Agendamento", payload);
@@ -88,7 +91,7 @@ export async function listarAgendamentoPorId(id: number): Promise<Agendamento> {
 // PUT
 export async function atualizarAgendamento(
   id: number,
-  payload: AtualizarAgendamentoPayload,
+  payload: AtualizarAgendamentoDto,
 ): Promise<Agendamento> {
   try {
     const response = await api.put<Agendamento>(`Agendamento/${id}`, payload);

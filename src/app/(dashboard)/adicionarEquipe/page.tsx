@@ -6,14 +6,13 @@ import Button from "@/components/button";
 import Select from "@/components/select";
 import Pesquisa from "@/components/pesquisa";
 import InputImage from "@/components/inputImage";
-import { Equipe } from "@/api/equipe";
+import { CriarEquipeDTO, Equipe } from "@/api/equipe";
 import { useState, useMemo } from "react";
 import { useEquipe } from "@/hooks/useEquipe";
 import { useEquipes } from "@/hooks/useEquipes";
-import { Funcionario } from "@/api/funcionario";
 import { useSearchParams, useRouter } from "next/navigation";
 import { toastErro, toastInfo, toastSucesso } from "@/utils/toast";
-import AvatarFuncionario from "@/utils/avatarFuncionario";
+import AvatarFuncionario from "@/utils/imagemFuncionario";
 import { useFuncionarios } from "@/hooks/useFuncionarios";
 
 interface FormularioEquipeProps {
@@ -37,7 +36,7 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
   );
   const [termoPesquisa, setTermoPesquisa] = useState("");
 
-  const { equipes, criar, atualizar, remover } = useEquipes();
+  const { criar, atualizar, remover } = useEquipes();
   const { funcionarios } = useFuncionarios();
 
   const funcionariosDisponiveis = useMemo(() => {
@@ -113,14 +112,10 @@ function FormularioEquipe({ idEdicao, equipe }: FormularioEquipeProps) {
       return;
     }
 
-    const payload = {
+    const payload: CriarEquipeDTO = {
       nomeEquipe,
-      latitude: equipe?.latitude ?? -23.55052,
-      longitude: equipe?.longitude ?? -46.633308,
-      statusEquipeID: equipe?.statusEquipeID ?? 1,
-      nomeStatus: equipe?.nomeStatus ?? "Disponível",
-      enderecoAtual: equipe?.enderecoAtual ?? "",
-      funcionarios: [funcionario1, funcionario2] as [Funcionario, Funcionario],
+      statusEquipeID: equipe?.statusEquipe?.statusEquipeID ?? 1,
+      funcionariosIds: [funcionario1.funcionarioID, funcionario2.funcionarioID],
     };
 
     try {

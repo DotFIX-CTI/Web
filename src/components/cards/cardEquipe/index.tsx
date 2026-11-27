@@ -1,6 +1,9 @@
+"use client";
+
 import Link from "next/link";
 import Icon from "@/utils/icon";
-import AvatarFuncionario from "@/utils/avatarFuncionario";
+import AvatarFuncionario from "@/utils/imagemFuncionario";
+import ImagemEquipe from "@/utils/imagemEquipe";
 import { Equipe } from "@/api/equipe";
 import { resolverClasseStatusEquipe } from "@/utils/statusEquipe";
 import style from "./card.module.css";
@@ -44,7 +47,7 @@ export default function CardEquipe({ equipe }: CardEquipeProps) {
 
       <p className="center gap-1">
         <Icon name="local" size={20} />
-        Lat: {equipe.latitude} | Long: {equipe.longitude}
+        {/* Lat: {equipe.latitude} | Long: {equipe.longitude} */}
       </p>
 
       <div className={`flex_c gap-2 ${style.action} ${classeStatus}_bg`}>
@@ -61,6 +64,14 @@ export default function CardEquipe({ equipe }: CardEquipeProps) {
           <Icon name="description" size={24} />
         </Link>
       </div>
+
+      <ImagemEquipe
+        equipeID={equipe.equipeID}
+        imgUrl={equipe.imgUrl}
+        nomeEquipe={equipe.nomeEquipe}
+        fill
+        className={style.imagem}
+      />
     </article>
   );
 }

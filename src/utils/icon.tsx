@@ -493,7 +493,7 @@ export default function Icon({
         maxWidth: size,
         maxHeight: size,
         display: "inline-block",
-        color: `var(--${color})`,
+        color: color ? `var(--${color})` : undefined,
       }}
       className={className}
     >

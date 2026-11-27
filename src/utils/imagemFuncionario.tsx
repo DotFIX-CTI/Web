@@ -7,7 +7,7 @@ import { useEffect, useState } from "react";
 const FALLBACK_AVATAR = "/img/user.png";
 const blobUrlCache = new Map<number | string, string>();
 
-interface AvatarFuncionarioProps {
+interface ImagemFuncionarioProps {
   funcionarioID?: number | string | null;
   imgUrl?: string | null;
   nome: string;
@@ -15,13 +15,13 @@ interface AvatarFuncionarioProps {
   className?: string;
 }
 
-export default function AvatarFuncionario({
+export default function ImagemFuncionario({
   funcionarioID,
   imgUrl,
   nome,
   size = 32,
   className = "user",
-}: AvatarFuncionarioProps) {
+}: ImagemFuncionarioProps) {
   const [imgSrc, setImgSrc] = useState<string>(() => {
     if (funcionarioID && blobUrlCache.has(funcionarioID)) {
       return blobUrlCache.get(funcionarioID)!;

@@ -13,17 +13,20 @@ export interface Funcionario {
   equipeID?: number | null;
 }
 
+// Resumo da Equipe
 export interface EquipeSummary {
   equipeID: number;
   nomeEquipe: string;
 }
 
+// Resumo do Tipo Funcionário
 export interface TipoFuncionarioSummary {
   tipoFuncionarioID: number;
   nomeTipo: string;
 }
 
-export interface CadastrarFuncionarioInput {
+// DTO - POST
+export interface CadastrarFuncionarioDto {
   nome: string;
   email: string;
   senha: string;
@@ -33,7 +36,8 @@ export interface CadastrarFuncionarioInput {
   fotoArquivo?: File | null;
 }
 
-export interface AtualizarFuncionarioInput {
+// DTO - PUT
+export interface AtualizarFuncionarioDto {
   nome?: string;
   email?: string;
   imgUrl?: string | null;
@@ -80,7 +84,7 @@ export function obterUrlImagem(
   return url;
 }
 
-function montarFormDataCadastro(dados: CadastrarFuncionarioInput): FormData {
+function montarFormDataCadastro(dados: CadastrarFuncionarioDto): FormData {
   const formData = new FormData();
 
   formData.append("Nome", dados.nome);
@@ -109,7 +113,7 @@ function montarFormDataCadastro(dados: CadastrarFuncionarioInput): FormData {
   return formData;
 }
 
-function montarFormDataAtualizacao(dados: AtualizarFuncionarioInput): FormData {
+function montarFormDataAtualizacao(dados: AtualizarFuncionarioDto): FormData {
   const formData = new FormData();
 
   if (dados.nome !== undefined) {
@@ -148,7 +152,7 @@ function montarFormDataAtualizacao(dados: AtualizarFuncionarioInput): FormData {
 
 // POST (multipart/form-data)
 export async function cadastrarFuncionario(
-  dados: CadastrarFuncionarioInput,
+  dados: CadastrarFuncionarioDto,
 ): Promise<Funcionario> {
   try {
     const formData = montarFormDataCadastro(dados);
@@ -190,7 +194,7 @@ export async function listarFuncionarioPorId(
 // PUT (multipart/form-data)
 export async function atualizarFuncionario(
   id: number,
-  dados: AtualizarFuncionarioInput,
+  dados: AtualizarFuncionarioDto,
 ): Promise<Funcionario> {
   try {
     const formData = montarFormDataAtualizacao(dados);

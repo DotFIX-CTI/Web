@@ -29,16 +29,8 @@ interface CardMapaProps {
 }
 
 function resolverClasseEquipe(equipe: Equipe): string {
-  const eqAny = equipe as Equipe & {
-    statusEquipeID?: number;
-    nomeStatus?: string;
-    statusEquipe?: { statusEquipeID?: number; nomeStatus?: string } | null;
-  };
-
-  const statusId = eqAny.statusEquipe?.statusEquipeID ?? eqAny.statusEquipeID;
-  const nome = (eqAny.statusEquipe?.nomeStatus ?? eqAny.nomeStatus ?? "")
-    .trim()
-    .toLowerCase();
+  const statusId = equipe.statusEquipe?.statusEquipeID;
+  const nome = (equipe.statusEquipe?.nomeStatus ?? "").trim().toLowerCase();
 
   if (statusId === 2 || nome.includes("pendente")) return "pendente";
   if (statusId === 3 || nome.includes("atrasado")) return "atrasado";
